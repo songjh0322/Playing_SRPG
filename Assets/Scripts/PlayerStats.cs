@@ -8,7 +8,7 @@ public class PlayerStats : MonoBehaviour
     public int att = 20;
     public int def = 10;
 
-    //깃허브 테스트용
+    //==================================깃허브 테스트용==================================
     void Start()
     {
 
