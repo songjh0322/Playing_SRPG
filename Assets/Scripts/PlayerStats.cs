@@ -9,7 +9,10 @@ public class PlayerStats : MonoBehaviour
     public int def = 10;
 
     //==================================깃허브 테스트용==================================
+    // Song Conflict test
+    // asdf
     // JongKwon Test
+    // 1234
     void Start()
     {
 
