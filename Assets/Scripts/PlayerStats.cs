@@ -4,19 +4,13 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    public int hp = 100;
-    public int att = 20;
-    public int def = 10;
+    [SerializeField]
+    int hp = 100;
+    [SerializeField]
+    int att = 20;
+    [SerializeField]
+    int def = 10;
 
-    //==================================깃허브 테스트용==================================
-
-    // Song Conflict test
-    // asdf
-
-    // JongKwon 동시 수정
-
-    // JongKwon Test
-    // 1234
     void Start()
     {
 
