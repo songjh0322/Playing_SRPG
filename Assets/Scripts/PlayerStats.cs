@@ -5,23 +5,20 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
     [SerializeField]
-    int hp = 100;
+    private int hp = 100;
     [SerializeField]
-    int att = 20;
+    private int att = 20;
     [SerializeField]
-    int def = 10;
+    private int def = 10;
 
-    void Start()
+    public int CurrentHP { get { return hp; } }
+    public int AttackPower { get { return att; } }
+    public int Defense { get { return def; } }
+
+    public void TakeDamage(int damage)
     {
-
-    }
-    
-    void Update()
-    {
-        if (hp <= 0)
-        {
-            Debug.Log(gameObject.name + "이 사망하였습니다.");
-
-        }
+        hp -= damage;
+        if (hp < 0)
+            hp = 0;
     }
 }
