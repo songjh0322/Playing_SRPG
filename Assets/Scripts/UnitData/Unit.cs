@@ -56,7 +56,7 @@ public abstract class Unit : MonoBehaviour
         CurrentStats = new CurrentStats(baseStats);
     }
 
-    // 기본 공격 로직
+    // 기본 공격 로직 (테스트용)
     public virtual void attack(Unit target)
     {
         Debug.Log($"{this.name}이(가) 공격력 {this.CurrentStats.AttackPoint}로 {target.name}을(를) 공격했습니다!");
