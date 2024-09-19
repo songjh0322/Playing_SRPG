@@ -15,9 +15,9 @@ public enum TileType
 // 맵의 내부에서 각각의 타일에 저장할 데이터
 public class Tile
 {
-    Unit unit;                      // 현재 타일에 존재하는 유닛
-    readonly bool deployable;       // (플레이어의) 초기 유닛 배치 가능 구역 여부
-    readonly TileType tileType;     // 타일의 특성 (일반, 숲지대, 수역, 막힌 구역 등)
+    public Unit unit;                      // 현재 타일에 존재하는 유닛
+    public readonly bool deployable;       // (플레이어의) 초기 유닛 배치 가능 구역 여부
+    public readonly TileType tileType;     // 타일의 특성 (일반, 숲지대, 수역, 막힌 구역 등)
 
     // 생성자
     public Tile(TileType type, bool canDeploy)
@@ -31,7 +31,7 @@ public class Tile
 public class BasicMap
 {
     // 2차원 배열 map
-    Tile[,] map = new Tile[10, 10];
+    public Tile[,] map = new Tile[10, 10];
 
     // 생성자
     public BasicMap()

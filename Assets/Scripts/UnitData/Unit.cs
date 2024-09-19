@@ -11,15 +11,15 @@ public class BaseStats
     public readonly int MaxHealth;
     public readonly int AttackPoint;
     public readonly int DefensePoint;
-    public readonly int MoveRange;
+    public readonly int MoveDistance;
 
-    public BaseStats(string name, int maxHealth, int attackPoint, int defensePoint, int moveRange)
+    public BaseStats(string name, int maxHealth, int attackPoint, int defensePoint, int moveDistance)
     {
         Name = name;
         MaxHealth = maxHealth;
         AttackPoint = attackPoint;
         DefensePoint = defensePoint;
-        MoveRange = moveRange;
+        MoveDistance = moveDistance;
     }
 }
 
@@ -30,7 +30,7 @@ public class CurrentStats
     public int Health { get; set; }
     public int AttackPoint { get; set; }
     public int DefensePoint { get; set; }
-    public int MoveRange { get; set; }
+    public int MoveDistance { get; set; }
 
     public CurrentStats(BaseStats baseStats)
     {
@@ -39,7 +39,7 @@ public class CurrentStats
         Health = baseStats.MaxHealth;       // 현재 체력을 최대 체력으로 설정
         AttackPoint = baseStats.AttackPoint;
         DefensePoint = baseStats.DefensePoint;
-        MoveRange = baseStats.MoveRange;
+        MoveDistance = baseStats.MoveDistance;
     }
 }
 
@@ -56,7 +56,7 @@ public abstract class Unit : MonoBehaviour
         CurrentStats = new CurrentStats(baseStats);
     }
 
-    // 기본 공격 로직 (테스트용)
+    // 테스트용 공격
     public virtual void attack(Unit target)
     {
         Debug.Log($"{this.name}이(가) 공격력 {this.CurrentStats.AttackPoint}로 {target.name}을(를) 공격했습니다!");
@@ -71,17 +71,17 @@ public abstract class Unit : MonoBehaviour
         {
             Debug.Log($"{this.name}의 공격력보다 {target.name}의 수비력이 더 높습니다.");
         }
-        
     }
 
-    // 기본 이동 로직
+    // 이동
     public virtual void move()
     {
-        Debug.Log($"{this.name}이(가) {this.CurrentStats.MoveRange}칸만큼 이동했습니다.");
+        Debug.Log($"{this.name}이(가) {this.CurrentStats.MoveDistance}칸만큼 이동했습니다.");
     }
 
     // 스킬은 각 캐릭터마다 다르므로 추상 메서드로 선언
-    public abstract void castSkill();
+    public abstract void castSkill1();
+    public abstract void castSkill2();
 }
 
 // 각 유닛의 인터페이스
@@ -89,5 +89,6 @@ public interface IUnit
 {
     void attack();
     void move();
-    void castSkill();   // 일반적으로 유닛마다 2개의 스킬을 가질 예정
+    void castSkill1();   // 1번 스킬
+    void castSkill2();   // 2번 스킬
 }
