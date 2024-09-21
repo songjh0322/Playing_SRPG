@@ -115,7 +115,7 @@ public abstract class Unit : MonoBehaviour
             else
             {
                 // 이동 가능한 타일인 경우
-                List<(int, int)> list = map.GetReachableTiles(selected_tile, this.CurrentStats.MoveDistance, 10, 10);
+                List list = map.GetReachableTiles(selected_tile, this.CurrentStats.MoveDistance, );
                 break;
             }
         }
