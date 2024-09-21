@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CharacterExample : Unit
 {
-    public CharacterExample() : base(new BaseStats("이름", 0, 0, 0, 0))
+    public CharacterExample() : base(new BaseStats("이름", 0, 0, 0, 0), 0, 0)
     {
 
     }

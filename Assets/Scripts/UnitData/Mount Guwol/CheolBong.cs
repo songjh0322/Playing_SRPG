@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CheolBong : Unit
 {
-    public CheolBong() : base(new BaseStats("Ã¶ºÀ", 500, 60, 40, 3))
+    public CheolBong() : base(new BaseStats("Ã¶ºÀ", 500, 60, 40, 3), 0, 0)
     {
 
     }

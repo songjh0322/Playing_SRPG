@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SeoHaYoon : Unit
 {
-    public SeoHaYoon() : base(new BaseStats("º≠«œ¿±", 350, 50, 30, 5))
+    public SeoHaYoon() : base(new BaseStats("º≠«œ¿±", 350, 50, 30, 5),0 ,0)
     {
 
     }

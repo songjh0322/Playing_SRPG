@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Ttaksoe : Unit
 {
-    public Ttaksoe() : base(new BaseStats("ตüผ่", 400, 30, 80, 3))
+    public Ttaksoe() : base(new BaseStats("ตüผ่", 400, 30, 80, 3), 0, 0)
     {
 
     }

@@ -15,15 +15,25 @@ public enum TileType
 // 맵의 내부에서 각각의 타일에 저장할 데이터
 public class Tile
 {
-    public Unit unit;                      // 현재 타일에 존재하는 유닛
+    public readonly int x, y;              // 현재 타일의 Map 상에서의 행과 열
+    public Unit unit;                      // 현재 타일에 존재하는 유닛 (없는 경우 null)
     public readonly bool deployable;       // (플레이어의) 초기 유닛 배치 가능 구역 여부
     public readonly TileType tileType;     // 타일의 특성 (일반, 숲지대, 수역, 막힌 구역 등)
 
     // 생성자
-    public Tile(TileType type, bool canDeploy)
+    public Tile(int x, int y, TileType type, bool canDeploy)
     {
+        this.x = x;
+        this.y = y;
+        unit = null;                // 타일 위에 유닛이 없도록 초기화
         tileType = type;
         deployable = canDeploy;
+    }
+
+    // 좌표(행과 열)을 반환
+    public (int, int) GetPosition()
+    {
+        return (x, y);
     }
 }
 
@@ -32,10 +42,14 @@ public class BasicMap
 {
     // 2차원 배열 map
     public Tile[,] map = new Tile[10, 10];
+    int x;
+    int y;
 
     // 생성자
     public BasicMap()
     {
+        x = 10;
+        y = 10;
         InitializeMap();
     }
 
@@ -69,8 +83,38 @@ public class BasicMap
                     tileType = TileType.Water;
                 }
 
-                map[row, col] = new Tile(tileType, deployable);
+                map[row, col] = new Tile(row, col, tileType, deployable);
             }
         }
+    }
+
+    // GPT 도움
+    // 이동 또는 공격(스킬)을 위해 도달 가능한 칸 수를 계산하고, 해당 좌표(행과 열)을 튜플로 담은 List를 반환
+    public List<(int, int)> GetReachableTiles(Tile currentTile, int maxRange, int mapRows, int mapCols)
+    {
+        List<(int, int)> reachableTiles = new List<(int, int)>();
+        (int currentX, int currentY) = currentTile.GetPosition();
+
+        // 이동 가능한 범위 내의 좌표를 확인
+        for (int dx = -maxRange; dx <= maxRange; dx++)
+        {
+            for (int dy = -maxRange; dy <= maxRange; dy++)
+            {
+                // 이동 범위는 맨해튼 거리로 계산 (dx + dy <= maxRange)
+                if (Math.Abs(dx) + Math.Abs(dy) <= maxRange)
+                {
+                    int newX = currentX + dx;
+                    int newY = currentY + dy;
+
+                    // 유효한 좌표인지 체크 (맵의 범위 내에 있는지 확인)
+                    if (newX >= 0 && newX < mapRows && newY >= 0 && newY < mapCols)
+                    {
+                        reachableTiles.Add((newX, newY));
+                    }
+                }
+            }
+        }
+
+        return reachableTiles;
     }
 }
