@@ -90,34 +90,45 @@ public abstract class Unit : MonoBehaviour
             }
         }*/
 
-    // 해당 유닛을 이미 선택한 상태에서 호출 ([이동하기] 버튼을 누르면 이 함수를 호출)
-    // 모든 유닛이 같은 행동을 취함
-    public virtual void move(BasicMap map)
+    // 행동 선택 UI : [이동하기], [스킬1], [스킬2] UI
+    // [이동하기] 버튼을 누르면 해당 함수를 호출
+    // 행동 선택 UI를 닫고, 시각적으로 이동 가능한 타일의 색을 다르게 표시하여 출력 (Map의 GetReachableCoordinate() 함수 이용)
+    // 이 곳이 아닌 UIManager에서 작성바람, 즉 move() 함수가 호출되기 직전에 이 기능이 수행되어야 함
+    // 클릭을 통해 Tile 객체를 얻었다고 가정(즉, fromTile != null인 상태에서 호출)
+    // fromTile : 현재 클릭을 통해 선택된 타일
+    // toTile에 대해 : null 여부 확인 -> 유효 거리 확인 -> 이동 불가 타일 확인 -> 이동 수행 -> 턴 종료
+    public virtual void move(BasicMap map, Tile fromTile)
     {
-        Debug.Log("[이동하기] 버튼을 눌렀음");
-        // 팝업창을 닫고, 시각적으로 이동 가능한 타일의 색을 다르게 표기
 
-        Tile selected_tile = null;
+
+        Tile toTile = null;
+
+        // 유효한 위치를 클릭할 때까지 마우스 클릭을 입력받음
         while (true)
         {
             // 이동할 타일을 좌클릭으로 클릭하여 해당 타일 객체를 받음 (Tile을 받은 경우 그 객체를 가져오도록 수정해야 함)
-            selected_tile =  null;
+            // toTile = OnclickFunc();
 
-            if (selected_tile == null)
+            if (toTile == null)
             {
-                // 클릭으로 인식한 오브젝트가 타일이 아닌 경우 : 아무것도 처리하지 않고 다음 클릭을 입력받음
-                Debug.Log("이동 거리 내의 타일을 선택하세요.");
+                // 타일이 아닌 오브젝트를 클릭한 경우
+                print("타일을 클릭하세요.");
             }
-            else if (selected_tile.tileType == TileType.Unreachable || selected_tile.unit != null)
+            else if (toTile.tileType == TileType.Unreachable || toTile.unit != null)
             {
-                // 이동 불가 타일 또는 유닛이 이미 있는 타일인 경우
-                Debug.Log("이동 불가능한 타일이거나 이미 유닛이 존재하는 타일입니다.");
+                // 이동 불가 타일(TileType.Unreachable)이거나 유닛이 이미 존재하는 타일인 경우
+                print("이동 불가능한 타일입니다.");
             }
             else
             {
-                // 이동 가능한 타일인 경우
-                List<(int, int)> reachable_list = map.GetReachableCoordinates(selected_tile, this.CurrentStats.MoveDistance, (10, 10));
-                (int, int) a = (selected_tile.x, selected_tile.y);
+                // 이동 가능한 타일인 경우 -> 유닛의 이동 거리 내의 타일인지 확인
+                (int, int) position = toTile.GetPosition();
+                int toX = position.Item1;
+                int toY = position.Item2;
+
+                // fromTile로부터 유효한 거리
+                List<(int, int)> reachableCoorinates = map.GetReachableCoordinates(fromTile, this.CurrentStats.MoveDistance, (10, 10));
+                
                 break;
             }
         }
