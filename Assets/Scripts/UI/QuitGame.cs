@@ -6,12 +6,12 @@ public class QuitGame : MonoBehaviour
 {
     public void Quit()
     {
-        // Unity Л≈░К■■М└╟Л≈░Л└° Л▀╓М√┴ Л╓▒Л²╦Л╖─ М≥∙Л²╦М∙≤ЙЁ═ К╘■Л▀°Л╖─ Л╤°К═╔
-        #if UNITY_EDITOR
-        // Л≈░К■■М└╟Л≈░Л└°К┼■ Л▀╓Л═°К║° Л╒┘Кё▄К░≤Л╖─ Л∙┼Л°╪К╞─К║°, К╘■Л▀°Л╖─К╖▄ Л╤°К═╔
-        Debug.Log("Й╡▄Л·└ Л╒┘Кё▄");
-        #else
+        // Unity ©║╣Пем©║╪╜ ╫ггЮ аъюнаЖ х╝юнго╟М ╦ч╫цаЖ цБ╥б
+#if UNITY_EDITOR
+        // ©║╣Пем©║╪╜╢б ╫га╕╥н а╬╥А╣гаЖ ╬йю╦╧г╥н, ╦ч╫цаЖ╦╦ цБ╥б
+        Debug.Log("╟тюс а╬╥А");
+#else
         Application.Quit();
-        #endif
+#endif
     }
 }

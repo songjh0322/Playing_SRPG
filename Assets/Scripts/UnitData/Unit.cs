@@ -48,28 +48,29 @@ public abstract class Unit : MonoBehaviour
 {
     public BaseStats BaseStats { get; private set; }
     public CurrentStats CurrentStats { get; private set; }
-    public int x, y;
+    public int x_pos, y_pos;
 
     // 생성자 (유닛 생성 시 좌표를 지정해야 함)
-    protected Unit(BaseStats baseStats, int x, int y)
+    protected Unit(BaseStats baseStats, int x_pos, int y_pos)
     {
         BaseStats = baseStats;
         CurrentStats = new CurrentStats(baseStats);
-        this.x = x;
-        this.y = y;
+        this.x_pos = x_pos;
+        this.y_pos = y_pos;
     }
 
-    // 좌표(행과 열)을 반환
+    // 좌표(행과 열)을 튜플로 반환
     public (int, int) GetPosition()
     {
-        return (x, y);
+        (int, int) position = (x_pos, y_pos);
+        return position;
     }
 
     // 유닛의 좌표(행과 열)을 변경
-    public void SetPosition(int x, int y)
+    public void SetPosition(int x_pos, int y_pos)
     {
-        this.x = x;
-        this.y = y;
+        this.x_pos = x_pos;
+        this.y_pos = y_pos;
     }
 
     /*    // 테스트용 공격
@@ -115,7 +116,8 @@ public abstract class Unit : MonoBehaviour
             else
             {
                 // 이동 가능한 타일인 경우
-                List list = map.GetReachableTiles(selected_tile, this.CurrentStats.MoveDistance, );
+                List<(int, int)> reachable_list = map.GetReachableCoordinates(selected_tile, this.CurrentStats.MoveDistance, (10, 10));
+                (int, int) a = (selected_tile.x, selected_tile.y);
                 break;
             }
         }

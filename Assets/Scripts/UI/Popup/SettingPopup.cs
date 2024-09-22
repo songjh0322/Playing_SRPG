@@ -11,13 +11,13 @@ public class SettingPopup : MonoBehaviour
     {
         if (currentPopup != null)
         {
-            // íŒì—…ì´ ì´ë¯¸ ë–  ìˆìœ¼ë©´ íŒì—…ì„ ë‹«ìŒ
-            Destroy(currentPopup); 
-            currentPopup = null;   
+            // ÆË¾÷ÀÌ ÀÌ¹Ì ¶° ÀÖÀ¸¸é ÆË¾÷À» ´İÀ½
+            Destroy(currentPopup);
+            currentPopup = null;
         }
         else
         {
-            // íŒì—…ì´ ì—†ìœ¼ë©´ íŒì—…ì„ ìƒì„±
+            // ÆË¾÷ÀÌ ¾øÀ¸¸é ÆË¾÷À» »ı¼º
             currentPopup = Instantiate(settingsPopupPrefab);
 
             //Popup popupScript = currentPopup.GetComponent<Popup>();
@@ -28,6 +28,3 @@ public class SettingPopup : MonoBehaviour
         }
     }
 }
-
-    
-
