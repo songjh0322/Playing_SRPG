@@ -122,9 +122,8 @@ public abstract class Unit : MonoBehaviour
             else
             {
                 // 이동 가능한 타일인 경우 -> 유닛의 이동 거리 내의 타일인지 확인
-                (int, int) position = toTile.GetPosition();
-                int toX = position.Item1;
-                int toY = position.Item2;
+                //int toX =
+                //int toY = position.Item2;
 
                 // fromTile로부터 유효한 거리
                 List<(int, int)> reachableCoorinates = map.GetReachableCoordinates(fromTile, this.CurrentStats.MoveDistance, (10, 10));

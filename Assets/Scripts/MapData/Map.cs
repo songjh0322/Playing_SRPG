@@ -12,30 +12,6 @@ public enum TileType
     Unreachable     // 도달할 수 없는 타일
 }
 
-// 맵의 내부에서 각각의 타일에 저장할 데이터
-public class Tile
-{
-    public readonly (int, int) position;   // 현재 타일의 Map 상에서의 행과 열
-    public Unit unit;                      // 현재 타일에 존재하는 유닛 (없는 경우 null)
-    public readonly bool deployable;       // (플레이어의) 초기 유닛 배치 가능 구역 여부
-    public readonly TileType tileType;     // 타일의 특성 (일반, 숲지대, 수역, 막힌 구역 등)
-
-    // 생성자
-    public Tile((int, int) position, TileType type, bool canDeploy)
-    {
-        this.position = position;
-        unit = null;                // 타일 위에 유닛이 없도록 초기화
-        tileType = type;
-        deployable = canDeploy;
-    }
-
-    // 좌표(행과 열)을 튜플로 반환
-    public (int, int) GetPosition()
-    {
-        return position;
-    }
-}
-
 // 10x10의 단일 정사각형 맵 (이 경우 100개의 타일이 존재)
 public class BasicMap
 {
@@ -81,7 +57,7 @@ public class BasicMap
                 }
 
                 (int, int) temp_pos = (row, col);
-                map[row, col] = new Tile(temp_pos, tileType, deployable);
+                //map[row, col] = new Tile(temp_pos, tileType, deployable);
             }
         }
     }
@@ -93,7 +69,8 @@ public class BasicMap
         int mapRows = mapSize.Item1;
         int mapCols = mapSize.Item2;
         List<(int, int)> reachableTiles = new List<(int, int)>();
-        (int currentX, int currentY) = currentTile.GetPosition();
+        int currentX = currentTile.row;
+        int currentY = currentTile.col;
 
         // 이동 가능한 범위 내의 좌표를 확인
         for (int dx = -maxRange; dx <= maxRange; dx++)

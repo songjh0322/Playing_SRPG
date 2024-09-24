@@ -14,10 +14,10 @@ public class TestMap
     // 생성과 동시에 모두 초기화
     public TestMap()
     {
-        map[0, 0] = new Tile((0, 0), TileType.Normal, true);
+        /*map[0, 0] = new Tile((0, 0), TileType.Normal, true);
         map[0, 1] = new Tile((0, 1), TileType.Normal, true);
         map[1, 0] = new Tile((1, 0), TileType.Normal, true);
-        map[1, 1] = new Tile((1, 1), TileType.Normal, true);
+        map[1, 1] = new Tile((1, 1), TileType.Normal, true);*/
         size = (2, 2);
     }
 }
