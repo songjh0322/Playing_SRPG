@@ -5,17 +5,23 @@ using UnityEngine.TextCore.Text;
 
 public class GameManager : MonoBehaviour
 {
-    void Start()
+    private void Awake()
     {
-
-        // 여기서부터 인게임
-
-        // BasicMap 인스턴스 생성(현재 맵이 하나이므로 선택없이 즉시 생성)
-        BasicMap map = new BasicMap();
+        // 맵과 UI 초기화
+        MapManager.Instance.InitializeMap();
+        UIManager.Instance.InitializeUI();
     }
 
+    private void Start()
+    {
+        // 게임이 시작될 때 필요한 추가 작업 수행
+        Debug.Log("GameManager: 게임 시작");
+    }
+
+    // Update 함수는 필요할 때 사용
     private void Update()
     {
-        
+        // 게임 상태 업데이트
     }
 }
+
