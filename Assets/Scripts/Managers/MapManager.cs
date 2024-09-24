@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MapManager
 {
-<<<<<<< HEAD
     private GameObject tilePrefab; // Å¸ÀÏ ÇÁ¸®ÆÕ
     private const int mapSize = 10; // ¸ÊÀÇ Å©±â (10x10)
 
@@ -40,27 +39,3 @@ public class MapManager
         }
     }
 }
-=======
-    private static MapManager instance;
-    public static MapManager Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                instance = new MapManager();
-            }
-            return instance;
-        }
-    }
-
-    private MapManager() { }
-
-    public void InitializeMap()
-    {
-        Debug.Log("MapManager: ¸Ê ÃÊ±âÈ­");
-        // ¸Ê »ý¼º ·ÎÁ÷ Ãß°¡
-    }
-}
-
->>>>>>> 9e268010859d94b39b3f0e05584f489f7eddac52
