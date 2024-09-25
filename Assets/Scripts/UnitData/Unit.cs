@@ -43,6 +43,15 @@ public class CurrentStats
     }
 }
 
+// 각 유닛의 인터페이스
+public interface IUnit
+{
+    void attack();
+    void move();
+    void castSkill1();   // 1번 스킬
+    void castSkill2();   // 2번 스킬
+}
+
 // 각 유닛의 추상 클래스 (각 유닛은 이를 상속받아 구현됨)
 public abstract class Unit : MonoBehaviour
 {
@@ -72,23 +81,6 @@ public abstract class Unit : MonoBehaviour
         this.x_pos = x_pos;
         this.y_pos = y_pos;
     }
-
-    /*    // 테스트용 공격
-        public virtual void attack(Unit target)
-        {
-            Debug.Log($"{this.name}이(가) 공격력 {this.CurrentStats.AttackPoint}로 {target.name}을(를) 공격했습니다!");
-
-            if (this.CurrentStats.AttackPoint > target.CurrentStats.DefensePoint)
-            {
-                int realDamage = this.CurrentStats.AttackPoint - target.CurrentStats.DefensePoint;
-                target.CurrentStats.Health -= realDamage;
-                Debug.Log($"{target.name}의 현재 체력 : {target.CurrentStats.Health}");
-            }
-            else
-            {
-                Debug.Log($"{this.name}의 공격력보다 {target.name}의 수비력이 더 높습니다.");
-            }
-        }*/
 
     // 행동 선택 UI : [이동하기], [스킬1], [스킬2] UI
     // [이동하기] 버튼을 누르면 해당 함수를 호출
@@ -136,13 +128,4 @@ public abstract class Unit : MonoBehaviour
     // 스킬은 각 캐릭터마다 다르므로 추상 메서드로 선언
     public abstract void castSkill1();
     public abstract void castSkill2();
-}
-
-// 각 유닛의 인터페이스
-public interface IUnit
-{
-    void attack();
-    void move();
-    void castSkill1();   // 1번 스킬
-    void castSkill2();   // 2번 스킬
 }
