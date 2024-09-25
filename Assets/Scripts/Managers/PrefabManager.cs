@@ -4,7 +4,7 @@ using UnityEngine;
 
 // 현재 이용하지 않음
 // 규모 커지면 따로 사용할 가능성 있음
-public class PrefabManager : MonoBehaviour
+public class PrefabManager
 {
     // UI 관련
     // 예시 : public GameObject buttonPrefab;

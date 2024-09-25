@@ -2,19 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapManager
+public class MapManager : GameManager
 {
     private GameObject tile_normal;
-    private GameObject tile_forest;
-    private GameObject tile_water;
-    private GameObject tile_unreachable;
+    // private GameObject tile_forest;
+    // private GameObject tile_water;
+    // private GameObject tile_unreachable;
 
     private const int mapSize = 10; // ∏ ¿« ≈©±‚ (10x10)
-
-    public MapManager()
-    {
-        LoadPrefabs();
-    }
 
     public void LoadPrefabs()
     {

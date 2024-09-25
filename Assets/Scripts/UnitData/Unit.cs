@@ -89,7 +89,7 @@ public abstract class Unit : MonoBehaviour
     // 클릭을 통해 Tile 객체를 얻었다고 가정(즉, fromTile != null인 상태에서 호출)
     // fromTile : 현재 클릭을 통해 선택된 타일
     // toTile에 대해 : null 여부 확인 -> 유효 거리 확인 -> 이동 불가 타일 확인 -> 이동 수행 -> 턴 종료
-    public virtual void move(BasicMap map, Tile fromTile)
+    /*public virtual void move(BasicMap map, Tile fromTile)
     {
 
 
@@ -123,7 +123,7 @@ public abstract class Unit : MonoBehaviour
                 break;
             }
         }
-    }
+    }*/
 
     // 스킬은 각 캐릭터마다 다르므로 추상 메서드로 선언
     public abstract void castSkill1();
