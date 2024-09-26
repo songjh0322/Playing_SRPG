@@ -8,10 +8,18 @@ public class CharacterSelectionManager : MonoBehaviour
 {
     public List<Button> characterButtons; // 캐릭터 버튼들 (8명)
     public Button selectButton; // 선택 버튼
+    public Button deselectButton; // 해제 버튼 
     public GameObject confirmationUI; // 6명 선택 시 표시할 UI
-    //public Text selectedCharactersText; // 선택된 캐릭터 목록을 표시할 텍스트
+    public TMP_Text characterName;
+    public Transform parentObject;
+    private List<string> selectedCharacters = new List<string>(); // 선택한 캐릭터의 인덱스 
+    public List<string> SelectedCharacters
+    {
+        get { return selectedCharacters; }  // 리스트를 반환하는 getter
 
-    private List<string> selectedCharacters = new List<string>(); // 선택된 캐릭터 리스트
+        set { selectedCharacters = value; }  // 리스트에 값을 설정하는 setter
+    }
+    
 
     void Start()
     {
@@ -23,7 +31,7 @@ public class CharacterSelectionManager : MonoBehaviour
 
         // 선택 버튼 클릭 이벤트 추가
         selectButton.onClick.AddListener(OnSelectButtonClick);
-
+        deselectButton.onClick.AddListener(OnDeselectButtonClick);
         // 초기화
         confirmationUI.SetActive(false);
         // UpdateSelectedCharactersText();
@@ -32,27 +40,18 @@ public class CharacterSelectionManager : MonoBehaviour
     // 캐릭터 버튼 클릭 시 실행되는 함수
     void OnCharacterButtonClick(Button clickedButton)
     {
-        string characterName = clickedButton.GetComponentInChildren<TMP_Text>().text;
-
-        if (selectedCharacters.Contains(characterName))
-        {
-            // 이미 선택된 캐릭터면 선택 해제
-            selectedCharacters.Remove(characterName);
-            clickedButton.image.color = Color.white; // 버튼 색상 초기화
-        }
-        else if (selectedCharacters.Count < 6)
-        {
-            // 6명 미만일 때만 선택 가능
-            selectedCharacters.Add(characterName);
-            clickedButton.image.color = Color.green; // 선택된 캐릭터는 초록색으로 표시
-        }
-
-        //UpdateSelectedCharactersText();
+        string currentCharacterName = clickedButton.GetComponentInChildren<TMP_Text>().text;
+        characterName.text = currentCharacterName;
+        // Load selected character's status, skills, chracterImage
+        
     }
 
     // 선택 버튼 클릭 시 실행되는 함수
     void OnSelectButtonClick()
     {
+        // get current character name
+        string currentCharacterName = characterName.text;
+        selectedCharacters.Add(currentCharacterName);
         if (selectedCharacters.Count == 6)
         {
             // 6명이 선택되었으면 확인 UI 표시
@@ -64,6 +63,11 @@ public class CharacterSelectionManager : MonoBehaviour
         }
     }
 
+    // 해제 버튼 클릭 시 실행되는 함수
+    void OnDeselectButtonClick()
+    {
+        selectedCharacters.Remove(characterName.text);
+    }
     // 선택된 캐릭터 목록을 업데이트하는 함수
     // void UpdateSelectedCharactersText()
     // {
