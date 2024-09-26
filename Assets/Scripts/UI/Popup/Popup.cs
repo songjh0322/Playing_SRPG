@@ -13,8 +13,8 @@ public class Popup : MonoBehaviour
     {
         if (characterName != null) 
         {
-            CharacterSelectionManager selection = new CharacterSelectionManager();
-            selection.SelectedCharacters.Remove(characterName.text);
+            CharacterSelectionManager selectionManager = gameObject.AddComponent<CharacterSelectionManager>();
+            selectionManager.SelectedCharacters.Remove(characterName.text);
             popupUI.SetActive(false);
         }
         else
