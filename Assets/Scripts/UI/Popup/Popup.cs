@@ -11,16 +11,7 @@ public class Popup : MonoBehaviour
 
     public void OnExitButtonClicked()
     {
-        if (characterName != null) 
-        {
-            CharacterSelectionManager selectionManager = gameObject.AddComponent<CharacterSelectionManager>();
-            selectionManager.SelectedCharacters.Remove(characterName.text);
-            popupUI.SetActive(false);
-        }
-        else
-        {
-            Destroy(transform.parent.gameObject);
-        }
+        Destroy(transform.parent.gameObject);
 
     }
 }
