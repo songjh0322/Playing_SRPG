@@ -10,8 +10,11 @@ public class BasicStats
 {
     public string unitName;
     public string passiveName;
+    public string passiveDescription;
     public string skillName1;
+    public string skillDescription1;
     public string skillName2;
+    public string skillDescription2;
 
     public int maxHealth;
     public int attackPoint;
@@ -23,8 +26,7 @@ public class BasicStats
 public interface IUnit
 {
     void move();
-    void castSkill1(string unitName);   // 1번 스킬
-    void castSkill2(string unitName);   // 2번 스킬
+    void castSkill(string unitName);
 }
 
 // 인게임에서 객체로 만들 Unit 클래스
@@ -34,8 +36,11 @@ public class Unit : IUnit
     // 변경되지 않는 능력치 (단순 문자열)
     public string unitName; // Key값으로 활용할 캐릭터명
     public string passiveName;
+    public string passiveDescription;
     public string skillName1;
+    public string skillDescription1;
     public string skillName2;
+    public string skillDescription2;
 
     // 원본 캐릭터 능력치 (학습을 통해 변경될 수 있지만, 플레이 도중에는 변경되지 않음)
     public int maxHealth;
@@ -60,8 +65,11 @@ public class Unit : IUnit
             // 변경되지 않는 능력치
             this.unitName = stats.unitName;
             this.passiveName = stats.passiveName;
+            this.passiveDescription = stats.passiveDescription;
             this.skillName1 = stats.skillName1;
+            this.skillDescription1 = stats.skillDescription1;
             this.skillName2 = stats.skillName2;
+            this.skillDescription2 = stats.skillDescription2;
             this.maxHealth = stats.maxHealth;
             this.attackPoint = stats.attackPoint;
             this.defensePoint = stats.defensePoint;
@@ -81,15 +89,10 @@ public class Unit : IUnit
 
     public void move()
     {
-        throw new NotImplementedException();
+        
     }
 
-    public void castSkill1(string unitName)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void castSkill2(string unitName)
+    public void castSkill(string skillName)
     {
         throw new NotImplementedException();
     }

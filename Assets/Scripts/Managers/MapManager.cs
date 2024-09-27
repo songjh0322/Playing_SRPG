@@ -8,6 +8,7 @@ public class MapManager
     // private GameObject tile_forest;
     // private GameObject tile_water;
     // private GameObject tile_unreachable;
+    private Tile[,] tiles;
 
     private const int mapSize = 10; // 맵의 크기 (10x10)
 
@@ -43,5 +44,30 @@ public class MapManager
                 tile.name = $"Tile{row * mapSize + col:00}"; // 이름을 Tile00, Tile01, ... Tile99로 설정
             }
         }
+    }
+
+    // 맨하튼 거리 이내의 타일을 반환하는 함수
+    public List<Tile> GetReachableTiles(int maxMoveRange, Tile startTile)
+    {
+        List<Tile> reachableTiles = new List<Tile>();
+        int startRow = startTile.row;
+        int startCol = startTile.col;
+
+        for (int row = 0; row < mapSize; row++)
+        {
+            for (int col = 0; col < mapSize; col++)
+            {
+                // 맨하튼 거리 계산
+                int manhattanDistance = Mathf.Abs(startRow - row) + Mathf.Abs(startCol - col);
+
+                // 맨하튼 거리 이내의 타일을 추가
+                if (manhattanDistance <= maxMoveRange)
+                {
+                    reachableTiles.Add(tiles[row, col]);
+                }
+            }
+        }
+
+        return reachableTiles;
     }
 }

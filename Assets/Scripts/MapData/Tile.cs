@@ -36,6 +36,12 @@ public class Tile : MonoBehaviour
         this.tileType = tileType;
     }
 
+    // 타일 색상을 변경
+    public void ChangeColor(Color color)
+    {
+        
+    }
+
     // 타일 클릭 시 호출되는 메서드
     private void OnMouseDown()
     {

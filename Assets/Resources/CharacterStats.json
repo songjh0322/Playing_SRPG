@@ -1,24 +1,60 @@
 {
   "units": [
     {
+      "unitName": "기본 형태",
+      "characterDescription": "",
+      "maxHealth": 0,
+      "attackPoint": 0,
+      "defensePoint": 0,
+      "moveRange": 0,
+      "passiveName": "",
+      "passiveDescription": "",
+      "skillName1": "",
+      "skillDescription1": "",
+      "skillName2": "",
+      "skillDescription2": ""
+    },
+    {
       "unitName": "철봉",
+      "characterDescription": "철봉의 삶은 철봉으로 턱걸이하는 삶",
       "maxHealth": 100,
       "attackPoint": 20,
       "defensePoint": 10,
       "moveRange": 3,
       "passiveName": "전투 본능",
+      "passiveDescription": "현재 체력이 30% 이하로 떨어지면 공격력과 방어력이 100% 증가합니다.",
       "skillName1": "공포의 쓴맛",
-      "skillName2": "쌍도끼 던지기"
+      "skillDescription1": "적을 도끼로 내려찍어 범위 2 내의 적에게 공격력의 150% 피해를 입힙니다.",
+      "skillName2": "쌍도끼 던지기",
+      "skillDescription2": "도끼를 두 번 던져 범위 4 내의 적에게 공격력의 200%의 피해를 입힙니다."
     },
     {
       "unitName": "딱쇠",
+      "characterDescription": "딱쇠는 딱따구리",
       "maxHealth": 400,
       "attackPoint": 30,
       "defensePoint": 80,
       "moveRange": 3,
       "passiveName": "충신",
+      "passiveDescription": "범위 3 내에 철봉이 있으면 공격력이 10% 증가합니다. 또한 철봉이 치명적인 피해를 입으면 대신 사망합니다. 철봉 사망 시 모든 능력치의 50%를 지닌 채 해당 위치에서 부활합니다.",
       "skillName1": "사기 진작",
-      "skillName2": "망치망치"
+      "skillDescription1": "범위 4 내의 선택한 아군의 사기를 진작합니다. 해당 아군의 공격력이 30%, 방어력이 20% 증가합니다. 이 효과는 해당 아군이 스킬을 사용할 때까지 지속됩니다.",
+      "skillName2": "망치망치",
+      "skillDescription2": "범위 3 내의 적에게 공격력의 200%의 피해를 입힙니다. 해당 적은 30% 확률로 기절하여 다음 턴 행동이 봉쇄됩니다."
+    },
+    {
+      "unitName": "서빈",
+      "characterDescription": "배신자",
+      "maxHealth": 200,
+      "attackPoint": 40,
+      "defensePoint": 30,
+      "moveRange": 8,
+      "passiveName": "상도덕",
+      "passiveDescription": "서씨 직계 유닛(서하윤, 서린)에게 100% 확률로 치명타 피해를 입힙니다.",
+      "skillName1": "두 번 베기",
+      "skillDescription1": "",
+      "skillName2": "",
+      "skillDescription2": ""
     }
   ]
 }

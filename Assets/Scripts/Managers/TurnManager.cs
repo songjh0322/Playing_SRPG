@@ -10,15 +10,16 @@ public enum TurnPlayer
 
 public class TurnManager
 {
-    public int turnCount;       // 현재 턴의 수 (1부터 시작)
-    public TurnPlayer turnPlayer;     // 현재
+    public int turnCount;           // 현재 턴의 수 (1부터 시작)
+    public TurnPlayer turnPlayer;   // 현재 턴 플레이어
 
+    // 
     public TurnManager()
     {
         turnCount = 1;
     }
 
-    // 시작 턴 플레이어를 임의로 설정
+    // 시작 턴 플레이어를 특정 플레이어로 지정
     public void SetFirstTurnPlayer(TurnPlayer turnPlayer)
     {
         this.turnPlayer = turnPlayer;

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-// JSON 파일에서 유닛 목록을 불러오기 위한 클래스
+// JSON 파일에서 유닛 목록을 불러오기 위한 클래스 (이곳에서만 사용)
 [Serializable]
 public class UnitStatsList
 {
@@ -13,8 +13,12 @@ public class UnitStatsList
 
 public class UnitManager
 {
-    private Dictionary<string, BasicStats> basicStatsData;  // 기본 유닛 능력치(JSON 데이터)를 담을 딕셔너리
+    public const int maxUnits = 6;      // 최대 유닛 선택 수
+
+    public Dictionary<string, BasicStats> basicStatsData;  // 기본 유닛 능력치(JSON 데이터)를 담을 딕셔너리
     public List<Unit> activeUnits = new List<Unit>();       // 맵 상에 생성되고, 배치할 유닛을 담는 리스트
+    public List<Unit> player1Units = new List<Unit>();      // Player1이 인게임에서 사용할 유닛 리스트
+    public List<Unit> player2Units = new List<Unit>();      // Player2가 인게임에서 사용할 유닛 리스트
 
     // JSON 데이터를 불러오는 메서드
     public void LoadUnitDataFromJSON()
@@ -52,18 +56,30 @@ public class UnitManager
         }
         else
         {
-            Debug.LogError(unitName + " 유닛은 JSON 데이터에 없습니다.");
+            Debug.LogError(unitName + " 유닛은 JSON 파일에 정의되어있지 않습니다.");
             return null;
         }
     }
 
-    // UI : [캐릭터 선택을 모두 마쳤습니다. 전투를 시작하시겠습니까?]
-    // [예]를 클릭한 경우 호출
-    public void ConfirmPlayer1Units()
+    // 사용 : [캐릭터 선택을 모두 마쳤습니다. 전투를 시작하시겠습니까?] -> [예]를 클릭한 경우 호출
+    // 파라미터 : UI에서 선택한 유닛들의 이름을 담은 List
+    // 기능 : Player1이 사용할 유닛들을 최종 결정
+    public void ConfirmPlayer1Units(List<string> unitNames)
+    {
+        for (int i = 0; i < unitNames.Count; i++)
+        {
+            player1Units.Add(new Unit(unitNames[i], basicStatsData));
+        }
+    }
+
+    // 현재 미사용 함수
+    public void ConfirmPlayer2Units()
     {
 
     }
 
+    // 사용 : [캐릭터 선택을 모두 마쳤습니다. 전투를 시작하시겠습니까?] -> [예]를 클릭한 경우 호출
+    // 기능 : Player2가 사용할 유닛들을 랜덤으로 결정 (반대 진영에서 임의로 차출)
     public void RandomizePlayer2Units()
     {
 
