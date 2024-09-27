@@ -13,12 +13,33 @@ public class UnitStatsList
 
 public class UnitManager
 {
+    public static UnitManager Instance { get; private set; }
+
     public const int maxUnits = 6;      // 최대 유닛 선택 수
 
     public Dictionary<string, BasicStats> basicStatsData;  // 기본 유닛 능력치(JSON 데이터)를 담을 딕셔너리
     public List<Unit> activeUnits = new List<Unit>();       // 맵 상에 생성되고, 배치할 유닛을 담는 리스트
     public List<Unit> player1Units = new List<Unit>();      // Player1이 인게임에서 사용할 유닛 리스트
     public List<Unit> player2Units = new List<Unit>();      // Player2가 인게임에서 사용할 유닛 리스트
+
+    // 싱글톤 인스턴스 설정
+    private UnitManager()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
+
+    // 싱글톤 인스턴스를 반환
+    public static UnitManager GetInstance()
+    {
+        if (Instance == null)
+        {
+            Instance = new UnitManager();
+        }
+        return Instance;
+    }
 
     // JSON 데이터를 불러오는 메서드
     public void LoadUnitDataFromJSON()

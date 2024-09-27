@@ -4,13 +4,33 @@ using UnityEngine;
 
 public class MapManager
 {
+    public static MapManager Instance { get; private set; }
+
     private GameObject tile_normal;
     // private GameObject tile_forest;
     // private GameObject tile_water;
     // private GameObject tile_unreachable;
     private Tile[,] tiles;
-
     private const int mapSize = 10; // 맵의 크기 (10x10)
+
+    // 싱글톤 인스턴스 설정
+    private MapManager()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
+
+    // 싱글톤 인스턴스를 반환하는 정적 메서드
+    public static MapManager GetInstance()
+    {
+        if (Instance == null)
+        {
+            Instance = new MapManager();
+        }
+        return Instance;
+    }
 
     public void LoadPrefabs()
     {

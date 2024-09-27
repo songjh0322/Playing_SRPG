@@ -3,21 +3,38 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-// 게임 매니저는 모든 매니저의 상위 매니저로, 유일하게 MonoBehaviour를 상속받는 매니저임
+// 게임 매니저는 모든 매니저를 관리하는 매니저로, 유일하게 MonoBehaviour를 상속받는 매니저
 public class GameManager : MonoBehaviour
 {
-    // 모든 매니저들을 싱글톤으로 수정할 예정
+    public static GameManager Instance { get; private set; }
 
-    //protected UIManager uiManager = new UIManager();
-    //protected TurnManager turnManager = new TurnManager();
+    protected UIManager uiManager;
+    protected TurnManager turnManager;
     protected UnitManager unitManager;
     protected MapManager mapManager;
 
+    private void Awake()
+    {
+        // 싱글톤 인스턴스 설정
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);      // Scene이 변경되어도 매니저들은 유지됨
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        // 각 매니저를 초기화
+        uiManager = UIManager.GetInstance();
+        turnManager = TurnManager.GetInstance();
+        unitManager = UnitManager.GetInstance();
+        mapManager = MapManager.GetInstance();
+    }
+
     void Start()
     {
-        unitManager = new UnitManager();
-        mapManager = new MapManager();
-
         unitManager.LoadUnitDataFromJSON();
         mapManager.LoadPrefabs();
 

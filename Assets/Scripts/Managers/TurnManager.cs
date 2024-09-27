@@ -10,13 +10,28 @@ public enum TurnPlayer
 
 public class TurnManager
 {
+    public static TurnManager Instance { get; private set; }
+
     public int turnCount;           // 현재 턴의 수 (1부터 시작)
     public TurnPlayer turnPlayer;   // 현재 턴 플레이어
 
-    // 
-    public TurnManager()
+    // 싱글톤 인스턴스 설정
+    private TurnManager()
     {
-        turnCount = 1;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
+
+    // 싱글톤 인스턴스를 반환
+    public static TurnManager GetInstance()
+    {
+        if (Instance == null)
+        {
+            Instance = new TurnManager();
+        }
+        return Instance;
     }
 
     // 시작 턴 플레이어를 특정 플레이어로 지정
