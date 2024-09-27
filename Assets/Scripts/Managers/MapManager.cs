@@ -10,7 +10,8 @@ public class MapManager
     // private GameObject tile_forest;
     // private GameObject tile_water;
     // private GameObject tile_unreachable;
-    private Tile[,] tiles;
+
+    private Tile[,] tiles;          // 모든 Tile 객체를 각 위치에 맞게 저장하는 2차원 배열
     private const int mapSize = 10; // 맵의 크기 (10x10)
 
     // 싱글톤 인스턴스 설정
@@ -22,7 +23,7 @@ public class MapManager
         }
     }
 
-    // 싱글톤 인스턴스를 반환하는 정적 메서드
+    // 싱글톤 인스턴스를 반환
     public static MapManager GetInstance()
     {
         if (Instance == null)
@@ -38,9 +39,12 @@ public class MapManager
         tile_normal = Resources.Load<GameObject>("Prefabs/Tiles/basic_tile");   // TileType.Normal
     }
 
-    // [캐릭터 배치 화면]으로 이동할 때 호출
+    // 사용 : [캐릭터 선택을 모두 마쳤습니다. 전투를 시작하겠습니까?] -> [예] 버튼 클릭 시 호출
+    // 기능 : tiles 2차원 배열에 Tile 객체를 참조하여 넣고, 맵을 생성하여 시각적으로 표시
     public void CreateMap()
     {
+        tiles = new Tile[mapSize, mapSize];
+
         // 모든 타일을 포함하는 Map 게임 오브젝트 생성
         GameObject mapObject = new GameObject("Map");
 
@@ -62,6 +66,9 @@ public class MapManager
 
                 // 타일 이름 설정
                 tile.name = $"Tile{row * mapSize + col:00}"; // 이름을 Tile00, Tile01, ... Tile99로 설정
+
+                // tiles 2차원 배열에 추가
+                tiles[row, col] = tileScript;
             }
         }
     }

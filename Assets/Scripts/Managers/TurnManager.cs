@@ -22,6 +22,7 @@ public class TurnManager
         {
             Instance = this;
         }
+        turnCount = 1;
     }
 
     // 싱글톤 인스턴스를 반환
@@ -48,7 +49,8 @@ public class TurnManager
         Debug.Log($"{turnPlayer}의 턴입니다.");
     }
 
-    // 턴 종료
+    // 사용 : 한 유닛이 이동을 완료 혹은 스킬 시전이 끝났을 때 마지막으로 호출
+    // 기능 : 턴 수를 1 증가시키고 턴 플레이어를 전환
     public void TurnEnd()
     {
         turnCount++;

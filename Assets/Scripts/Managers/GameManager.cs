@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        // 각 매니저를 초기화
+        // 게임 프로그램이 실행되면 모든 매니저를 불러옴
         uiManager = UIManager.GetInstance();
         turnManager = TurnManager.GetInstance();
         unitManager = UnitManager.GetInstance();
@@ -35,10 +35,20 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        // 필수 요소
         unitManager.LoadUnitDataFromJSON();
         mapManager.LoadPrefabs();
 
+        // 아래의 코드들은 일련의 호출 예시임 !!
+
+        // 예시 - 전투가 시작되면 순서대로 호출 (인자는 UI에서 받음, 현재는 임의로 넣음)
+        unitManager.ConfirmPlayer1Units(new List<string> { "철봉", "딱쇠", "서빈", "갑이", "환조", "달구지"});
+        unitManager.RandomizePlayer2Units(); // 또는 unitManager.ConfirmPlayer2Units(...)
         mapManager.CreateMap();
+
+        // 유닛 배치 단계 진입 시
+        
+        // [배치 완료] 버튼 클릭 시
 
     }
 
@@ -47,14 +57,16 @@ public class GameManager : MonoBehaviour
         
     }
 
-    // 타일 클릭 시 호출되는 메서드
+/*    // 타일 클릭 시 호출되는 메서드
     public void OnTileClicked(Tile clickedTile)
     {
-        // 맨하튼 거리 3 이내의 타일을 찾고 색상 변경
-        List<Tile> reachableTiles = mapManager.GetReachableTiles(3, clickedTile);
+        // MapManager의 GetReachableTiles() 함수를 호출하여 맨해튼 거리 3 이내의 타일을 가져옴
+        List<Tile> reachableTiles = MapManager.Instance.GetReachableTiles(3, clickedTile);
+
+        // 가져온 타일들의 색상을 초록색으로 변경
         foreach (Tile tile in reachableTiles)
         {
-            tile.ChangeColor(Color.green); // 초록색으로 변경
+            tile.ChangeColor(Color.green);
         }
-    }
+    }*/
 }
