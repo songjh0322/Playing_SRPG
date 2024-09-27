@@ -1,0 +1,24 @@
+{
+  "units": [
+    {
+      "unitName": "철봉",
+      "maxHealth": 100,
+      "attackPoint": 20,
+      "defensePoint": 10,
+      "moveRange": 3,
+      "passiveName": "전투 본능",
+      "skillName1": "공포의 쓴맛",
+      "skillName2": "쌍도끼 던지기"
+    },
+    {
+      "unitName": "딱쇠",
+      "maxHealth": 400,
+      "attackPoint": 30,
+      "defensePoint": 80,
+      "moveRange": 3,
+      "passiveName": "충신",
+      "skillName1": "사기 진작",
+      "skillName2": "망치망치"
+    }
+  ]
+}

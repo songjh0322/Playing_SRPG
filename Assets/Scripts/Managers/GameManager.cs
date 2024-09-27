@@ -1,21 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    protected UIManager uiManager = new UIManager();
-    protected TurnManager turnManager = new TurnManager();
-
-    // MapManager를 선언하지만 인스턴스화는 자식 클래스에서 진행
+    //protected UIManager uiManager = new UIManager();
+    //protected TurnManager turnManager = new TurnManager();
+    protected UnitManager unitManager;
     protected MapManager mapManager;
 
     void Start()
     {
-        // 맵을 생성하고 Scene에 표시
-        mapManager = new MapManager(); // MapManager 인스턴스화
-        mapManager.LoadPrefabs(); // 프리팹 로드
+        unitManager = new UnitManager();
+        mapManager = new MapManager();
+
+        unitManager.LoadUnitDataFromJSON();
+        mapManager.LoadPrefabs();
         mapManager.CreateMap();
+
+        Unit newUnit = unitManager.CreateUnit("철봉");
+        if (newUnit != null)
+        {
+            Debug.Log("철봉의 공격력: " + newUnit.attackPoint);
+            Debug.Log("철봉의 최대 체력: " + newUnit.maxHealth);
+            Debug.Log("철봉의 현재 체력: " + newUnit.currentHealth);
+            Debug.Log("철봉의 패시브 이름: " + newUnit.passiveName);
+        }
+        else
+        {
+            Debug.LogError("유닛을 생성하는 데 실패했습니다.");
+        }
     }
 
     private void Update()

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapManager : GameManager
+public class MapManager
 {
     private GameObject tile_normal;
     // private GameObject tile_forest;
