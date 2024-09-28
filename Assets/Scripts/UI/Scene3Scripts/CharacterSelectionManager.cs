@@ -9,15 +9,25 @@ using UnityEngine.TextCore.Text;
 public class CharacterSelectionManager : MonoBehaviour
 {
     GameManager gameManager;
+    UnitManager unitManager;
+
     public List<Button> characterButtons; // 캐릭터 버튼들 (8명)
+    public TMP_Text characterName;        // 캐릭터 이름
+
     public Button selectButton; // 선택 버튼
-    public Button deselectButton; // 해제 버튼 
+    public Button deselectButton; // 선택 해제 버튼 
     public Button cancelButton; // 취소 버튼 
     public GameObject confirmationUI; // 6명 선택 시 표시할 UI
-    public TMP_Text characterName;
+
     public Transform parentObject;
     TextMeshProUGUI textMeshPro;
+    TMP_FontAsset maplestoryFont;
 
+    GameObject statusText;
+    GameObject storyText;
+    GameObject passiveText;
+    GameObject skill1Text;
+    GameObject skill2Text;
 
     private List<string> selectedCharacters = new List<string>(); // 선택한 캐릭터 list 
 
@@ -31,12 +41,18 @@ public class CharacterSelectionManager : MonoBehaviour
 
     void Start()
     {
-        gameManager = GameManager.Instance;
+        statusText = GameObject.Find("StatusText");
+        storyText = GameObject.Find("StoryText");
+        passiveText = GameObject.Find("PassiveText");
+        skill1Text = GameObject.Find("Skill1Text");
+        skill2Text = GameObject.Find("Skill2Text");
 
-        // 스파게티 코드... 추후 수정
-        TMP_FontAsset maplestoryFont = Resources.Load<TMP_FontAsset>("Fonts/Maplestory OTF Bold SDF");
-        UnitManager unitManager = UnitManager.GetInstance();
-        //unitManager.LoadBasicStatsFromJSON(); // JSON 데이터 로드
+        gameManager = GameManager.Instance;
+        unitManager = UnitManager.GetInstance();
+
+        // 스파게티 코드... 추후 수정 예정
+        maplestoryFont = Resources.Load<TMP_FontAsset>("Fonts/Maplestory OTF Bold SDF");
+        unitManager.LoadBasicStatsFromJSON(); // JSON 데이터 로드
 
         List<string> keyList;
         if (gameManager.player1Camp == Player1Camp.Guwol)
@@ -47,7 +63,7 @@ public class CharacterSelectionManager : MonoBehaviour
             keyList = null; // 없는 경우
         
         int n = 0;
-        // 각 캐릭터 버튼에 클릭 이벤트 추가
+        // 각 캐릭터 버튼에 캐릭터 이름 및 클릭 이벤트 추가
         foreach (Button characterButton in characterButtons)
         {
             Transform childTransform = characterButton.transform.Find("Text (TMP)");    // 이름 변경하면 안됨 !
@@ -72,8 +88,23 @@ public class CharacterSelectionManager : MonoBehaviour
     {
         string currentCharacterName = clickedButton.GetComponentInChildren<TMP_Text>().text;
         characterName.text = currentCharacterName;
-            // Load selected character's status, skills, chracterImage
-        
+        // Load selected character's status, skills, chracterImage
+
+        Transform childTransform = clickedButton.transform.Find("Text (TMP)");
+        string name = childTransform.GetComponent<TextMeshProUGUI>().text;
+        if (gameManager.player1Camp == Player1Camp.Guwol)
+        {
+            skill1Text.GetComponent<TMP_Text>().font = maplestoryFont;
+            skill1Text.GetComponent<TMP_Text>().text = unitManager.guwol_basicStatsData[name].skillName1;
+            skill2Text.GetComponent<TMP_Text>().font = maplestoryFont;
+            skill2Text.GetComponent<TMP_Text>().text = unitManager.guwol_basicStatsData[name].skillName2;
+
+        }
+        else if (gameManager.player1Camp == Player1Camp.Seo)
+        {
+             
+        }
+
     }
 
     // 선택 버튼 클릭 시 실행되는 함수

@@ -42,11 +42,11 @@ public class GameManager : MonoBehaviour
         // 필수 요소 (필요한 유닛 데이터, 프리팹 불러오기)
         unitManager.LoadBasicStatsFromJSON();
 
+        player1Camp = Player1Camp.Guwol;    // 임시 할당
 
-        
 
         // !! 아래의 코드들은 일련의 호출 예시임 !!
-        
+
         // 예시 - 전투가 시작되면 순서대로 호출 (인자는 UI에서 받음, 현재는 임의로 넣음)
         //unitManager.ConfirmPlayer1Units(new List<string> { "철봉", "딱쇠", "서빈", "갑이", "환조", "달구지"});
         //unitManager.RandomizePlayer2Units(); // 또는 unitManager.ConfirmPlayer2Units(...)
