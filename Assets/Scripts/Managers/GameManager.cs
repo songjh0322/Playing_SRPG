@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+
         // 필수 요소 (필요한 유닛 데이터, 프리팹 불러오기)
         unitManager.LoadBasicStatsFromJSON();
         mapManager.LoadPrefabs();

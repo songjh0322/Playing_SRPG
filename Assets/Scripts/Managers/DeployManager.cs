@@ -27,14 +27,14 @@ public class DeployManager
         return Instance;
     }
 
-    // 사용 : 
+    // 사용 : 배치 시작 시 가장 먼저 호출
     // 기능 : 
     public void StartDeploy()
     {
         
     }
 
-    // 사용 : 
+    // 사용 : 배치 완료 시 마지막으로 호출
     // 기능 : 
     public void CompleteDeploy()
     {

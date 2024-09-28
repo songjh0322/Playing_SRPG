@@ -13,7 +13,7 @@ public class MapManager
     // private GameObject tile_unreachable;
 
     private Tile[,] tiles;          // 모든 Tile 객체를 각 위치에 맞게 저장하는 2차원 배열
-    private const int mapSize = 10; // 맵의 크기 (10x10)
+    private const int mapSize = 10; // 맵의 크기 (10x10), 현재 짝수로 선언해야 함
 
     // 싱글톤 인스턴스 설정
     private MapManager()
