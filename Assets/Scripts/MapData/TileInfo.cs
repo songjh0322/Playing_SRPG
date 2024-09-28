@@ -12,4 +12,12 @@ public enum TileType
     Unreachable     // 도달할 수 없는 타일
 }
 
+// 초기 배치 가능 여부
+public enum Deployable
+{
+    None,
+    Player1,
+    Player2
+}
+
 

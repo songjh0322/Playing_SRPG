@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// 현재 이용하지 않음
+// !! 현재 사용하지 않음 !!
 // 규모 커지면 따로 사용할 가능성 있음
 public class PrefabManager
 {

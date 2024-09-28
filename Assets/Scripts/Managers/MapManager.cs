@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Scripting.APIUpdating;
 
 public class MapManager
 {
@@ -35,7 +36,7 @@ public class MapManager
 
     public void LoadPrefabs()
     {
-        // 여기에 각 타일 프리팹의 경로 추가
+        // 여기에 각 타일 타입에 따라 프리팹의 경로 추가
         tile_normal = Resources.Load<GameObject>("Prefabs/Tiles/basic_tile");   // TileType.Normal
     }
 
@@ -58,11 +59,16 @@ public class MapManager
                 // 타일의 위치 설정
                 float posX = col * 100; // 타일의 너비가 100이므로 col에 따라 x 위치 설정
                 float posY = -row * 100; // 타일의 높이가 100이므로 row에 따라 y 위치 설정 (Y축 음수 방향으로 설정)
-                tile.transform.localPosition = new Vector3(posX, posY, 0); // localPosition으로 설정
+                tile.transform.localPosition = new Vector3(posX, posY, 0);
 
-                // Tile 컴포넌트를 가져와서 좌표 설정
+                // Tile 컴포넌트를 가져와서 초기화
                 Tile tileScript = tile.GetComponent<Tile>();
-                tileScript.SetCoordinates(row, col);
+
+                // 위쪽 절반은 Player2, 아래쪽 절반은 Player1 배치 가능
+                Deployable placementState = (row < mapSize / 2) ? Deployable.Player2 : Deployable.Player1;
+
+                // 타일 초기화 (모든 타일의 TileType은 Normal로 설정)
+                tileScript.Initialize(row, col, TileType.Normal, placementState);
 
                 // 타일 이름 설정
                 tile.name = $"Tile{row * mapSize + col:00}"; // 이름을 Tile00, Tile01, ... Tile99로 설정
@@ -73,7 +79,14 @@ public class MapManager
         }
     }
 
-    // 맨하튼 거리 이내의 타일을 반환하는 함수
+
+    // 
+    public void MoveTo(Tile fromTile, Tile totile)
+    {
+
+    }
+
+    // startTile로부터 maxMoveRange 내의 모든 Tile 객체를 리스트로 반환하는 함수
     public List<Tile> GetReachableTiles(int maxMoveRange, Tile startTile)
     {
         List<Tile> reachableTiles = new List<Tile>();

@@ -87,6 +87,13 @@ public class Unit : IUnit
         }
     }
 
+    public (int, int) GetPosition()
+    {
+        MapManager mapManager = MapManager.GetInstance();
+
+        return (0, 0);
+    }
+
     public void move()
     {
         
@@ -94,6 +101,7 @@ public class Unit : IUnit
 
     public void castSkill(string skillName)
     {
+        // this는 현재 캐릭터 유닛을 나타냄
         throw new NotImplementedException();
     }
 }

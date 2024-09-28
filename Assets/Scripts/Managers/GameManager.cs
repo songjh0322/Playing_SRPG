@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     protected TurnManager turnManager;
     protected UnitManager unitManager;
     protected MapManager mapManager;
+    protected DeployManager deployManager;
 
     private void Awake()
     {
@@ -31,23 +32,27 @@ public class GameManager : MonoBehaviour
         turnManager = TurnManager.GetInstance();
         unitManager = UnitManager.GetInstance();
         mapManager = MapManager.GetInstance();
+        deployManager = DeployManager.GetInstance();
     }
 
     void Start()
     {
-        // 필수 요소
-        unitManager.LoadUnitDataFromJSON();
+        // 필수 요소 (필요한 유닛 데이터, 프리팹 불러오기)
+        unitManager.LoadBasicStatsFromJSON();
         mapManager.LoadPrefabs();
 
-        // 아래의 코드들은 일련의 호출 예시임 !!
-
+        // !! 아래의 코드들은 일련의 호출 예시임 !!
+        
         // 예시 - 전투가 시작되면 순서대로 호출 (인자는 UI에서 받음, 현재는 임의로 넣음)
         unitManager.ConfirmPlayer1Units(new List<string> { "철봉", "딱쇠", "서빈", "갑이", "환조", "달구지"});
         unitManager.RandomizePlayer2Units(); // 또는 unitManager.ConfirmPlayer2Units(...)
         mapManager.CreateMap();
 
         // 유닛 배치 단계 진입 시
-        
+        // 배치 단계에서 이미 배치를 완료한 캐릭터의 경우, 해당 캐릭터의 버튼을 비활성화하는 것은 UI 관리에서 수행
+        // 하나의 유닛을 배치할 때마다 화면 업데이트가 있으므로 List로 관리
+        deployManager.StartDeploy();
+
         // [배치 완료] 버튼 클릭 시
 
     }
