@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Xml;
+using UnityEngine.TextCore.Text;
 
 public class CharacterSelectionManager : MonoBehaviour
 {
@@ -14,7 +15,9 @@ public class CharacterSelectionManager : MonoBehaviour
     public GameObject confirmationUI; // 6명 선택 시 표시할 UI
     public TMP_Text characterName;
     public Transform parentObject;
-    
+    TextMeshProUGUI textMeshPro;
+
+
     private List<string> selectedCharacters = new List<string>(); // 선택한 캐릭터 list 
 
     public List<string> SelectedCharacters
@@ -27,6 +30,8 @@ public class CharacterSelectionManager : MonoBehaviour
 
     void Start()
     {
+        // 스파게티 코드... 추후 수정
+        TMP_FontAsset maplestoryFont = Resources.Load<TMP_FontAsset>("Fonts/Maplestory OTF Bold SDF");
         UnitManager unitManager = UnitManager.GetInstance();
         unitManager.LoadBasicStatsFromJSON(); // JSON 데이터 로드
         List<string> keyList = new List<string>(unitManager.guwol_basicStatsData.Keys);
@@ -36,7 +41,8 @@ public class CharacterSelectionManager : MonoBehaviour
         foreach (Button characterButton in characterButtons)
         {
             Transform childTransform = characterButton.transform.Find("Text (TMP)");
-            TextMeshProUGUI textMeshPro = childTransform.GetComponent<TextMeshProUGUI>();
+            textMeshPro = childTransform.GetComponent<TextMeshProUGUI>();
+            textMeshPro.font = maplestoryFont;
             textMeshPro.text = keyList[n++];
 
             characterButton.onClick.AddListener(() => OnCharacterButtonClick(characterButton));
