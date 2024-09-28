@@ -45,7 +45,7 @@ public class UnitManager
     }
 
     // JSON 데이터를 불러오는 메서드
-    public void LoadUnitDataFromJSON()
+    public void LoadBasicStatsFromJSON()
     {
         TextAsset jsonTextFile = Resources.Load<TextAsset>("CharacterStats");
         if (jsonTextFile != null)
@@ -82,7 +82,7 @@ public class UnitManager
     // 현재 미사용 함수
     public void ConfirmPlayer2Units()
     {
-
+        
     }
 
     // 사용 : [캐릭터 선택을 모두 마쳤습니다. 전투를 시작하시겠습니까?] -> [예] 버튼 클릭 시 호출
@@ -90,13 +90,6 @@ public class UnitManager
     public void RandomizePlayer2Units()
     {
 
-    }
-
-    // 사용 : [캐릭터를 배치하세요!] 화면 진입 시 가장 먼저 호출
-    // 기능 : [캐릭터명] 버튼과 배치할 타일을 번갈아가며 클릭하여 캐릭터를 배치함
-    public void InitiatePlayer1UnitPlacement()
-    {
-        
     }
 }
 
