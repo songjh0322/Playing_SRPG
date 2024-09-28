@@ -13,7 +13,6 @@ public class GameManager : MonoBehaviour
     protected UnitManager unitManager;
     protected MapManager mapManager;
     protected DeployManager deployManager;
-
     private void Awake()
     {
         // ΩÃ±€≈Ê ¿ŒΩ∫≈œΩ∫ º≥¡§
