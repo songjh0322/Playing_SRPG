@@ -17,10 +17,8 @@ public class UnitManager
 
     public const int maxUnits = 6;      // 최대 유닛 선택 수
 
-    public Dictionary<string, BasicStats> basicStatsData;  // 기본 유닛 능력치(JSON 데이터)를 담을 딕셔너리
-
-    public List<Unit> guwol = new List<Unit>();     
-    public List<Unit> seo = new List<Unit>();
+    public Dictionary<string, BasicStats> guwol_basicStatsData;  // 구월산 목단설 기본 능력치 딕셔너리
+    public Dictionary<string, BasicStats> seo_basicStatsData;    // 서씨 가문 기본 능력치 딕셔너리
 
     public List<Unit> player1Units = new List<Unit>();      // Player1이 인게임에서 사용할 유닛 리스트 (참조)
     public List<Unit> player2Units = new List<Unit>();      // Player2가 인게임에서 사용할 유닛 리스트 (참조)
@@ -47,17 +45,25 @@ public class UnitManager
     // JSON 데이터를 불러오는 메서드
     public void LoadBasicStatsFromJSON()
     {
-        TextAsset jsonTextFile = Resources.Load<TextAsset>("CharacterStats");
-        if (jsonTextFile != null)
-        {
-            UnitStatsList statsList = JsonUtility.FromJson<UnitStatsList>(jsonTextFile.text);
+        TextAsset jsonTextFile1 = Resources.Load<TextAsset>("GuwolStats");
+        TextAsset jsonTextFile2 = Resources.Load<TextAsset>("SeoStats");
 
-            basicStatsData = new Dictionary<string, BasicStats>();
+        if (jsonTextFile1 != null && jsonTextFile2 != null)
+        {
+            UnitStatsList statsList1 = JsonUtility.FromJson<UnitStatsList>(jsonTextFile1.text);
+            UnitStatsList statsList2 = JsonUtility.FromJson<UnitStatsList>(jsonTextFile2.text);
+
+            guwol_basicStatsData = new Dictionary<string, BasicStats>();
+            seo_basicStatsData = new Dictionary<string, BasicStats>();
 
             // JSON 데이터를 딕셔너리로 변환하여 저장
-            foreach (BasicStats stats in statsList.units)
+            foreach (BasicStats stats in statsList1.units)
             {
-                basicStatsData[stats.unitName] = stats;
+                guwol_basicStatsData[stats.unitName] = stats;
+            }
+            foreach (BasicStats stats in statsList2.units)
+            {
+                seo_basicStatsData[stats.unitName] = stats;
             }
 
             Debug.Log("성공적으로 JSON 파일을 로드했습니다.");
@@ -71,11 +77,12 @@ public class UnitManager
     // 사용 : [캐릭터 선택을 모두 마쳤습니다. 전투를 시작하시겠습니까?] -> [예] 버튼 클릭 시 호출
     // 파라미터 : UI에서 선택한 유닛들의 이름을 담은 List
     // 기능 : Player1이 사용할 유닛들을 최종 결정
+    // 현재 무조건 구월산 목단설로 가정되어 있음!
     public void ConfirmPlayer1Units(List<string> unitNames)
     {
         for (int i = 0; i < unitNames.Count; i++)
         {
-            player1Units.Add(new Unit(unitNames[i], basicStatsData));
+            player1Units.Add(new Unit(unitNames[i], guwol_basicStatsData));
         }
     }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Xml;
 
 public class CharacterSelectionManager : MonoBehaviour
 {
@@ -26,9 +27,18 @@ public class CharacterSelectionManager : MonoBehaviour
 
     void Start()
     {
+        UnitManager unitManager = UnitManager.GetInstance();
+        unitManager.LoadBasicStatsFromJSON(); // JSON 데이터 로드
+        List<string> keyList = new List<string>(unitManager.guwol_basicStatsData.Keys);
+        int n = 0;
+
         // 각 캐릭터 버튼에 클릭 이벤트 추가
         foreach (Button characterButton in characterButtons)
         {
+            Transform childTransform = characterButton.transform.Find("Text (TMP)");
+            TextMeshProUGUI textMeshPro = childTransform.GetComponent<TextMeshProUGUI>();
+            textMeshPro.text = keyList[n++];
+
             characterButton.onClick.AddListener(() => OnCharacterButtonClick(characterButton));
         }
 
