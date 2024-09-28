@@ -8,6 +8,7 @@ using UnityEngine.TextCore.Text;
 
 public class CharacterSelectionManager : MonoBehaviour
 {
+    GameManager gameManager;
     public List<Button> characterButtons; // 캐릭터 버튼들 (8명)
     public Button selectButton; // 선택 버튼
     public Button deselectButton; // 해제 버튼 
@@ -30,17 +31,26 @@ public class CharacterSelectionManager : MonoBehaviour
 
     void Start()
     {
+        gameManager = GameManager.Instance;
+
         // 스파게티 코드... 추후 수정
         TMP_FontAsset maplestoryFont = Resources.Load<TMP_FontAsset>("Fonts/Maplestory OTF Bold SDF");
         UnitManager unitManager = UnitManager.GetInstance();
-        unitManager.LoadBasicStatsFromJSON(); // JSON 데이터 로드
-        List<string> keyList = new List<string>(unitManager.guwol_basicStatsData.Keys);
-        int n = 0;
+        //unitManager.LoadBasicStatsFromJSON(); // JSON 데이터 로드
 
+        List<string> keyList;
+        if (gameManager.player1Camp == Player1Camp.Guwol)
+            keyList = new List<string>(unitManager.guwol_basicStatsData.Keys);
+        else if (gameManager.player1Camp == Player1Camp.Seo)
+            keyList = new List<string>(unitManager.seo_basicStatsData.Keys);
+        else
+            keyList = null; // 없는 경우
+        
+        int n = 0;
         // 각 캐릭터 버튼에 클릭 이벤트 추가
         foreach (Button characterButton in characterButtons)
         {
-            Transform childTransform = characterButton.transform.Find("Text (TMP)");
+            Transform childTransform = characterButton.transform.Find("Text (TMP)");    // 이름 변경하면 안됨 !
             textMeshPro = childTransform.GetComponent<TextMeshProUGUI>();
             textMeshPro.font = maplestoryFont;
             textMeshPro.text = keyList[n++];

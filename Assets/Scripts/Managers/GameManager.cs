@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     protected MapManager mapManager;
     protected DeployManager deployManager;
 
+    public Player1Camp player1Camp; // 플레이어가 선택한 진영
+
     private void Awake()
     {
         // 싱글톤 인스턴스 설정
@@ -39,7 +41,9 @@ public class GameManager : MonoBehaviour
     {
         // 필수 요소 (필요한 유닛 데이터, 프리팹 불러오기)
         unitManager.LoadBasicStatsFromJSON();
-        mapManager.LoadPrefabs();
+
+
+        
 
         // !! 아래의 코드들은 일련의 호출 예시임 !!
         
@@ -74,4 +78,10 @@ public class GameManager : MonoBehaviour
             tile.ChangeColor(Color.green);
         }
     }*/
+}
+
+public enum Player1Camp
+{
+    Guwol,
+    Seo,
 }

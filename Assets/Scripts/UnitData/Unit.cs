@@ -21,7 +21,6 @@ public class BasicStats
     public int defensePoint;
     public int moveRange;
 }
-
 // 각 유닛의 인터페이스
 public interface IUnit
 {
