@@ -1,131 +1,99 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
-// 불변하는 데이터를 저장하는 클래스
-public class BaseStats
+// 각 유닛의 정보
+[Serializable]
+public class BasicStats
 {
-    public readonly string Name;
+    public string unitName;
+    public string passiveName;
+    public string passiveDescription;
+    public string skillName1;
+    public string skillDescription1;
+    public string skillName2;
+    public string skillDescription2;
 
-    public readonly int MaxHealth;
-    public readonly int AttackPoint;
-    public readonly int DefensePoint;
-    public readonly int MoveDistance;
-
-    public BaseStats(string name, int maxHealth, int attackPoint, int defensePoint, int moveDistance)
-    {
-        Name = name;
-        MaxHealth = maxHealth;
-        AttackPoint = attackPoint;
-        DefensePoint = defensePoint;
-        MoveDistance = moveDistance;
-    }
-}
-
-// 게임 진행 중 변경되는 스탯을 저장하는 클래스 (BaseStats로부터 초기값을 받음)
-public class CurrentStats
-{
-    public int MaxHealth { get; set; }
-    public int Health { get; set; }
-    public int AttackPoint { get; set; }
-    public int DefensePoint { get; set; }
-    public int MoveDistance { get; set; }
-
-    public CurrentStats(BaseStats baseStats)
-    {
-        // 기본 스탯을 현재 스탯으로 초기화
-        MaxHealth = baseStats.MaxHealth;
-        Health = baseStats.MaxHealth;       // 현재 체력을 최대 체력으로 설정
-        AttackPoint = baseStats.AttackPoint;
-        DefensePoint = baseStats.DefensePoint;
-        MoveDistance = baseStats.MoveDistance;
-    }
+    public int maxHealth;
+    public int attackPoint;
+    public int defensePoint;
+    public int moveRange;
 }
 
 // 각 유닛의 인터페이스
 public interface IUnit
 {
-    void attack();
     void move();
-    void castSkill1();   // 1번 스킬
-    void castSkill2();   // 2번 스킬
+    void castSkill(string unitName);
 }
 
-// 각 유닛의 추상 클래스 (각 유닛은 이를 상속받아 구현됨)
-public abstract class Unit : MonoBehaviour
+// 인게임에서 객체로 만들 Unit 클래스
+[Serializable]
+public class Unit : IUnit
 {
-    public BaseStats BaseStats { get; private set; }
-    public CurrentStats CurrentStats { get; private set; }
-    public int x_pos, y_pos;
+    // 변경되지 않는 능력치 (단순 문자열)
+    public string unitName; // Key값으로 활용할 캐릭터명
+    public string passiveName;
+    public string passiveDescription;
+    public string skillName1;
+    public string skillDescription1;
+    public string skillName2;
+    public string skillDescription2;
 
-    // 생성자 (유닛 생성 시 좌표를 지정해야 함)
-    protected Unit(BaseStats baseStats, int x_pos, int y_pos)
+    // 원본 캐릭터 능력치 (학습을 통해 변경될 수 있지만, 플레이 도중에는 변경되지 않음)
+    public int maxHealth;
+    public int attackPoint;
+    public int defensePoint;
+    public int moveRange;
+
+    // 인게임에서 활용될 능력치 (패시브나 스킬 등을 통해 플레이 도중 변경될 수 있음)
+    public int currentHealth;
+    public int currentAttackPoint;
+    public int currentDefensePoint;
+    public int currentMoveRange;
+
+
+    // Unit 생성자: unitName을 통해 JSON 데이터에서 정보를 가져옴
+    public Unit(string unitName, Dictionary<string, BasicStats> basicStatsData)
     {
-        BaseStats = baseStats;
-        CurrentStats = new CurrentStats(baseStats);
-        this.x_pos = x_pos;
-        this.y_pos = y_pos;
-    }
-
-    // 좌표(행과 열)을 튜플로 반환
-    public (int, int) GetPosition()
-    {
-        (int, int) position = (x_pos, y_pos);
-        return position;
-    }
-
-    // 유닛의 좌표(행과 열)을 변경
-    public void SetPosition(int x_pos, int y_pos)
-    {
-        this.x_pos = x_pos;
-        this.y_pos = y_pos;
-    }
-
-    // 행동 선택 UI : [이동하기], [스킬1], [스킬2] UI
-    // [이동하기] 버튼을 누르면 해당 함수를 호출
-    // 행동 선택 UI를 닫고, 시각적으로 이동 가능한 타일의 색을 다르게 표시하여 출력 (Map의 GetReachableCoordinate() 함수 이용)
-    // 이 곳이 아닌 UIManager에서 작성바람, 즉 move() 함수가 호출되기 직전에 이 기능이 수행되어야 함
-    // 클릭을 통해 Tile 객체를 얻었다고 가정(즉, fromTile != null인 상태에서 호출)
-    // fromTile : 현재 클릭을 통해 선택된 타일
-    // toTile에 대해 : null 여부 확인 -> 유효 거리 확인 -> 이동 불가 타일 확인 -> 이동 수행 -> 턴 종료
-    /*public virtual void move(BasicMap map, Tile fromTile)
-    {
-
-
-        Tile toTile = null;
-
-        // 유효한 위치를 클릭할 때까지 마우스 클릭을 입력받음
-        while (true)
+        if (basicStatsData.ContainsKey(unitName))
         {
-            // 이동할 타일을 좌클릭으로 클릭하여 해당 타일 객체를 받음 (Tile을 받은 경우 그 객체를 가져오도록 수정해야 함)
-            // toTile = OnclickFunc();
+            BasicStats stats = basicStatsData[unitName];
 
-            if (toTile == null)
-            {
-                // 타일이 아닌 오브젝트를 클릭한 경우
-                print("타일을 클릭하세요.");
-            }
-            else if (toTile.tileType == TileType.Unreachable || toTile.unit != null)
-            {
-                // 이동 불가 타일(TileType.Unreachable)이거나 유닛이 이미 존재하는 타일인 경우
-                print("이동 불가능한 타일입니다.");
-            }
-            else
-            {
-                // 이동 가능한 타일인 경우 -> 유닛의 이동 거리 내의 타일인지 확인
-                //int toX =
-                //int toY = position.Item2;
+            // 변경되지 않는 능력치
+            this.unitName = stats.unitName;
+            this.passiveName = stats.passiveName;
+            this.passiveDescription = stats.passiveDescription;
+            this.skillName1 = stats.skillName1;
+            this.skillDescription1 = stats.skillDescription1;
+            this.skillName2 = stats.skillName2;
+            this.skillDescription2 = stats.skillDescription2;
+            this.maxHealth = stats.maxHealth;
+            this.attackPoint = stats.attackPoint;
+            this.defensePoint = stats.defensePoint;
+            this.moveRange = stats.moveRange;
 
-                // fromTile로부터 유효한 거리
-                List<(int, int)> reachableCoorinates = map.GetReachableCoordinates(fromTile, this.CurrentStats.MoveDistance, (10, 10));
-                
-                break;
-            }
+            // 인게임에서 사용될 능력치 설정 (모두 기본 능력치를 기반으로 설정)
+            this.currentHealth = maxHealth;
+            this.currentAttackPoint = attackPoint;
+            this.currentDefensePoint = defensePoint;
+            this.currentMoveRange = moveRange;
         }
-    }*/
+        else
+        {
+            Debug.LogError("CharacterStats.JSON에 해당 캐릭터가 없습니다: " + unitName);
+        }
+    }
 
-    // 스킬은 각 캐릭터마다 다르므로 추상 메서드로 선언
-    public abstract void castSkill1();
-    public abstract void castSkill2();
+    public void move()
+    {
+        
+    }
+
+    public void castSkill(string skillName)
+    {
+        throw new NotImplementedException();
+    }
 }
