@@ -45,7 +45,7 @@ public class CharacterSelectionManager : MonoBehaviour
 
     // 오브젝트의 텍스트 관련 컴포넌트
     TextMeshProUGUI textMeshPro;
-    TMP_FontAsset maplestoryFont;
+    TMP_FontAsset hangeulFont;
 
     public List<string> selectedCharacters = new List<string>(); // 선택한 캐릭터 이름 List 
 
@@ -68,7 +68,7 @@ public class CharacterSelectionManager : MonoBehaviour
         
 
         // 유닛 기본 능력치 및 폰트 로드 (스파게티 코드... 수정 예정)
-        maplestoryFont = Resources.Load<TMP_FontAsset>("Fonts/Orbit-Regular SDF");
+        hangeulFont = Resources.Load<TMP_FontAsset>("Fonts/Orbit-Regular SDF");
 
         if (unitManager == null)
             print("null");
@@ -81,11 +81,11 @@ public class CharacterSelectionManager : MonoBehaviour
         skill2Text = GameObject.Find("Skill2Text");
         
         // 모든 텍스트에 한글 폰트 적용
-        statusText.GetComponent<TMP_Text>().font = maplestoryFont;
-        storyText.GetComponent<TMP_Text>().font = maplestoryFont;
-        passiveText.GetComponent<TMP_Text>().font = maplestoryFont;
-        skill1Text.GetComponent<TMP_Text>().font = maplestoryFont;
-        skill2Text.GetComponent<TMP_Text>().font = maplestoryFont;
+        statusText.GetComponent<TMP_Text>().font = hangeulFont;
+        storyText.GetComponent<TMP_Text>().font = hangeulFont;
+        passiveText.GetComponent<TMP_Text>().font = hangeulFont;
+        skill1Text.GetComponent<TMP_Text>().font = hangeulFont;
+        skill2Text.GetComponent<TMP_Text>().font = hangeulFont;
 
         // referenceBasicStats에 선택한 진영 캐릭터의 기본 능력치를 저장, keyList에 각 캐릭터 이름을 저장
         if (gameManager.player1Camp == Player1Camp.Guwol)
@@ -109,7 +109,7 @@ public class CharacterSelectionManager : MonoBehaviour
         {
             Transform childTransform = characterButton.transform.Find("Text (TMP)");    // 오브젝트 이름 변경하면 안됨 !
             textMeshPro = childTransform.GetComponent<TextMeshProUGUI>();
-            textMeshPro.font = maplestoryFont;
+            textMeshPro.font = hangeulFont;
             textMeshPro.text = keyList[n++];
 
             characterButton.onClick.AddListener(() => OnCharacterButtonClick(characterButton));
@@ -140,20 +140,20 @@ public class CharacterSelectionManager : MonoBehaviour
         Transform childTransform = clickedButton.transform.Find("Text (TMP)");
         string name = childTransform.GetComponent<TextMeshProUGUI>().text;
 
-        storyText.GetComponent<TMP_Text>().font = maplestoryFont;
+        storyText.GetComponent<TMP_Text>().font = hangeulFont;
         storyText.GetComponent<TMP_Text>().text = refereceBasicStats[name].characterDescription;
         // 스킬의 이름과 설명
-        skill1Text.GetComponent<TMP_Text>().font = maplestoryFont;
+        skill1Text.GetComponent<TMP_Text>().font = hangeulFont;
         skill1Text.GetComponent<TMP_Text>().text = refereceBasicStats[name].skillName1
             + "\n" + refereceBasicStats[name].skillDescription1;
-        skill2Text.GetComponent<TMP_Text>().font = maplestoryFont;
+        skill2Text.GetComponent<TMP_Text>().font = hangeulFont;
         skill2Text.GetComponent<TMP_Text>().text = refereceBasicStats[name].skillName2
             + "\n" + refereceBasicStats[name].skillDescription2;
-        passiveText.GetComponent<TMP_Text>().font = maplestoryFont;
+        passiveText.GetComponent<TMP_Text>().font = hangeulFont;
         passiveText.GetComponent<TMP_Text>().text = refereceBasicStats[name].passiveName
             + "\n" + refereceBasicStats[name].passiveDescription;
 
-        statusText.GetComponent<TMP_Text>().font = maplestoryFont;
+        statusText.GetComponent<TMP_Text>().font = hangeulFont;
         statusText.GetComponent<TMP_Text>().text =
             "HP " + refereceBasicStats[name].maxHealth.ToString()
             + "\nATK " + refereceBasicStats[name].attackPoint.ToString()
