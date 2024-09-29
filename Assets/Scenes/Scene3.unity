@@ -646,6 +646,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skill2
       objectReference: {fileID: 0}
+    - target: {fileID: 4052234732095229347, guid: 9fd09b137b8694986a71f6f4e0f2974f, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4052234732095229347, guid: 9fd09b137b8694986a71f6f4e0f2974f, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1100
+      objectReference: {fileID: 0}
     - target: {fileID: 5728623178673637092, guid: 9fd09b137b8694986a71f6f4e0f2974f, type: 3}
       propertyPath: m_Name
       value: Skill2Icon
