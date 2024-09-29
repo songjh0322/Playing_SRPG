@@ -9,6 +9,7 @@ using UnityEngine;
 public class BasicStats
 {
     public string unitName;
+    public string characterDescription;
     public string passiveName;
     public string passiveDescription;
     public string skillName1;
@@ -34,6 +35,7 @@ public class Unit : IUnit
 {
     // 변경되지 않는 능력치 (단순 문자열)
     public string unitName; // Key값으로 활용할 캐릭터명
+    public string characterDescription;
     public string passiveName;
     public string passiveDescription;
     public string skillName1;
@@ -63,6 +65,7 @@ public class Unit : IUnit
 
             // 변경되지 않는 능력치
             this.unitName = stats.unitName;
+            this.characterDescription = stats.characterDescription;
             this.passiveName = stats.passiveName;
             this.passiveDescription = stats.passiveDescription;
             this.skillName1 = stats.skillName1;

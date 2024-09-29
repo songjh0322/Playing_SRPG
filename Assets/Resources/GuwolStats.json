@@ -1,22 +1,8 @@
 {
   "units": [
     {
-      "unitName": "기본 형태1",
-      "characterDescription": "",
-      "maxHealth": 0,
-      "attackPoint": 0,
-      "defensePoint": 0,
-      "moveRange": 0,
-      "passiveName": "",
-      "passiveDescription": "",
-      "skillName1": "",
-      "skillDescription1": "",
-      "skillName2": "",
-      "skillDescription2": ""
-    },
-    {
       "unitName": "철봉",
-      "characterDescription": "철봉의 삶은 철봉으로 턱걸이하는 삶",
+      "characterDescription": "철봉의 삶은 철봉으로 풀업하는 삶",
       "maxHealth": 100,
       "attackPoint": 20,
       "defensePoint": 10,
@@ -30,7 +16,7 @@
     },
     {
       "unitName": "딱쇠",
-      "characterDescription": "딱쇠는 딱따구리",
+      "characterDescription": "딱쇠는 딱한 쇠끼..",
       "maxHealth": 400,
       "attackPoint": 30,
       "defensePoint": 80,

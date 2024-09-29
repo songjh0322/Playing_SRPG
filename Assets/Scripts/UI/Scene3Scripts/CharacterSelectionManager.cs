@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Xml;
 using UnityEngine.TextCore.Text;
+using System;
 
 public class CharacterSelectionManager : MonoBehaviour
 {
@@ -19,15 +20,20 @@ public class CharacterSelectionManager : MonoBehaviour
     public Button cancelButton; // 취소 버튼 
     public GameObject confirmationUI; // 6명 선택 시 표시할 UI
 
-    public Transform parentObject;
-    TextMeshProUGUI textMeshPro;
-    TMP_FontAsset maplestoryFont;
+    Dictionary<string, BasicStats> refereceBasicStats;  // Player1 진영 유닛의 BasicStats 딕셔너리
+    List<string> keyList;   // 캐릭터 이름을 순서대로 저장하는 List
 
-    GameObject statusText;
+    // 텍스트 관련 오브젝트
     GameObject storyText;
+    GameObject statusText;
     GameObject passiveText;
     GameObject skill1Text;
     GameObject skill2Text;
+
+    // 오브젝트의 텍스트 관련 컴포넌트
+    //public Transform parentObject;
+    TextMeshProUGUI textMeshPro;
+    TMP_FontAsset maplestoryFont;
 
     private List<string> selectedCharacters = new List<string>(); // 선택한 캐릭터 list 
 
@@ -41,32 +47,40 @@ public class CharacterSelectionManager : MonoBehaviour
 
     void Start()
     {
+        gameManager = GameManager.Instance;
+        unitManager = UnitManager.GetInstance();
+
+        // 유닛 기본 능력치 및 폰트 로드 (스파게티 코드... 수정 예정)
+        maplestoryFont = Resources.Load<TMP_FontAsset>("Fonts/Maplestory OTF Bold SDF");
+        unitManager.LoadBasicStatsFromJSON(); // JSON 데이터 로드
+
         statusText = GameObject.Find("StatusText");
         storyText = GameObject.Find("StoryText");
         passiveText = GameObject.Find("PassiveText");
         skill1Text = GameObject.Find("Skill1Text");
         skill2Text = GameObject.Find("Skill2Text");
 
-        gameManager = GameManager.Instance;
-        unitManager = UnitManager.GetInstance();
-
-        // 스파게티 코드... 추후 수정 예정
-        maplestoryFont = Resources.Load<TMP_FontAsset>("Fonts/Maplestory OTF Bold SDF");
-        unitManager.LoadBasicStatsFromJSON(); // JSON 데이터 로드
-
-        List<string> keyList;
+        // referenceBasicStats에 선택한 진영 캐릭터의 기본 능력치를 저장, keyList에 각 캐릭터 이름을 저장
         if (gameManager.player1Camp == Player1Camp.Guwol)
+        {
+            refereceBasicStats = unitManager.guwol_basicStatsData;
             keyList = new List<string>(unitManager.guwol_basicStatsData.Keys);
+        }
         else if (gameManager.player1Camp == Player1Camp.Seo)
+        {
+            refereceBasicStats = unitManager.seo_basicStatsData;
             keyList = new List<string>(unitManager.seo_basicStatsData.Keys);
+        }
         else
-            keyList = null; // 없는 경우
+        {
+            Debug.LogError("CharacterSelectionManager Error : 진영이 식별되지 않음");
+        }
         
         int n = 0;
         // 각 캐릭터 버튼에 캐릭터 이름 및 클릭 이벤트 추가
         foreach (Button characterButton in characterButtons)
         {
-            Transform childTransform = characterButton.transform.Find("Text (TMP)");    // 이름 변경하면 안됨 !
+            Transform childTransform = characterButton.transform.Find("Text (TMP)");    // 오브젝트 이름 변경하면 안됨 !
             textMeshPro = childTransform.GetComponent<TextMeshProUGUI>();
             textMeshPro.font = maplestoryFont;
             textMeshPro.text = keyList[n++];
@@ -92,19 +106,23 @@ public class CharacterSelectionManager : MonoBehaviour
 
         Transform childTransform = clickedButton.transform.Find("Text (TMP)");
         string name = childTransform.GetComponent<TextMeshProUGUI>().text;
-        if (gameManager.player1Camp == Player1Camp.Guwol)
-        {
-            skill1Text.GetComponent<TMP_Text>().font = maplestoryFont;
-            skill1Text.GetComponent<TMP_Text>().text = unitManager.guwol_basicStatsData[name].skillName1;
-            skill2Text.GetComponent<TMP_Text>().font = maplestoryFont;
-            skill2Text.GetComponent<TMP_Text>().text = unitManager.guwol_basicStatsData[name].skillName2;
 
-        }
-        else if (gameManager.player1Camp == Player1Camp.Seo)
-        {
-             
-        }
-
+        storyText.GetComponent<TMP_Text>().font = maplestoryFont;
+        storyText.GetComponent<TMP_Text>().text = refereceBasicStats[name].characterDescription;
+        // 스킬의 이름과 설명
+        skill1Text.GetComponent<TMP_Text>().font = maplestoryFont;
+        skill1Text.GetComponent<TMP_Text>().text = refereceBasicStats[name].skillName1
+            + "\n" + refereceBasicStats[name].skillDescription1;
+        skill2Text.GetComponent<TMP_Text>().font = maplestoryFont;
+        skill2Text.GetComponent<TMP_Text>().text = refereceBasicStats[name].skillName2
+            + "\n" + refereceBasicStats[name].skillDescription2;
+        
+        statusText.GetComponent<TMP_Text>().font = maplestoryFont;
+        statusText.GetComponent<TMP_Text>().text =
+            "HP " + refereceBasicStats[name].maxHealth.ToString()
+            + "\nATK " + refereceBasicStats[name].attackPoint.ToString()
+            + "\nDEF " + refereceBasicStats[name].defensePoint.ToString()
+            + "\nMOV " + refereceBasicStats[name].moveRange.ToString();
     }
 
     // 선택 버튼 클릭 시 실행되는 함수

@@ -1,20 +1,6 @@
 {
   "units": [
     {
-      "unitName": "기본 형태2",
-      "characterDescription": "",
-      "maxHealth": 0,
-      "attackPoint": 0,
-      "defensePoint": 0,
-      "moveRange": 0,
-      "passiveName": "",
-      "passiveDescription": "",
-      "skillName1": "",
-      "skillDescription1": "",
-      "skillName2": "",
-      "skillDescription2": ""
-    },
-    {
       "unitName": "서하윤",
       "characterDescription": "",
       "maxHealth": 0,
