@@ -16,22 +16,12 @@ public class MapManager
     private const int mapSize = 10; // ∏ ¿« ≈©±‚ (10x10)
 
     // ΩÃ±€≈Ê ¿ŒΩ∫≈œΩ∫ º≥¡§
-    private MapManager()
+    public MapManager()
     {
         if (Instance == null)
         {
             Instance = this;
         }
-    }
-
-    // ΩÃ±€≈Ê ¿ŒΩ∫≈œΩ∫∏¶ π›»Ø
-    public static MapManager GetInstance()
-    {
-        if (Instance == null)
-        {
-            Instance = new MapManager();
-        }
-        return Instance;
     }
 
     public void LoadPrefabs()

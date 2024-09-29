@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.FullSerializer;
 using UnityEditor;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ public class UnitStatsList
 public class UnitManager
 {
     public static UnitManager Instance { get; private set; }
+    GameManager gameManager = GameManager.Instance;
 
     public const int maxUnits = 6;      // 최대 유닛 선택 수
 
@@ -24,27 +26,23 @@ public class UnitManager
     public List<Unit> player2Units = new List<Unit>();      // Player2가 인게임에서 사용할 유닛 리스트 (참조)
 
     // 싱글톤 인스턴스 설정
-    private UnitManager()
+    public UnitManager()
     {
+        Debug.Log("UnitManager 생성 시도");
+
         if (Instance == null)
         {
             Instance = this;
+            Debug.Log("UnitManager가 없으므로 생성함");
         }
-    }
-
-    // 싱글톤 인스턴스를 반환
-    public static UnitManager GetInstance()
-    {
-        if (Instance == null)
-        {
-            Instance = new UnitManager();
-        }
-        return Instance;
+        else
+            Debug.Log("UnitManager가 이미 있음");
     }
 
     // JSON 데이터를 불러오는 메서드
     public void LoadBasicStatsFromJSON()
     {
+        Debug.Log("LoadBasicStatsFromJSON 진입");
         TextAsset jsonTextFile1 = Resources.Load<TextAsset>("GuwolStats");
         TextAsset jsonTextFile2 = Resources.Load<TextAsset>("SeoStats");
 
@@ -80,10 +78,12 @@ public class UnitManager
     // 현재 무조건 구월산 목단설로 가정되어 있음!
     public void ConfirmPlayer1Units(List<string> unitNames)
     {
-        for (int i = 0; i < unitNames.Count; i++)
-        {
-            player1Units.Add(new Unit(unitNames[i], guwol_basicStatsData));
-        }
+        if (gameManager.player1Camp == Player1Camp.Guwol)
+            for (int i = 0; i < unitNames.Count; i++)
+                player1Units.Add(new Unit(unitNames[i], guwol_basicStatsData));
+        else if (gameManager.player1Camp == Player1Camp.Seo)
+            for (int i = 0; i < unitNames.Count; i++)
+                player1Units.Add(new Unit(unitNames[i], seo_basicStatsData));
     }
 
     // 현재 미사용 함수

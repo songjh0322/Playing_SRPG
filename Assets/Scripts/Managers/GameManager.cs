@@ -8,13 +8,15 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    /*protected UIManager uiManager;
+    protected UIManager uiManager;
     protected TurnManager turnManager;
     protected UnitManager unitManager;
     protected MapManager mapManager;
-    protected DeployManager deployManager;*/
+    protected DeployManager deployManager;
 
-    public Player1Camp player1Camp; // 플레이어가 선택한 진영
+    public Player1Camp player1Camp;     // Player1이 선택한 진영
+    public Player1Camp player2Camp;     // Player2가 선택한 진영
+    
 
     private void Awake()
     {
@@ -29,21 +31,24 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        unitManager = new UnitManager();
+
         // 게임 프로그램이 실행되면 모든 매니저를 불러옴
-        /*uiManager = UIManager.GetInstance();
-        turnManager = TurnManager.GetInstance();
-        unitManager = UnitManager.GetInstance();
-        mapManager = MapManager.GetInstance();
-        deployManager = DeployManager.GetInstance();*/
+        uiManager = UIManager.Instance;
+        turnManager = TurnManager.Instance;
+        //unitManager = UnitManager.Instance;
+        mapManager = MapManager.Instance;
+        deployManager = DeployManager.Instance;
     }
 
     void Start()
     {
         // 필수 요소 (필요한 유닛 데이터, 프리팹 불러오기)
         //unitManager.LoadBasicStatsFromJSON();
-
-        player1Camp = Player1Camp.Guwol;    // 임시 할당
-
+        
+        // 임시 할당 (특정 씬에서 바로 테스트를 하기 위함)
+        player1Camp = Player1Camp.Guwol;    
+        player1Camp = Player1Camp.Seo;
 
         // !! 아래의 코드들은 일련의 호출 예시임 !!
 

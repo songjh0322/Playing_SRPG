@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // 유닛 배치를 관리하는 매니저
-public class DeployManager
+public class DeployManager : MonoBehaviour
 {
     public static DeployManager Instance { get; private set; }
+    UnitManager unitManager;
+    CharacterSelectionManager characterSelectionManager;
 
     // 싱글톤 인스턴스 설정
-    private DeployManager()
+    public DeployManager()
     {
         if (Instance == null)
         {
@@ -17,27 +19,14 @@ public class DeployManager
         }
     }
 
-    // 싱글톤 인스턴스를 반환
-    public static DeployManager GetInstance()
+    
+    private void Start()
     {
-        if (Instance == null)
-        {
-            Instance = new DeployManager();
-        }
-        return Instance;
+        unitManager = UnitManager.Instance;
+        characterSelectionManager = CharacterSelectionManager.Instance;
+
+        unitManager.ConfirmPlayer1Units(characterSelectionManager.selectedCharacters);
     }
 
-    // 사용 : 
-    // 기능 : 
-    public void StartDeploy()
-    {
-        
-    }
 
-    // 사용 : 
-    // 기능 : 
-    public void CompleteDeploy()
-    {
-
-    }
 }

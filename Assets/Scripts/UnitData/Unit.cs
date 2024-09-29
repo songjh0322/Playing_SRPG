@@ -91,7 +91,7 @@ public class Unit : IUnit
 
     public (int, int) GetPosition()
     {
-        MapManager mapManager = MapManager.GetInstance();
+        MapManager mapManager = MapManager.Instance;
 
         return (0, 0);
     }

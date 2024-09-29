@@ -9,8 +9,18 @@ using System;
 
 public class CharacterSelectionManager : MonoBehaviour
 {
+    public static CharacterSelectionManager Instance { get; private set; }
     GameManager gameManager;
     UnitManager unitManager;
+
+    // 싱글톤 인스턴스 설정
+    public CharacterSelectionManager()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
 
     public List<Button> characterButtons; // 캐릭터 버튼들 (8명)
     public TMP_Text characterName;        // 캐릭터 이름
@@ -31,11 +41,10 @@ public class CharacterSelectionManager : MonoBehaviour
     private GameObject skill2Text;
 
     // 오브젝트의 텍스트 관련 컴포넌트
-    //public Transform parentObject;
     TextMeshProUGUI textMeshPro;
     TMP_FontAsset maplestoryFont;
 
-    public List<string> selectedCharacters = new List<string>(); // 선택한 캐릭터 list 
+    public List<string> selectedCharacters = new List<string>(); // 선택한 캐릭터 이름 List 
 
     public List<string> SelectedCharacters
     {
@@ -47,11 +56,15 @@ public class CharacterSelectionManager : MonoBehaviour
 
     void Start()
     {
+        unitManager = UnitManager.Instance;
         gameManager = GameManager.Instance;
-        unitManager = UnitManager.GetInstance();
+        
 
         // 유닛 기본 능력치 및 폰트 로드 (스파게티 코드... 수정 예정)
         maplestoryFont = Resources.Load<TMP_FontAsset>("Fonts/Maplestory OTF Bold SDF");
+
+        if (unitManager == null)
+            print("null");
         unitManager.LoadBasicStatsFromJSON(); // JSON 데이터 로드
 
         statusText = GameObject.Find("StatusText");

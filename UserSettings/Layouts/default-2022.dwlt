@@ -74,7 +74,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 137
+  controlID: 123
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 86
+  controlID: 50
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -222,7 +222,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 136
+  controlID: 122
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -293,8 +293,8 @@ MonoBehaviour:
     y: 417.6
     width: 1244
     height: 601.2001
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 201, y: 221}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 18}
@@ -319,8 +319,8 @@ MonoBehaviour:
     y: 0
     width: 414.40002
     height: 499.2
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 19}
   m_Panes:
   - {fileID: 19}
@@ -345,8 +345,8 @@ MonoBehaviour:
     y: 0
     width: 389.59998
     height: 585.6
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 276, y: 71}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 20}
   m_Panes:
   - {fileID: 20}
@@ -431,7 +431,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/Scripts/UI/Scene3Scripts
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -439,16 +439,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/Scripts/UI/Scene3Scripts
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Unity Projects\Playing_SRPG
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 46680000
-    m_LastClickedID: 26694
-    m_ExpandedIDs: 000000001468000016680000186800001a6800001c6800001e68000020680000
+    m_SelectedIDs: f86b0000
+    m_LastClickedID: 27640
+    m_ExpandedIDs: 00000000a2670000a4670000a6670000a8670000aa670000ac670000ae670000d8670000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -476,7 +476,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000001468000016680000186800001a6800001c6800001e68000020680000
+    m_ExpandedIDs: 00000000a2670000a4670000a6670000a8670000aa670000ac670000ae670000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -901,9 +901,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -577.67053, y: 28.68957, z: 5549.779}
+    m_Target: {x: 0, y: 0, z: 1500}
     speed: 2
-    m_Value: {x: -577.67053, y: 28.68957, z: 5549.779}
+    m_Value: {x: 0, y: 0, z: 1500}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -953,9 +953,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 559.6944
+    m_Target: 1019.86444
     speed: 2
-    m_Value: 559.6944
+    m_Value: 1019.86444
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -1047,7 +1047,7 @@ MonoBehaviour:
     m_HSlider: 0
     m_VSlider: 0
     m_IgnoreScrollWheelUntilClicked: 0
-    m_EnableMouseInput: 0
+    m_EnableMouseInput: 1
     m_EnableSliderZoomHorizontal: 0
     m_EnableSliderZoomVertical: 0
     m_UniformScale: 1
@@ -1115,20 +1115,20 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: da57ffff
-      m_LastClickedID: -43046
-      m_ExpandedIDs: 0457ffff1857ffffc657ffffda57ffffdc57fffff65affff245cffff4665ffff5265ffff5a70ffff6e72ffff8272ffff9072ffffd076ffffbc7bffff0c7cffff707effff7e80ffff8c82ffff9a84ffffa886ffffb688ffffc48affffd28cffffe08effffee90fffffc92ffff0a95ffff1897ffff2699ffff349bffff889effffaca0ffff12a4ffffb8a8ffffbca8ffffc4a8ffffd8a8ffffdaa8ffffe8aafffff6acfffffaaeffffdeb4ffff02b7ffff10b9ffff1ebbffff32bdffff40bfffff4ec1ffff5cc3ffff6ac5ffff78c7ffff86c9ffff00cdffff10cdffff20cdffff30cdffff40cdffff50cdffff60cdffff70cdffff74cdffff7ccdffff90cdffff92cdffffe4d0fffff4d0ffff04d1ffff08d1ffff8ad1ffff9ad1ffffaad1ffffaed1ffffb6d1ffffcad1ffffd2d1ffffe8d3ffff3cd7ffffa0dbffff06dfffff0ae1ffff18e3ffffd4e8ffffa2ebffffb6ebffffc4ebffffb0f6ffff1afbffffd29d0000
+      m_SelectedIDs: 
+      m_LastClickedID: 0
+      m_ExpandedIDs: 9a9bffffaaa6ffff90abffff7aaefffff4bfffff5ac2ffffc2c3ffffc4c3ffff06ceffff02d9fffffeddffff7ae5ffffcae5ffff30f6ffff34f6ffff3cf6ffff50f6ffff5ef6ffffb6f6ffffeaf8ffff1afbfffff4ffffff426b0000f6750000de7600009e8100001c82000086820000f2840000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: CharacterChoiceButtons
-        m_OriginalName: CharacterChoiceButtons
+        m_Name: UI
+        m_OriginalName: UI
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: -12940
+        m_UserData: 33182
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
         m_OriginalEventType: 0
