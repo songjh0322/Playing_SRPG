@@ -19,7 +19,6 @@ public class DeployManager : MonoBehaviour
         }
     }
 
-    
     private void Start()
     {
         unitManager = UnitManager.Instance;

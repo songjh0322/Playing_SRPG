@@ -554,9 +554,27 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI_CharacterSelection
       objectReference: {fileID: 0}
+<<<<<<< HEAD
     - target: {fileID: 170251326283874973, guid: 9fd09b137b8694986a71f6f4e0f2974f, type: 3}
       propertyPath: m_Name
       value: Skill1
+=======
+    - target: {fileID: 725734761828658027, guid: 9fd09b137b8694986a71f6f4e0f2974f, type: 3}
+      propertyPath: m_text
+      value: "\uCCA0\uBD09\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 725734761828658027, guid: 9fd09b137b8694986a71f6f4e0f2974f, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 91144564ac1ed40e29e3201907ae930e, type: 2}
+    - target: {fileID: 725734761828658027, guid: 9fd09b137b8694986a71f6f4e0f2974f, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2013930603509035836, guid: 91144564ac1ed40e29e3201907ae930e, type: 2}
+    - target: {fileID: 725734761828658027, guid: 9fd09b137b8694986a71f6f4e0f2974f, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+>>>>>>> 06c1009 (add character)
       objectReference: {fileID: 0}
     - target: {fileID: 1942155551076694000, guid: 9fd09b137b8694986a71f6f4e0f2974f, type: 3}
       propertyPath: m_Pivot.x
