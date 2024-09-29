@@ -52,7 +52,11 @@ public class CharacterSelectionManager : MonoBehaviour
 
         set { selectedCharacters = value; }  // 리스트에 값을 설정하는 setter
     }
-    
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
 
     void Start()
     {
@@ -108,6 +112,11 @@ public class CharacterSelectionManager : MonoBehaviour
         // 초기화
         confirmationUI.SetActive(false);
         // UpdateSelectedCharactersText();
+    }
+
+    private void Update()
+    {
+        
     }
 
     // 캐릭터 버튼 클릭 시 실행되는 함수 (캐릭터 정보 출력)

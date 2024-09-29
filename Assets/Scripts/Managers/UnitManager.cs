@@ -89,6 +89,15 @@ public class UnitManager
     // 현재 미사용 함수
     public void ConfirmPlayer2Units()
     {
+        
+    }
+
+    // 사용 : [캐릭터 선택을 모두 마쳤습니다. 전투를 시작하시겠습니까?] -> [예] 버튼 클릭 시 호출
+    // 기능 : Player2가 사용할 유닛들을 랜덤으로 결정 (반대 진영에서 임의로 차출)
+    public void RandomizePlayer2Units()
+    {
+        player2Units.Clear();
+
         List<string> randomCharacterNames;
 
         if (gameManager.player1Camp == Player1Camp.Guwol)
@@ -120,22 +129,6 @@ public class UnitManager
                 Unit unit = new Unit(characterName, guwol_basicStatsData); // Unit 클래스 생성
                 player2Units.Add(unit);
             }
-        }
-    }
-
-    // 사용 : [캐릭터 선택을 모두 마쳤습니다. 전투를 시작하시겠습니까?] -> [예] 버튼 클릭 시 호출
-    // 기능 : Player2가 사용할 유닛들을 랜덤으로 결정 (반대 진영에서 임의로 차출)
-    public void RandomizePlayer2Units()
-    {
-        player2Units.Clear();
-
-        if (gameManager.player1Camp == Player1Camp.Guwol)
-        {
-            
-        }
-        else if (gameManager.player1Camp == Player1Camp.Seo)
-        {
-
         }
     }
 

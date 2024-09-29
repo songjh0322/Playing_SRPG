@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.UI.CanvasScaler;
 
 // 게임 매니저는 모든 매니저를 관리하는 매니저로, 유일하게 MonoBehaviour를 상속받는 매니저
 public class GameManager : MonoBehaviour
@@ -12,6 +13,7 @@ public class GameManager : MonoBehaviour
     protected TurnManager turnManager;
     protected UnitManager unitManager;
     protected MapManager mapManager;
+    protected CharacterSelectionManager characterSelectionManager;
     protected DeployManager deployManager;
 
     public Player1Camp player1Camp;     // Player1이 선택한 진영
@@ -38,13 +40,12 @@ public class GameManager : MonoBehaviour
         turnManager = TurnManager.Instance;
         //unitManager = UnitManager.Instance;
         mapManager = MapManager.Instance;
+        characterSelectionManager = CharacterSelectionManager.Instance;
         deployManager = DeployManager.Instance;
     }
 
     void Start()
     {
-
-        print("hello");
         // 필수 요소 (필요한 유닛 데이터, 프리팹 불러오기)
         //unitManager.LoadBasicStatsFromJSON();
         
@@ -65,26 +66,36 @@ public class GameManager : MonoBehaviour
         //deployManager.StartDeploy();
 
         // [배치 완료] 버튼 클릭 시
-
     }
 
+    // 디버깅용
     private void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            foreach (Unit unit in unitManager.player2Units)
+                Debug.Log($"{unit.unitName}");
+        }
+        else if (Input.GetKeyDown(KeyCode.Q))
+        {
+            //Debug.Log($"{unitManager.player1Units[0].unitName}");
+            foreach (Unit unit in unitManager.player1Units)
+                Debug.Log($"{unit.unitName}");
+        }
     }
 
-/*    // 타일 클릭 시 호출되는 메서드
-    public void OnTileClicked(Tile clickedTile)
-    {
-        // MapManager의 GetReachableTiles() 함수를 호출하여 맨해튼 거리 3 이내의 타일을 가져옴
-        List<Tile> reachableTiles = MapManager.Instance.GetReachableTiles(3, clickedTile);
-
-        // 가져온 타일들의 색상을 초록색으로 변경
-        foreach (Tile tile in reachableTiles)
+    /*    // 타일 클릭 시 호출되는 메서드
+        public void OnTileClicked(Tile clickedTile)
         {
-            tile.ChangeColor(Color.green);
-        }
-    }*/
+            // MapManager의 GetReachableTiles() 함수를 호출하여 맨해튼 거리 3 이내의 타일을 가져옴
+            List<Tile> reachableTiles = MapManager.Instance.GetReachableTiles(3, clickedTile);
+
+            // 가져온 타일들의 색상을 초록색으로 변경
+            foreach (Tile tile in reachableTiles)
+            {
+                tile.ChangeColor(Color.green);
+            }
+        }*/
 }
 
 public enum Player1Camp
