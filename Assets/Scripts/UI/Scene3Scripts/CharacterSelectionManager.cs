@@ -68,7 +68,7 @@ public class CharacterSelectionManager : MonoBehaviour
         
 
         // 유닛 기본 능력치 및 폰트 로드 (스파게티 코드... 수정 예정)
-        maplestoryFont = Resources.Load<TMP_FontAsset>("Fonts/Maplestory OTF Bold SDF");
+        maplestoryFont = Resources.Load<TMP_FontAsset>("Fonts/Orbit-Regular SDF");
 
         if (unitManager == null)
             print("null");
