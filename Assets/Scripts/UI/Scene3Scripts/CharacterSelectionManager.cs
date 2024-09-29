@@ -39,6 +39,9 @@ public class CharacterSelectionManager : MonoBehaviour
     private GameObject passiveText;
     private GameObject skill1Text;
     private GameObject skill2Text;
+    
+    //현재 선택된 버튼을 추적하기 위한 변수
+    private Button currentSelectedButton = null;
 
     // 오브젝트의 텍스트 관련 컴포넌트
     TextMeshProUGUI textMeshPro;
@@ -76,6 +79,13 @@ public class CharacterSelectionManager : MonoBehaviour
         passiveText = GameObject.Find("PassiveText");
         skill1Text = GameObject.Find("Skill1Text");
         skill2Text = GameObject.Find("Skill2Text");
+        
+        // 모든 텍스트에 한글 폰트 적용
+        statusText.GetComponent<TMP_Text>().font = maplestoryFont;
+        storyText.GetComponent<TMP_Text>().font = maplestoryFont;
+        passiveText.GetComponent<TMP_Text>().font = maplestoryFont;
+        skill1Text.GetComponent<TMP_Text>().font = maplestoryFont;
+        skill2Text.GetComponent<TMP_Text>().font = maplestoryFont;
 
         // referenceBasicStats에 선택한 진영 캐릭터의 기본 능력치를 저장, keyList에 각 캐릭터 이름을 저장
         if (gameManager.player1Camp == Player1Camp.Guwol)
@@ -122,6 +132,7 @@ public class CharacterSelectionManager : MonoBehaviour
     // 캐릭터 버튼 클릭 시 실행되는 함수 (캐릭터 정보 출력)
     void OnCharacterButtonClick(Button clickedButton)
     {
+        currentSelectedButton = clickedButton;
         string currentCharacterName = clickedButton.GetComponentInChildren<TMP_Text>().text;
         characterName.text = currentCharacterName;
         // Load selected character's status, skills, chracterImage
@@ -159,6 +170,20 @@ public class CharacterSelectionManager : MonoBehaviour
         {
             selectedCharacters.Add(currentCharacterName);
                 // Change the selected character's button UI
+             // 선택한 버튼의 색상을 변경
+            if (currentSelectedButton != null)
+            {
+                ColorBlock colors = currentSelectedButton.colors;
+                Color selectedColor = new Color(183f / 255f, 163f / 255f, 163f / 255f);
+
+                colors.normalColor = selectedColor;
+                colors.highlightedColor = selectedColor;
+                colors.pressedColor = selectedColor;
+                colors.selectedColor = selectedColor;
+                colors.disabledColor = selectedColor;
+                
+                currentSelectedButton.colors = colors;
+            }
             Debug.Log($"{currentCharacterName} is selected.");
         }
         else
@@ -179,7 +204,20 @@ public class CharacterSelectionManager : MonoBehaviour
     // 해제 버튼 클릭 시 실행되는 함수
     void OnDeselectButtonClick()
     {
-        selectedCharacters.Remove(characterName.text);
+        //selectedCharacters.Remove(characterName.text);
+        string currentCharacterName = characterName.text;
+        if (selectedCharacters.Contains(currentCharacterName))
+        {
+            selectedCharacters.Remove(currentCharacterName);
+
+            // 선택 해제 시 버튼 색상을 원래대로 변경
+            if (currentSelectedButton != null)
+            {
+                ColorBlock colors = currentSelectedButton.colors;
+                colors.normalColor = Color.white;  // 원래 색상으로 변경
+                currentSelectedButton.colors = colors;
+            }
+        }
     }
    
     void OnCancelButtonClick()
