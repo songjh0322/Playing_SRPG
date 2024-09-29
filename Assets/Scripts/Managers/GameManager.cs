@@ -8,11 +8,11 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    protected UIManager uiManager;
+    /*protected UIManager uiManager;
     protected TurnManager turnManager;
     protected UnitManager unitManager;
     protected MapManager mapManager;
-    protected DeployManager deployManager;
+    protected DeployManager deployManager;*/
 
     public Player1Camp player1Camp; // 플레이어가 선택한 진영
 
@@ -30,11 +30,11 @@ public class GameManager : MonoBehaviour
         }
 
         // 게임 프로그램이 실행되면 모든 매니저를 불러옴
-        uiManager = UIManager.GetInstance();
+        /*uiManager = UIManager.GetInstance();
         turnManager = TurnManager.GetInstance();
         unitManager = UnitManager.GetInstance();
         mapManager = MapManager.GetInstance();
-        deployManager = DeployManager.GetInstance();
+        deployManager = DeployManager.GetInstance();*/
     }
 
     void Start()

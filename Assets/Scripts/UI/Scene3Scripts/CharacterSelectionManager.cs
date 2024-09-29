@@ -20,22 +20,22 @@ public class CharacterSelectionManager : MonoBehaviour
     public Button cancelButton; // 취소 버튼 
     public GameObject confirmationUI; // 6명 선택 시 표시할 UI
 
-    Dictionary<string, BasicStats> refereceBasicStats;  // Player1 진영 유닛의 BasicStats 딕셔너리
-    List<string> keyList;   // 캐릭터 이름을 순서대로 저장하는 List
+    private Dictionary<string, BasicStats> refereceBasicStats;  // Player1 진영 유닛의 BasicStats 딕셔너리
+    private List<string> keyList;   // 캐릭터 이름을 순서대로 저장하는 List
 
     // 텍스트 관련 오브젝트
-    GameObject storyText;
-    GameObject statusText;
-    GameObject passiveText;
-    GameObject skill1Text;
-    GameObject skill2Text;
+    private GameObject storyText;
+    private GameObject statusText;
+    private GameObject passiveText;
+    private GameObject skill1Text;
+    private GameObject skill2Text;
 
     // 오브젝트의 텍스트 관련 컴포넌트
     //public Transform parentObject;
     TextMeshProUGUI textMeshPro;
     TMP_FontAsset maplestoryFont;
 
-    private List<string> selectedCharacters = new List<string>(); // 선택한 캐릭터 list 
+    public List<string> selectedCharacters = new List<string>(); // 선택한 캐릭터 list 
 
     public List<string> SelectedCharacters
     {
@@ -75,7 +75,7 @@ public class CharacterSelectionManager : MonoBehaviour
         {
             Debug.LogError("CharacterSelectionManager Error : 진영이 식별되지 않음");
         }
-        
+
         int n = 0;
         // 각 캐릭터 버튼에 캐릭터 이름 및 클릭 이벤트 추가
         foreach (Button characterButton in characterButtons)
