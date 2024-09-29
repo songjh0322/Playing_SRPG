@@ -558,6 +558,36 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skill1
       objectReference: {fileID: 0}
+    - target: {fileID: 280415144677412252, guid: 9fd09b137b8694986a71f6f4e0f2974f, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 280415144677412252, guid: 9fd09b137b8694986a71f6f4e0f2974f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8049ea91a9d5fca4dab4024c0915dbe6, type: 3}
+    - target: {fileID: 280415144677412252, guid: 9fd09b137b8694986a71f6f4e0f2974f, type: 3}
+      propertyPath: m_Color.a
+      value: 0.78431374
+      objectReference: {fileID: 0}
+    - target: {fileID: 280415144677412252, guid: 9fd09b137b8694986a71f6f4e0f2974f, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 280415144677412252, guid: 9fd09b137b8694986a71f6f4e0f2974f, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 280415144677412252, guid: 9fd09b137b8694986a71f6f4e0f2974f, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 725734761828658027, guid: 9fd09b137b8694986a71f6f4e0f2974f, type: 3}
+      propertyPath: m_text
+      value: 'Character Name1
+
+'
+      objectReference: {fileID: 0}
     - target: {fileID: 1942155551076694000, guid: 9fd09b137b8694986a71f6f4e0f2974f, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -646,6 +676,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skill2
       objectReference: {fileID: 0}
+    - target: {fileID: 3280648344147526696, guid: 9fd09b137b8694986a71f6f4e0f2974f, type: 3}
+      propertyPath: m_text
+      value: Character's Story
+      objectReference: {fileID: 0}
+    - target: {fileID: 4898471024967508380, guid: 9fd09b137b8694986a71f6f4e0f2974f, type: 3}
+      propertyPath: m_Animation
+      value: 
+      objectReference: {fileID: 7400000, guid: d7d213596e6e44e53bee73596a95f923, type: 2}
+    - target: {fileID: 4898471024967508380, guid: 9fd09b137b8694986a71f6f4e0f2974f, type: 3}
+      propertyPath: m_Animations.Array.data[0]
+      value: 
+      objectReference: {fileID: 7400000, guid: d7d213596e6e44e53bee73596a95f923, type: 2}
     - target: {fileID: 5728623178673637092, guid: 9fd09b137b8694986a71f6f4e0f2974f, type: 3}
       propertyPath: m_Name
       value: Skill2Icon
@@ -666,6 +708,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skill1Text
       objectReference: {fileID: 0}
+    - target: {fileID: 7139603913088379756, guid: 9fd09b137b8694986a71f6f4e0f2974f, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7139603913088379756, guid: 9fd09b137b8694986a71f6f4e0f2974f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7312a6912021bbb4a9dc2fa3d6b2da22, type: 3}
     - target: {fileID: 7534576366757734028, guid: 9fd09b137b8694986a71f6f4e0f2974f, type: 3}
       propertyPath: m_Name
       value: Skill1Icon
@@ -674,6 +724,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PassiveText
       objectReference: {fileID: 0}
+    - target: {fileID: 8970225287740926687, guid: 9fd09b137b8694986a71f6f4e0f2974f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9d50f511bafcc48e0b6cbb5e9e75ac7d, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
