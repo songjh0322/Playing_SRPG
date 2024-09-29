@@ -97,7 +97,7 @@ public class CharacterSelectionManager : MonoBehaviour
         // UpdateSelectedCharactersText();
     }
 
-    // 캐릭터 버튼 클릭 시 실행되는 함수
+    // 캐릭터 버튼 클릭 시 실행되는 함수 (캐릭터 정보 출력)
     void OnCharacterButtonClick(Button clickedButton)
     {
         string currentCharacterName = clickedButton.GetComponentInChildren<TMP_Text>().text;
@@ -116,7 +116,10 @@ public class CharacterSelectionManager : MonoBehaviour
         skill2Text.GetComponent<TMP_Text>().font = maplestoryFont;
         skill2Text.GetComponent<TMP_Text>().text = refereceBasicStats[name].skillName2
             + "\n" + refereceBasicStats[name].skillDescription2;
-        
+        passiveText.GetComponent<TMP_Text>().font = maplestoryFont;
+        passiveText.GetComponent<TMP_Text>().text = refereceBasicStats[name].passiveName
+            + "\n" + refereceBasicStats[name].passiveDescription;
+
         statusText.GetComponent<TMP_Text>().font = maplestoryFont;
         statusText.GetComponent<TMP_Text>().text =
             "HP " + refereceBasicStats[name].maxHealth.ToString()
