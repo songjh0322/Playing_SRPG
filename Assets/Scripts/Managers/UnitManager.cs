@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting.FullSerializer;
 using UnityEditor;
 using UnityEngine;
@@ -19,8 +20,8 @@ public class UnitManager
 
     public const int maxUnits = 6;      // 최대 유닛 선택 수
 
-    public Dictionary<string, BasicStats> guwol_basicStatsData;  // 구월산 목단설 기본 능력치 딕셔너리
-    public Dictionary<string, BasicStats> seo_basicStatsData;    // 서씨 가문 기본 능력치 딕셔너리
+    public Dictionary<string, BasicStats> guwol_basicStatsData;  // [구월산 목단설] 기본 능력치 딕셔너리
+    public Dictionary<string, BasicStats> seo_basicStatsData;    // [서씨 가문] 기본 능력치 딕셔너리
 
     public List<Unit> player1Units = new List<Unit>();      // Player1이 인게임에서 사용할 유닛 리스트 (참조)
     public List<Unit> player2Units = new List<Unit>();      // Player2가 인게임에서 사용할 유닛 리스트 (참조)
@@ -39,7 +40,7 @@ public class UnitManager
             Debug.Log("UnitManager가 이미 있음");
     }
 
-    // JSON 데이터를 불러오는 메서드
+    // JSON 데이터를 불러오고 딕셔너리에 저장하는 메서드
     public void LoadBasicStatsFromJSON()
     {
         Debug.Log("LoadBasicStatsFromJSON 진입");
@@ -75,7 +76,6 @@ public class UnitManager
     // 사용 : [캐릭터 선택을 모두 마쳤습니다. 전투를 시작하시겠습니까?] -> [예] 버튼 클릭 시 호출
     // 파라미터 : UI에서 선택한 유닛들의 이름을 담은 List
     // 기능 : Player1이 사용할 유닛들을 최종 결정
-    // 현재 무조건 구월산 목단설로 가정되어 있음!
     public void ConfirmPlayer1Units(List<string> unitNames)
     {
         if (gameManager.player1Camp == Player1Camp.Guwol)
@@ -89,14 +89,56 @@ public class UnitManager
     // 현재 미사용 함수
     public void ConfirmPlayer2Units()
     {
-        
+        List<string> randomCharacterNames;
+
+        if (gameManager.player1Camp == Player1Camp.Guwol)
+        {
+            // 딕셔너리에서 랜덤으로 6개의 유닛 이름을 가져옴
+            randomCharacterNames = seo_basicStatsData.Keys
+                .OrderBy(x => UnityEngine.Random.Range(0, seo_basicStatsData.Count))
+                .Take(6)
+                .ToList();
+
+            // 가져온 이름으로 유닛을 생성하여 player2Units 리스트에 추가
+            foreach (string characterName in randomCharacterNames)
+            {
+                Unit unit = new Unit(characterName, seo_basicStatsData); // Unit 클래스 생성
+                player2Units.Add(unit);
+            }
+        }
+        else if (gameManager.player1Camp == Player1Camp.Seo)
+        {
+            // 딕셔너리에서 랜덤으로 6개의 유닛 이름을 가져옴
+            randomCharacterNames = guwol_basicStatsData.Keys
+                .OrderBy(x => UnityEngine.Random.Range(0, seo_basicStatsData.Count))
+                .Take(6)
+                .ToList();
+
+            // 가져온 이름으로 유닛을 생성하여 player2Units 리스트에 추가
+            foreach (string characterName in randomCharacterNames)
+            {
+                Unit unit = new Unit(characterName, guwol_basicStatsData); // Unit 클래스 생성
+                player2Units.Add(unit);
+            }
+        }
     }
 
     // 사용 : [캐릭터 선택을 모두 마쳤습니다. 전투를 시작하시겠습니까?] -> [예] 버튼 클릭 시 호출
     // 기능 : Player2가 사용할 유닛들을 랜덤으로 결정 (반대 진영에서 임의로 차출)
     public void RandomizePlayer2Units()
     {
+        player2Units.Clear();
 
+        if (gameManager.player1Camp == Player1Camp.Guwol)
+        {
+            
+        }
+        else if (gameManager.player1Camp == Player1Camp.Seo)
+        {
+
+        }
     }
+
+
 }
 

@@ -24,7 +24,9 @@ public class DeployManager : MonoBehaviour
         unitManager = UnitManager.Instance;
         characterSelectionManager = CharacterSelectionManager.Instance;
 
+        // 플레이어 선택한 유닛들을 사용
         unitManager.ConfirmPlayer1Units(characterSelectionManager.selectedCharacters);
+        unitManager.RandomizePlayer2Units();
     }
 
 
