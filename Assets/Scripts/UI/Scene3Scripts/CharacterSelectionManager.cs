@@ -6,19 +6,23 @@ using TMPro;
 using System.Xml;
 using UnityEngine.TextCore.Text;
 using System;
+using System.Linq;
 
 public class CharacterSelectionManager : MonoBehaviour
 {
     public static CharacterSelectionManager Instance { get; private set; }
-    GameManager gameManager;
-    UnitManager unitManager;
 
     // 싱글톤 인스턴스 설정
-    public CharacterSelectionManager()
+    private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 
@@ -29,9 +33,6 @@ public class CharacterSelectionManager : MonoBehaviour
     public Button deselectButton; // 선택 해제 버튼 
     public Button cancelButton; // 취소 버튼 
     public GameObject confirmationUI; // 6명 선택 시 표시할 UI
-
-    private Dictionary<string, BasicStats> refereceBasicStats;  // Player1 진영 유닛의 BasicStats 딕셔너리
-    private List<string> keyList;   // 캐릭터 이름을 순서대로 저장하는 List
 
     // 텍스트 관련 오브젝트
     private GameObject storyText;
@@ -49,30 +50,10 @@ public class CharacterSelectionManager : MonoBehaviour
 
     public List<string> selectedCharacters = new List<string>(); // 선택한 캐릭터 이름 List 
 
-    public List<string> SelectedCharacters
-    {
-        get { return selectedCharacters; }  // 리스트를 반환하는 getter
-
-        set { selectedCharacters = value; }  // 리스트에 값을 설정하는 setter
-    }
-
-    private void Awake()
-    {
-        DontDestroyOnLoad(this.gameObject);
-    }
-
     void Start()
     {
-        unitManager = UnitManager.Instance;
-        gameManager = GameManager.Instance;
-        
-
-        // 유닛 기본 능력치 및 폰트 로드 (스파게티 코드... 수정 예정)
+        // 폰트 로드
         hangeulFont = Resources.Load<TMP_FontAsset>("Fonts/Orbit-Regular SDF");
-
-        if (unitManager == null)
-            print("null");
-        unitManager.LoadBasicStatsFromJSON(); // JSON 데이터 로드
 
         statusText = GameObject.Find("StatusText");
         storyText = GameObject.Find("StoryText");
@@ -87,22 +68,6 @@ public class CharacterSelectionManager : MonoBehaviour
         skill1Text.GetComponent<TMP_Text>().font = hangeulFont;
         skill2Text.GetComponent<TMP_Text>().font = hangeulFont;
 
-        // referenceBasicStats에 선택한 진영 캐릭터의 기본 능력치를 저장, keyList에 각 캐릭터 이름을 저장
-        if (gameManager.player1Camp == Player1Camp.Guwol)
-        {
-            refereceBasicStats = unitManager.guwol_basicStatsData;
-            keyList = new List<string>(unitManager.guwol_basicStatsData.Keys);
-        }
-        else if (gameManager.player1Camp == Player1Camp.Seo)
-        {
-            refereceBasicStats = unitManager.seo_basicStatsData;
-            keyList = new List<string>(unitManager.seo_basicStatsData.Keys);
-        }
-        else
-        {
-            Debug.LogError("CharacterSelectionManager Error : 진영이 식별되지 않음");
-        }
-
         int n = 0;
         // 각 캐릭터 버튼에 캐릭터 이름 및 클릭 이벤트 추가
         foreach (Button characterButton in characterButtons)
@@ -110,7 +75,7 @@ public class CharacterSelectionManager : MonoBehaviour
             Transform childTransform = characterButton.transform.Find("Text (TMP)");    // 오브젝트 이름 변경하면 안됨 !
             textMeshPro = childTransform.GetComponent<TextMeshProUGUI>();
             textMeshPro.font = hangeulFont;
-            textMeshPro.text = keyList[n++];
+            textMeshPro.text = UnitManager.Instance.basicStatsList[n++].unitName;
 
             characterButton.onClick.AddListener(() => OnCharacterButtonClick(characterButton));
         }
@@ -126,7 +91,10 @@ public class CharacterSelectionManager : MonoBehaviour
 
     private void Update()
     {
-        
+        /*if (Input.GetKeyDown(KeyCode.E))
+        {
+            Debug.Log(selectedCharacters[0]);
+        }*/
     }
 
     // 캐릭터 버튼 클릭 시 실행되는 함수 (캐릭터 정보 출력)
@@ -140,25 +108,27 @@ public class CharacterSelectionManager : MonoBehaviour
         Transform childTransform = clickedButton.transform.Find("Text (TMP)");
         string name = childTransform.GetComponent<TextMeshProUGUI>().text;
 
+        BasicStats selectedStats = UnitManager.Instance.basicStatsList.FirstOrDefault(stats => stats.unitName == name);
+
         storyText.GetComponent<TMP_Text>().font = hangeulFont;
-        storyText.GetComponent<TMP_Text>().text = refereceBasicStats[name].characterDescription;
+        storyText.GetComponent<TMP_Text>().text = selectedStats.characterDescription;
         // 스킬의 이름과 설명
         skill1Text.GetComponent<TMP_Text>().font = hangeulFont;
-        skill1Text.GetComponent<TMP_Text>().text = refereceBasicStats[name].skillName1
-            + "\n" + refereceBasicStats[name].skillDescription1;
+        skill1Text.GetComponent<TMP_Text>().text = selectedStats.skillName1
+            + "\n" + selectedStats.skillDescription1;
         skill2Text.GetComponent<TMP_Text>().font = hangeulFont;
-        skill2Text.GetComponent<TMP_Text>().text = refereceBasicStats[name].skillName2
-            + "\n" + refereceBasicStats[name].skillDescription2;
+        skill2Text.GetComponent<TMP_Text>().text = selectedStats.skillName2
+            + "\n" + selectedStats.skillDescription2;
         passiveText.GetComponent<TMP_Text>().font = hangeulFont;
-        passiveText.GetComponent<TMP_Text>().text = refereceBasicStats[name].passiveName
-            + "\n" + refereceBasicStats[name].passiveDescription;
+        passiveText.GetComponent<TMP_Text>().text = selectedStats.passiveName
+            + "\n" + selectedStats.passiveDescription;
 
         statusText.GetComponent<TMP_Text>().font = hangeulFont;
         statusText.GetComponent<TMP_Text>().text =
-            "HP " + refereceBasicStats[name].maxHealth.ToString()
-            + "\nATK " + refereceBasicStats[name].attackPoint.ToString()
-            + "\nDEF " + refereceBasicStats[name].defensePoint.ToString()
-            + "\nMOV " + refereceBasicStats[name].moveRange.ToString();
+            "HP " + selectedStats.maxHealth.ToString()
+            + "\nATK " + selectedStats.attackPoint.ToString()
+            + "\nDEF " + selectedStats.defensePoint.ToString()
+            + "\nMOV " + selectedStats.moveRange.ToString();
     }
 
     // 선택 버튼 클릭 시 실행되는 함수
