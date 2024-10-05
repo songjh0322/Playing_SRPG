@@ -2518,7 +2518,7 @@ GameObject:
   - component: {fileID: 377545576}
   - component: {fileID: 377545575}
   m_Layer: 5
-  m_Name: Massege
+  m_Name: Message
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

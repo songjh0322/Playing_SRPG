@@ -19,15 +19,12 @@ public class UnitManager : MonoBehaviour
 
     private void Awake()
     {
-        // 이미 UnitManager가 존재하는지 확인
         if (Instance != null && Instance != this)
         {
-            // 이미 UnitManager가 존재하는 경우
             Destroy(gameObject);
         }
         else
         {
-            // UnitManager가 존재하지 않는 경우 인스턴스화
             Instance = this;
             DontDestroyOnLoad(gameObject);
 
@@ -123,6 +120,8 @@ public class UnitManager : MonoBehaviour
     public void RandomizePlayer2Units()
     {
         player2Units.Clear();
+
+        if (GameManager.Instance.playerFaction == PlayerFaction.Guwol)
     }
 
 

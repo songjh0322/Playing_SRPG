@@ -13,7 +13,6 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        // ΩÃ±€≈Ê ¿ŒΩ∫≈œΩ∫ º≥¡§
         if (Instance == null)
         {
             Instance = this;
