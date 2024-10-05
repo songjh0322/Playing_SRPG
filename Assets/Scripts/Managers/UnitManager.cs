@@ -121,7 +121,7 @@ public class UnitManager : MonoBehaviour
     {
         player2Units.Clear();
 
-        if (GameManager.Instance.playerFaction == PlayerFaction.Guwol)
+        //if (GameManager.Instance.playerFaction == PlayerFaction.Guwol)
     }
 
 
