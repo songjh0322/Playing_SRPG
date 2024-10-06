@@ -1,89 +1,112 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Unity.VisualScripting.FullSerializer;
 using UnityEditor;
 using UnityEngine;
 
-// JSON 파일에서 유닛 목록을 불러오기 위한 클래스 (이곳에서만 사용)
-[Serializable]
-public class UnitStatsList
+// JSON 파일에서 기본 능력치들을 불러오기 위한 클래스 (이곳에서만 사용)
+public class UnitDataWrapper
 {
-    public BasicStats[] units;  // BasicStats 배열
+    public List<BasicStats> statsWrapper;
 }
 
-public class UnitManager
+public class UnitManager : MonoBehaviour
 {
     public static UnitManager Instance { get; private set; }
-    GameManager gameManager = GameManager.Instance;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+
+            basicStatsList = new List<BasicStats>();
+            unitsList = new List<Unit>();
+            player1Units = new List<Unit>();
+            player2Units = new List<Unit>();
+        }
+    }
 
     public const int maxUnits = 6;      // 최대 유닛 선택 수
 
-    public Dictionary<string, BasicStats> guwol_basicStatsData;  // [구월산 목단설] 기본 능력치 딕셔너리
-    public Dictionary<string, BasicStats> seo_basicStatsData;    // [서씨 가문] 기본 능력치 딕셔너리
+    public List<BasicStats> basicStatsList;     // 모든 기본 능력치를 저장할 List (원본)
+    public List<Unit> unitsList;    // 모든 유닛을 저장할 List (원본)
 
-    public List<Unit> player1Units = new List<Unit>();      // Player1이 인게임에서 사용할 유닛 리스트 (참조)
-    public List<Unit> player2Units = new List<Unit>();      // Player2가 인게임에서 사용할 유닛 리스트 (참조)
+    public List<Unit> player1Units;      // Player1이 인게임에서 사용할 유닛 리스트 (참조)
+    public List<Unit> player2Units;      // Player2가 인게임에서 사용할 유닛 리스트 (참조)
 
-    // 싱글톤 인스턴스 설정
-    public UnitManager()
+    private void Start()
     {
-        Debug.Log("UnitManager 생성 시도");
-
-        if (Instance == null)
-        {
-            Instance = this;
-            Debug.Log("UnitManager가 없으므로 생성함");
-        }
-        else
-            Debug.Log("UnitManager가 이미 있음");
+        
     }
 
-    // JSON 데이터를 불러오고 딕셔너리에 저장하는 메서드
+    // 기능 : JSON 파일로부터 데이터를 basicStatsList에 저장
+    // 주의 : 게임 실행 시 최초 1회만 호출
     public void LoadBasicStatsFromJSON()
     {
-        Debug.Log("LoadBasicStatsFromJSON 진입");
-        TextAsset jsonTextFile1 = Resources.Load<TextAsset>("GuwolStats");
-        TextAsset jsonTextFile2 = Resources.Load<TextAsset>("SeoStats");
+        // JSON 파일 경로
+        string jsonFilePath = Path.Combine(Application.dataPath, "Resources/BasicStats.json");
 
-        if (jsonTextFile1 != null && jsonTextFile2 != null)
+        // JSON 파일을 읽기
+        if (File.Exists(jsonFilePath))
         {
-            UnitStatsList statsList1 = JsonUtility.FromJson<UnitStatsList>(jsonTextFile1.text);
-            UnitStatsList statsList2 = JsonUtility.FromJson<UnitStatsList>(jsonTextFile2.text);
+            string jsonData = File.ReadAllText(jsonFilePath);
 
-            guwol_basicStatsData = new Dictionary<string, BasicStats>();
-            seo_basicStatsData = new Dictionary<string, BasicStats>();
+            // JSON 데이터를 UnitDataWrapper로 변환
+            UnitDataWrapper unitDataWrapper = JsonUtility.FromJson<UnitDataWrapper>(jsonData);
 
-            // JSON 데이터를 딕셔너리로 변환하여 저장
-            foreach (BasicStats stats in statsList1.units)
-            {
-                guwol_basicStatsData[stats.unitName] = stats;
-            }
-            foreach (BasicStats stats in statsList2.units)
-            {
-                seo_basicStatsData[stats.unitName] = stats;
-            }
-
-            Debug.Log("성공적으로 JSON 파일을 로드했습니다.");
+            // 변환된 데이터를 List에 할당
+            basicStatsList = unitDataWrapper.statsWrapper;
         }
         else
         {
-            Debug.LogError("CharacterStats.json 파일을 찾을 수 없습니다.");
+            Debug.LogError("BasicStats.json 파일을 찾을 수 없습니다.");
+        }
+    }
+
+    // 기능 : basicStatsList로부터 Unit 객체를 모두 생성하고 unitsList에 저장
+    // 주의 : 게임 실행 시 최초 1회만 호출
+    public void LoadAllUnits()
+    {
+        if (basicStatsList == null)
+            Debug.LogError("basicStatsList가 초기화되지 않았습니다.");
+        else
+        {
+            foreach (BasicStats basicStats in basicStatsList)
+                unitsList.Add(new Unit(basicStats));
         }
     }
 
     // 사용 : [캐릭터 선택을 모두 마쳤습니다. 전투를 시작하시겠습니까?] -> [예] 버튼 클릭 시 호출
     // 파라미터 : UI에서 선택한 유닛들의 이름을 담은 List
-    // 기능 : Player1이 사용할 유닛들을 최종 결정
+    // 기능 : Player1이 사용할 유닛들을 캐릭터 이름을 통해 최종 결정
     public void ConfirmPlayer1Units(List<string> unitNames)
     {
-        if (gameManager.player1Camp == Player1Camp.Guwol)
-            for (int i = 0; i < unitNames.Count; i++)
-                player1Units.Add(new Unit(unitNames[i], guwol_basicStatsData));
-        else if (gameManager.player1Camp == Player1Camp.Seo)
-            for (int i = 0; i < unitNames.Count; i++)
-                player1Units.Add(new Unit(unitNames[i], seo_basicStatsData));
+        player1Units.Clear();
+
+        if (unitNames == null)
+            Debug.LogError("ConfirmPlayer1Units의 파라미터가 null입니다.");
+        else
+        {
+            foreach (string unitName in unitNames)
+            {
+                Unit foundUnit = unitsList.Find(unit => unit.basicStats.unitName == unitName);
+
+                if (foundUnit != null)
+                {
+                    Unit newUnit = new Unit(foundUnit);     // 참조가 아닌 복사
+                    player1Units.Add(newUnit);
+                }
+            }
+        }
     }
 
     // 현재 미사용 함수
@@ -98,38 +121,7 @@ public class UnitManager
     {
         player2Units.Clear();
 
-        List<string> randomCharacterNames;
-
-        if (gameManager.player1Camp == Player1Camp.Guwol)
-        {
-            // 딕셔너리에서 랜덤으로 6개의 유닛 이름을 가져옴
-            randomCharacterNames = seo_basicStatsData.Keys
-                .OrderBy(x => UnityEngine.Random.Range(0, seo_basicStatsData.Count))
-                .Take(6)
-                .ToList();
-
-            // 가져온 이름으로 유닛을 생성하여 player2Units 리스트에 추가
-            foreach (string characterName in randomCharacterNames)
-            {
-                Unit unit = new Unit(characterName, seo_basicStatsData); // Unit 클래스 생성
-                player2Units.Add(unit);
-            }
-        }
-        else if (gameManager.player1Camp == Player1Camp.Seo)
-        {
-            // 딕셔너리에서 랜덤으로 6개의 유닛 이름을 가져옴
-            randomCharacterNames = guwol_basicStatsData.Keys
-                .OrderBy(x => UnityEngine.Random.Range(0, seo_basicStatsData.Count))
-                .Take(6)
-                .ToList();
-
-            // 가져온 이름으로 유닛을 생성하여 player2Units 리스트에 추가
-            foreach (string characterName in randomCharacterNames)
-            {
-                Unit unit = new Unit(characterName, guwol_basicStatsData); // Unit 클래스 생성
-                player2Units.Add(unit);
-            }
-        }
+        //if (GameManager.Instance.playerFaction == PlayerFaction.Guwol)
     }
 
 
