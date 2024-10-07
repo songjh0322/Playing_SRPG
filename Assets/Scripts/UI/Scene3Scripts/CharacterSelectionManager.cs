@@ -7,6 +7,7 @@ using System.Xml;
 using UnityEngine.TextCore.Text;
 using System;
 using System.Linq;
+using JetBrains.Annotations;
 
 public class CharacterSelectionManager : MonoBehaviour
 {
@@ -48,10 +49,16 @@ public class CharacterSelectionManager : MonoBehaviour
     TextMeshProUGUI textMeshPro;
     TMP_FontAsset hangeulFont;
 
+    private List<Unit> allUnitsInFaction;
     public List<string> selectedCharacters = new List<string>(); // 선택한 캐릭터 이름 List 
 
     void Start()
     {
+        if (GameManager.Instance.playerFaction == PlayerFaction.Guwol)
+            allUnitsInFaction = UnitManager.Instance.guwol_unitsList;
+        else if (GameManager.Instance.playerFaction == PlayerFaction.Seo)
+            allUnitsInFaction = UnitManager.Instance.seo_unitsList;
+
         // 폰트 로드
         hangeulFont = Resources.Load<TMP_FontAsset>("Fonts/Orbit-Regular SDF");
 
@@ -69,13 +76,14 @@ public class CharacterSelectionManager : MonoBehaviour
         skill2Text.GetComponent<TMP_Text>().font = hangeulFont;
 
         int n = 0;
-        // 각 캐릭터 버튼에 캐릭터 이름 및 클릭 이벤트 추가 (현재 구월산 목단설 진영만 로드, 수정 예정)
+        // 각 캐릭터 버튼에 캐릭터 이름 및 클릭 이벤트 추가
         foreach (Button characterButton in characterButtons)
         {
             Transform childTransform = characterButton.transform.Find("Text (TMP)");    // 오브젝트 이름 변경하면 안됨 !
             textMeshPro = childTransform.GetComponent<TextMeshProUGUI>();
             textMeshPro.font = hangeulFont;
-            textMeshPro.text = UnitManager.Instance.basicStatsList[n++].unitName;
+            // textMeshPro.text = UnitManager.Instance.basicStatsList[n++].unitName;
+            textMeshPro.text = allUnitsInFaction[n++].basicStats.unitName;
 
             characterButton.onClick.AddListener(() => OnCharacterButtonClick(characterButton));
         }

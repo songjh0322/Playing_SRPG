@@ -38,7 +38,9 @@ public class UnitManager : MonoBehaviour
     public const int maxUnits = 6;      // 최대 유닛 선택 수
 
     public List<BasicStats> basicStatsList;     // 모든 기본 능력치를 저장할 List (원본)
-    public List<Unit> unitsList;    // 모든 유닛을 저장할 List (원본)
+    public List<Unit> unitsList;    // 모든 유닛을 저장할 List (원본, 인게임에서 사용하지 않음)
+    public List<Unit> guwol_unitsList;
+    public List<Unit> seo_unitsList;
 
     public List<Unit> player1Units;      // Player1이 인게임에서 사용할 유닛 리스트 (참조)
     public List<Unit> player2Units;      // Player2가 인게임에서 사용할 유닛 리스트 (참조)
@@ -82,6 +84,17 @@ public class UnitManager : MonoBehaviour
         {
             foreach (BasicStats basicStats in basicStatsList)
                 unitsList.Add(new Unit(basicStats));
+        }
+
+        guwol_unitsList = new List<Unit>();
+        seo_unitsList = new List<Unit>();
+
+        foreach (Unit unit in unitsList)
+        {
+            if (unit.basicStats.faction == 0)
+                guwol_unitsList.Add(unit);
+            if (unit.basicStats.faction == 1)
+                seo_unitsList.Add(unit);
         }
     }
 
