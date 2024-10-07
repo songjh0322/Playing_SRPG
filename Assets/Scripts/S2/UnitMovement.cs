@@ -45,7 +45,6 @@ public class UnitMovement : MonoBehaviour
                         break;
                     case 10:  // 타일 레이어 (Tiles)
                         targetPosition = hit.collider.transform.position;
-                        targetPosition.y += 50;
                         isMoving = true;
                         break;
 
