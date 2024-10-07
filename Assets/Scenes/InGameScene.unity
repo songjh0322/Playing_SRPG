@@ -2301,6 +2301,7 @@ RectTransform:
   m_Children:
   - {fileID: 1157680485}
   - {fileID: 983721546}
+  - {fileID: 2031020334}
   - {fileID: 377545574}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3892,7 +3893,7 @@ GameObject:
   m_Component:
   - component: {fileID: 983721546}
   m_Layer: 5
-  m_Name: Buttons
+  m_Name: CharacterButtons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3918,7 +3919,6 @@ RectTransform:
   - {fileID: 2012273110}
   - {fileID: 800052625}
   - {fileID: 1026525489}
-  - {fileID: 2031020334}
   m_Father: {fileID: 343898359}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5434,17 +5434,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2031020333}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.82497, z: 1}
+  m_LocalScale: {x: 0.6625, y: 0.7026536, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1503407828}
-  m_Father: {fileID: 983721546}
+  m_Father: {fileID: 343898359}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -263}
+  m_AnchoredPosition: {x: -326.5, y: -190.00558}
   m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2031020335
@@ -5630,7 +5630,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2962314356386408555, guid: 842404554cafc4610927c4f9637eace8, type: 3}
       propertyPath: m_Name
-      value: MooMyung
+      value: "\uBB34\uBA85"
       objectReference: {fileID: 0}
     - target: {fileID: 5328396618011084158, guid: 842404554cafc4610927c4f9637eace8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5706,7 +5706,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5772695741149448306, guid: c75d58ea86c8a47cebf03110ffdebf1f, type: 3}
       propertyPath: m_Name
-      value: CheolBong
+      value: "\uCCA0\uBD09"
       objectReference: {fileID: 0}
     - target: {fileID: 5772695741149448306, guid: c75d58ea86c8a47cebf03110ffdebf1f, type: 3}
       propertyPath: m_Layer
@@ -5779,7 +5779,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4807117912328078283, guid: ce27686e973d24d998b4cabcd5100980, type: 3}
       propertyPath: m_Name
-      value: DdakSoe
+      value: "\uB531\uC1E0"
       objectReference: {fileID: 0}
     - target: {fileID: 5918144609237531595, guid: ce27686e973d24d998b4cabcd5100980, type: 3}
       propertyPath: m_LocalPosition.x
