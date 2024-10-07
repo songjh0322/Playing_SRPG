@@ -198,11 +198,11 @@ public class CharacterSelectionManager : MonoBehaviour
         }
     }
    
-    void OnCancelButtonClick()
+    private void OnCancelButtonClick()
     {
         string currentCharacterName = characterName.text;
         selectedCharacters.Remove(currentCharacterName);
-            // 가장 최근에 선택한 캐릭터의 버튼 색을 원래대로 
+        // 가장 최근에 선택한 캐릭터의 버튼 색을 원래대로 
         confirmationUI.SetActive(false);
     }
 }

@@ -24,8 +24,9 @@ public class DeployManager : MonoBehaviour
     }
 
     GameObject characterButton;
-    List<Button> characterButtons;
-    Button completeButton;
+    List<Button> characterButtonComponents;
+    Button characterButtonComponent;
+    Button completeButtonComponent;
 
     // 컴포넌트
     TextMeshProUGUI textMeshPro;
@@ -53,24 +54,25 @@ public class DeployManager : MonoBehaviour
             Transform characterButtonTransform = characterButton.transform.GetChild(i);
             Transform textTransform = characterButtonTransform.Find("Text (TMP)");
             TMP_Text textMeshPro = textTransform.GetComponent<TMP_Text>();
+
             textMeshPro.text = UnitManager.Instance.player1Units[i].basicStats.unitName;
             textMeshPro.font = hangeulFont;
 
-            Component characterButtonC = GetComponent<Button>();
-            //characterButtonC.onClick.AddListener();
+            Unit currentUnit = UnitManager.Instance.player1Units[i];
+            characterButtonComponent = GetComponent<Button>();
+            characterButtonComponent.onClick.AddListener(() => OnCharacterButtonClick(currentUnit));
         }
 
-        //characterButtons[i].onClick.AddListener(OnCharacterButtonClick);
-        //completeButton.onClick.AddListener(OnDeselectButtonClick);
+        completeButtonComponent.onClick.AddListener(OnCompleteButtonClick);
     }
 
-/*    void OnCharacterButtonClick
+    private void OnCharacterButtonClick(Unit currentUnit)
     {
-
+        Debug.Log(currentUnit.basicStats.unitName);
     }
 
-    void OnCompleteButtonClick
+    private void OnCompleteButtonClick()
     {
-
-    }*/
+        Debug.Log("완료 버튼 클릭됨");
+    }
 }
