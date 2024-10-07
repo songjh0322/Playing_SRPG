@@ -96,9 +96,9 @@
     <Compile Include="Assets\SPUM\SPUM\Script\Data\SpritePos.cs" />
     <Compile Include="Assets\Scripts\UI\Scene2Scripts\Scene3Switcher.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
+    <Compile Include="Assets\SPUM\SPUM\Script\Etc\ColorSelect.cs" />
     <Compile Include="Assets\Scripts\UI\Scene1Scripts\QuitGame.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
-    <Compile Include="Assets\SPUM\SPUM\Script\Etc\ColorSelect.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
     <Compile Include="Assets\SPUM\SPUM\Script\Data\SPUM_AnimationData.cs" />
     <Compile Include="Assets\SPUM\SPUM\Sprite_Editor(Beta)\Script\SpriteSyncManager.cs" />
@@ -149,8 +149,8 @@
     <Compile Include="Assets\Scripts\UI\Popup\SettingPopup.cs" />
     <Compile Include="Assets\SPUM\SPUM\Sprite_Editor(Beta)\Script\SpriteEyeSync.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
-    <Compile Include="Assets\SPUM\SPUM\Script\SPUM_Button.cs" />
     <Compile Include="Assets\SPUM\SPUM\Script\SPUM_AnimationControllerPanel.cs" />
+    <Compile Include="Assets\SPUM\SPUM\Script\SPUM_Button.cs" />
     <Compile Include="Assets\Scripts\S2\Game.cs" />
     <Compile Include="Assets\SPUM\SPUM\Script\SPUM_ConvertView.cs" />
     <Compile Include="Assets\Scripts\S2\UnitMovement.cs" />
@@ -160,8 +160,8 @@
     <Compile Include="Assets\SPUM\SPUM\Script\SPUM_AnimationController.cs" />
     <Compile Include="Assets\Scripts\MapData\Tile.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
-    <Compile Include="Assets\SPUM\SPUM\Script\SPUM_AnimationStateElement.cs" />
     <Compile Include="Assets\SPUM\SPUM\Script\Data\SPUM_MatchingList.cs" />
+    <Compile Include="Assets\SPUM\SPUM\Script\SPUM_AnimationStateElement.cs" />
     <Compile Include="Assets\Scripts\UnitData\Unit.cs" />
     <Compile Include="Assets\Scripts\UI\Scene2Scripts\BackToScene1.cs" />
   </ItemGroup>

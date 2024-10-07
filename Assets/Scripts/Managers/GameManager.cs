@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            this.AddComponent<UnitManager>();
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -26,8 +27,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        GameObject unitManagerObject = new GameObject("@UnitManager");
-        unitManagerObject.AddComponent<UnitManager>();
+        //GameObject unitManagerObject = new GameObject("@UnitManager");
+        //unitManagerObject.AddComponent<UnitManager>();
 
         // 필수 요소 (필요한 유닛 데이터, 프리팹 불러오기)
         UnitManager.Instance.LoadBasicStatsFromJSON();

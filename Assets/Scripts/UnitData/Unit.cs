@@ -28,7 +28,7 @@ public struct BasicStats
 // 각 유닛의 인터페이스
 public interface IUnit
 {
-    void move();
+    void move(Tile toTile);
     void castSkill(string unitName);
 }
 
@@ -65,38 +65,6 @@ public class Unit : IUnit
         this.currentMoveRange = originalUnit.currentMoveRange;
     }
 
-    /*    public Unit(string unitName, Dictionary<string, BasicStats> basicStatsDic)
-        {
-            if (basicStatsData.ContainsKey(unitName))
-            {
-                BasicStats stats = basicStatsData[unitName];
-
-                // 변경되지 않는 능력치
-                this.unitName = stats.unitName;
-                this.characterDescription = stats.characterDescription;
-                this.passiveName = stats.passiveName;
-                this.passiveDescription = stats.passiveDescription;
-                this.skillName1 = stats.skillName1;
-                this.skillDescription1 = stats.skillDescription1;
-                this.skillName2 = stats.skillName2;
-                this.skillDescription2 = stats.skillDescription2;
-                this.maxHealth = stats.maxHealth;
-                this.attackPoint = stats.attackPoint;
-                this.defensePoint = stats.defensePoint;
-                this.moveRange = stats.moveRange;
-
-                // 인게임에서 사용될 능력치 설정 (모두 기본 능력치를 기반으로 설정)
-                this.currentHealth = maxHealth;
-                this.currentAttackPoint = attackPoint;
-                this.currentDefensePoint = defensePoint;
-                this.currentMoveRange = moveRange;
-            }
-            else
-            {
-                Debug.LogError("CharacterStats.JSON에 해당 캐릭터가 없습니다: " + unitName);
-            }
-        }*/
-
     public (int, int) GetPosition()
     {
         MapManager mapManager = MapManager.Instance;
@@ -104,14 +72,13 @@ public class Unit : IUnit
         return (0, 0);
     }
 
-    public void move()
+    public void move(Tile toTile)
     {
         
     }
 
     public void castSkill(string skillName)
     {
-        // this는 현재 캐릭터 유닛을 나타냄
-        throw new NotImplementedException();
+        
     }
 }

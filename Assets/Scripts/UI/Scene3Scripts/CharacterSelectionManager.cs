@@ -69,7 +69,7 @@ public class CharacterSelectionManager : MonoBehaviour
         skill2Text.GetComponent<TMP_Text>().font = hangeulFont;
 
         int n = 0;
-        // 각 캐릭터 버튼에 캐릭터 이름 및 클릭 이벤트 추가
+        // 각 캐릭터 버튼에 캐릭터 이름 및 클릭 이벤트 추가 (현재 구월산 목단설 진영만 로드, 수정 예정)
         foreach (Button characterButton in characterButtons)
         {
             Transform childTransform = characterButton.transform.Find("Text (TMP)");    // 오브젝트 이름 변경하면 안됨 !
