@@ -6,6 +6,7 @@ using System.Linq;
 using Unity.VisualScripting.FullSerializer;
 using UnityEditor;
 using UnityEngine;
+using Random = System.Random;
 
 // JSON 파일에서 기본 능력치들을 불러오기 위한 클래스 (이곳에서만 사용)
 public class UnitDataWrapper
@@ -133,8 +134,25 @@ public class UnitManager : MonoBehaviour
     public void RandomizePlayer2Units()
     {
         player2Units.Clear();
+        List<Unit> allUnitsInFaction = new List<Unit>();
 
-        //if (GameManager.Instance.playerFaction == PlayerFaction.Guwol)
+        // 현재 진영이 2개뿐이라고 가정한 코드
+        if (GameManager.Instance.playerFaction == PlayerFaction.Guwol)
+            allUnitsInFaction = seo_unitsList;
+        else if (GameManager.Instance.playerFaction == PlayerFaction.Seo)
+            allUnitsInFaction = guwol_unitsList;
+
+        // 현재 진영의 순서를 랜덤하게 섞음
+        Random random = new Random();
+        List<Unit> shuffledUnits = allUnitsInFaction.OrderBy(x => random.Next()).ToList();
+
+        // maxUnits만큼 추가
+        for (int i = 0; i < maxUnits; i++)
+        {
+            Unit originalUnit = shuffledUnits[i];
+            Unit newUnit = new Unit(originalUnit);
+            player2Units.Add(newUnit);
+        }
     }
 
 
