@@ -23,14 +23,17 @@ public class DeployManager : MonoBehaviour
         }
     }
 
-    GameObject characterButton;
+    GameObject characterButtons_OB;
     List<Button> characterButtonComponents;
     Button characterButtonComponent;
     Button completeButtonComponent;
 
     // 컴포넌트
-    TextMeshProUGUI textMeshPro;
     TMP_FontAsset hangeulFont;
+    TMP_Text textMeshPro;
+
+    // foreach 인덱스용 변수
+    private int idx;
 
     private void Start()
     {
@@ -43,24 +46,21 @@ public class DeployManager : MonoBehaviour
         if (characterSelectionManager != null)
             Destroy(characterSelectionManager);
 
+        // 폰트 로드
         hangeulFont = Resources.Load<TMP_FontAsset>("Fonts/Orbit-Regular SDF");
 
         // 게임 오브젝트 지정 (이름으로 찾음)
-        characterButton = GameObject.Find("CharacterButtons");
+        characterButtons_OB = GameObject.Find("CharacterButtons");
+        Transform characterButtons_TR = characterButtons_OB.transform;
 
-        // 모든 캐릭터 버튼에 이름을 표기 (현재 마지막 캐릭터 이름이 정상적으로 기입되지 않음)
-        for (int i = 0; i < 6; i++)
+        // 버튼에 캐릭터 이름 배치
+        idx = 0;
+        foreach (Transform characterButtonXX_TR in characterButtons_TR)
         {
-            Transform characterButtonTransform = characterButton.transform.GetChild(i);
-            Transform textTransform = characterButtonTransform.Find("Text (TMP)");
-            TMP_Text textMeshPro = textTransform.GetComponent<TMP_Text>();
-
-            textMeshPro.text = UnitManager.Instance.player1Units[i].basicStats.unitName;
+            Transform textTMP_TR = characterButtonXX_TR.Find("Text (TMP)");
+            textMeshPro = textTMP_TR.GetComponent<TMP_Text>();
+            textMeshPro.text = UnitManager.Instance.player1Units[idx++].basicStats.unitName;
             textMeshPro.font = hangeulFont;
-
-            Unit currentUnit = UnitManager.Instance.player1Units[i];
-            characterButtonComponent = GetComponent<Button>();
-            characterButtonComponent.onClick.AddListener(() => OnCharacterButtonClick(currentUnit));
         }
 
         completeButtonComponent.onClick.AddListener(OnCompleteButtonClick);
@@ -74,5 +74,10 @@ public class DeployManager : MonoBehaviour
     private void OnCompleteButtonClick()
     {
         Debug.Log("완료 버튼 클릭됨");
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            Debug.Log("Test!");
+        }
     }
 }
