@@ -25,7 +25,7 @@ public class DeployManager : MonoBehaviour
 
     GameObject characterButtons_OB;
     List<Button> characterButtonComponents;
-    Button characterButtonComponent;
+    //Button characterButtonComponent;
     Button completeButtonComponent;
 
     // 컴포넌트
@@ -63,6 +63,15 @@ public class DeployManager : MonoBehaviour
             textMeshPro.font = hangeulFont;
         }
 
+        // 변수에 버튼 지정
+        idx = 0;
+        foreach (Button characterButtonComponent in characterButtonComponents)
+        {
+            characterButtons_OB.transform.GetChild(idx).GetComponent<Button>();
+        }
+        completeButtonComponent = GameObject.Find("CompleteButton").transform.GetComponent<Button>();
+
+        // 리스너 등록
         completeButtonComponent.onClick.AddListener(OnCompleteButtonClick);
     }
 
@@ -74,10 +83,5 @@ public class DeployManager : MonoBehaviour
     private void OnCompleteButtonClick()
     {
         Debug.Log("완료 버튼 클릭됨");
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            Debug.Log("Test!");
-        }
     }
 }
