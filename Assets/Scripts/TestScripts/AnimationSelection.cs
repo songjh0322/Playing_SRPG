@@ -17,8 +17,6 @@ public class AnimationSelection : MonoBehaviour
     public Button diedButton;
     public Button debuffedButton;
 
-
-
     void Start()
     {
         idleButton.onClick.AddListener(() => PlayAnimation("IDLE"));
@@ -32,11 +30,14 @@ public class AnimationSelection : MonoBehaviour
     void PlayAnimation(string animationState)
     {
         currentCharacter = characterSelection.GetCurrentCharacter();
-
+        
         if (currentCharacter != null)
         {
-            // charn의 자식 오브젝트인 UnitRoot에 접근하여 애니메이터를 가져옴
             Transform unitRoot = currentCharacter.transform.Find("UnitRoot");
+            if (unitRoot == null)
+            {
+                unitRoot = currentCharacter.transform.Find("HorseRoot");
+            }
             if (unitRoot != null)
             {
                 characterAnimator = unitRoot.GetComponent<Animator>();
@@ -47,7 +48,7 @@ public class AnimationSelection : MonoBehaviour
         {
             characterAnimator.SetBool("1_Move", true);
         }
-        // Debuff 상태로 가기 위해 '5_Debuff' 파라미터를 true로 설정
+        
         else if (animationState == "DEBUFF")
         {
             characterAnimator.SetBool("5_Debuff", true);

@@ -11848,7 +11848,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentCharacter: {fileID: 0}
-  characterSelection: {fileID: 0}
+  characterSelection: {fileID: 1756781256}
   animationManager: {fileID: 1904628301}
   idleButton: {fileID: 1048764609}
   moveButton: {fileID: 1323415137}
