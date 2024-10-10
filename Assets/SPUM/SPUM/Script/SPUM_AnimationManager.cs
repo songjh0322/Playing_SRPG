@@ -45,6 +45,10 @@ public class SPUM_AnimationManager : MonoBehaviour
     }
     public void PlayAnimation(SpumAnimationClip currentPlayClip){
         Animator animator = unit._anim;
+        if (animator == null)
+        {
+            Debug.LogError("Animator is not assigned to the unit.");
+        }
         var PlayState = $"{currentPlayClip.StateType}";
         animator.Rebind();
         animator.Update(0f);

@@ -9,6 +9,11 @@ public class CharacterSelection : MonoBehaviour
     public Vector3 displayScale = new Vector3(3f, 3f, 3f); // 캐릭터를 표시할 때 적용할 스케일 값
     private GameObject currentCharacter;  // 현재 표시된 캐릭터
 
+    public GameObject GetCurrentCharacter()
+    {
+        return currentCharacter;
+    }
+    
     // 캐릭터 선택 버튼이 클릭되면 호출되는 함수
     public void OnSelectCharacter(int index)
     {
