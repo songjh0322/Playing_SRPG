@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731704, g: 0.1341472, b: 0.121078566, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731704, g: 0.13414727, b: 0.121078536, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -609,7 +609,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0.8
-  m_Text: Char2
+  m_Text: Mage
 --- !u!222 &64648337
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -713,6 +713,18 @@ MonoBehaviour:
           m_IntArgument: 4
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1756781259}
+        m_TargetAssemblyTypeName: GameManager2, Assembly-CSharp
+        m_MethodName: SetCharacterName
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: WARRIOR
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &76119775
@@ -1055,6 +1067,18 @@ MonoBehaviour:
           m_IntArgument: 5
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1756781259}
+        m_TargetAssemblyTypeName: GameManager2, Assembly-CSharp
+        m_MethodName: SetCharacterName
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: THIEF
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &119182597
@@ -3075,7 +3099,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0.8
-  m_Text: Char3
+  m_Text: Robin Hood
 --- !u!222 &397311786
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3750,6 +3774,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1756781259}
+        m_TargetAssemblyTypeName: GameManager2, Assembly-CSharp
+        m_MethodName: SetCharacterName
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: ROBIN HOOD
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &523044056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4011,7 +4047,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 3e53c1bee5e5e43219f0342dc04f5be0, type: 3}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -4022,7 +4058,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0.8
-  m_Text: Char5
+  m_Text: warrior
 --- !u!222 &604893997
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5250,7 +5286,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 3e53c1bee5e5e43219f0342dc04f5be0, type: 3}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -5261,7 +5297,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0.8
-  m_Text: Char7
+  m_Text: guardian
 --- !u!222 &749161538
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7699,7 +7735,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Save
+  m_Text: Select
 --- !u!222 &1068086031
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8038,6 +8074,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1756781259}
+        m_TargetAssemblyTypeName: GameManager2, Assembly-CSharp
+        m_MethodName: SetCharacterName
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: GUARDIAN
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1161591040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8237,6 +8285,18 @@ MonoBehaviour:
           m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1756781259}
+        m_TargetAssemblyTypeName: GameManager2, Assembly-CSharp
+        m_MethodName: SetCharacterName
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: MAGE
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1191187803
@@ -9463,6 +9523,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1756781259}
+        m_TargetAssemblyTypeName: GameManager2, Assembly-CSharp
+        m_MethodName: SetCharacterName
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: PALADIN
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1327608083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10548,6 +10620,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1756781259}
+        m_TargetAssemblyTypeName: GameManager2, Assembly-CSharp
+        m_MethodName: SetCharacterName
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Ranger
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1602641294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11249,7 +11333,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Unit001
+  m_Text: 
 --- !u!222 &1678359731
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11692,7 +11776,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0.8
-  m_Text: Char1
+  m_Text: Ranger
 --- !u!222 &1750502105
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11791,6 +11875,7 @@ GameObject:
   - component: {fileID: 1756781257}
   - component: {fileID: 1756781256}
   - component: {fileID: 1756781258}
+  - component: {fileID: 1756781259}
   m_Layer: 0
   m_Name: GameManger
   m_TagString: Untagged
@@ -11856,6 +11941,19 @@ MonoBehaviour:
   damagedButton: {fileID: 1843947877}
   diedButton: {fileID: 1023264893}
   debuffedButton: {fileID: 1900771867}
+--- !u!114 &1756781259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1756781255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 472b7d6d1db15bb4dbd49599217cbf22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterNameText: {fileID: 1678359730}
 --- !u!1 &1802166296
 GameObject:
   m_ObjectHideFlags: 0
@@ -12449,7 +12547,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0.8
-  m_Text: Char6
+  m_Text: thief
 --- !u!222 &1873306344
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12772,7 +12870,7 @@ GameObject:
   - component: {fileID: 1904628300}
   - component: {fileID: 1904628301}
   m_Layer: 0
-  m_Name: SPUM_AnimationManager
+  m_Name: AnimationManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13385,7 +13483,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 3e53c1bee5e5e43219f0342dc04f5be0, type: 3}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -13396,7 +13494,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0.8
-  m_Text: Char4
+  m_Text: paladin
 --- !u!222 &2073956188
 CanvasRenderer:
   m_ObjectHideFlags: 0
