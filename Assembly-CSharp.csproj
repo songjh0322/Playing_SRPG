@@ -73,6 +73,7 @@
     <Compile Include="Assets\SPUM\SPUM\Script\SoonsoonData.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
     <Compile Include="Assets\SPUM\SPUM\Script\SPUM_SpriteList.cs" />
+    <Compile Include="Assets\Scripts\TestScripts\CharacterStats.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
     <Compile Include="Assets\SPUM\SPUM\Script\Plugin\Moments Recorder\Scripts\Gif\LzwEncoder.cs" />
