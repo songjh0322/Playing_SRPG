@@ -16,8 +16,6 @@ public class GameManager2 : MonoBehaviour
     public Text[] selectedCharacterTexts; // 선택된 캐릭터 이름을 표시할 Text 오브젝트 배열 (Image에 붙은 Text)
     public Image[] characterButtons; // 캐릭터 버튼들의 Image 배열 (각각의 주황색 버튼을 관리)
     public Button[] DeleteButtons; // 삭제 버튼 배열
-    public GameObject warningMsgSelect;  // WarningMsg 팝업창 오브젝트1
-    public GameObject warningMsgStart;  // WarningMsg 팝업창 오브젝트2
 
 
     private int currentSelectedIndex = -1; // 현재 선택된 캐릭터의 인덱스 (-1은 선택되지 않은 상태)
@@ -46,16 +44,7 @@ public class GameManager2 : MonoBehaviour
     // 씬 전환 함수
     public void LoadScene(string sceneName)
     {
-        // 캐릭터가 5명 선택되지 않았을 경우 경고 팝업(2) 띄우기
-        if (selectedCharacters.Count < maxSelectableCharacters)
-        {
-            ShowStartWarningMessage();  // Start 버튼에 대한 경고 팝업
-        }
-        else
-        {
-            // 5명이 선택되었으면 씬 전환
-            SceneManager.LoadScene(sceneName);
-        }
+        SceneManager.LoadScene(sceneName);
     }
 
     public void QuitGame()
@@ -109,9 +98,8 @@ public class GameManager2 : MonoBehaviour
                 }
                 else
                 {
-                    // 캐릭터가 5명을 넘었을 때 오류 메시지 출력 & 팝업 화면 띄우기
+                    // 캐릭터가 5명을 넘었을 때 오류 메시지 출력
                     Debug.LogWarning("You have already selected 5 characters!");
-                    ShowSelectWarningMessage();
                 }
             }
             else
@@ -186,25 +174,5 @@ public class GameManager2 : MonoBehaviour
             characterButtons[characterIndex].color = new Color32(46, 162, 176, 255);  // #2EA2B0 색상
             Debug.Log("Button color changed for character: " + characterIndex);
         }
-    }
-    // 경고 팝업창을 띄우고 2초 후에 사라지게 하는 함수
-    private void ShowSelectWarningMessage()
-    {
-        warningMsgSelect.SetActive(true);  // 경고 팝업창 활성화
-        Invoke("HideSelectWarningMessage", 2f);  // 2초 후 비활성화
-    }
-    // 경고 팝업창을 비활성화하는 함수
-    private void HideSelectWarningMessage()
-    {
-        warningMsgSelect.SetActive(false);  // 경고 팝업창 비활성화
-    }
-    private void ShowStartWarningMessage()
-    {
-        warningMsgStart.SetActive(true);  // 경고 팝업창 활성화
-        Invoke("HideStartWarningMessage", 2f);  // 2초 후 비활성화
-    }
-    private void HideStartWarningMessage()
-    {
-        warningMsgStart.SetActive(false);  // 경고 팝업창 비활성화
     }
 }

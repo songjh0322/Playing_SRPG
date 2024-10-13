@@ -97,6 +97,7 @@
     <Compile Include="Assets\SPUM\SPUM\Script\SPUM_SpriteButtonST.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
+    <Compile Include="Assets\TileMap\Effect\SpriteAnimation.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
     <Compile Include="Assets\Scripts\Managers\MapManager.cs" />
     <Compile Include="Assets\SPUM\SPUM\Script\Data\SpritePos.cs" />
@@ -163,6 +164,7 @@
     <Compile Include="Assets\Scripts\S2\UnitMovement.cs" />
     <Compile Include="Assets\Scripts\MapData\TileInfo.cs" />
     <Compile Include="Assets\SPUM\SPUM\Script\SPUM_PaginationManager.cs" />
+    <Compile Include="Assets\Scripts\TestScripts\CharacterManager.cs" />
     <Compile Include="Assets\SPUM\SPUM\Script\Data\SpumPackage.cs" />
     <Compile Include="Assets\SPUM\SPUM\Script\SPUM_AnimationController.cs" />
     <Compile Include="Assets\Scripts\MapData\Tile.cs" />
