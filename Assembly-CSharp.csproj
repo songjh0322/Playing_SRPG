@@ -73,7 +73,6 @@
     <Compile Include="Assets\SPUM\SPUM\Script\SoonsoonData.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
     <Compile Include="Assets\SPUM\SPUM\Script\SPUM_SpriteList.cs" />
-    <Compile Include="Assets\Scripts\TestScripts\CharacterStats.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
     <Compile Include="Assets\SPUM\SPUM\Script\Plugin\Moments Recorder\Scripts\Gif\LzwEncoder.cs" />
@@ -89,6 +88,7 @@
     <Compile Include="Assets\SPUM\SPUM\Script\Data\SpumTextureData.cs" />
     <Compile Include="Assets\Scripts\UI\Popup\Popup.cs" />
     <Compile Include="Assets\SPUM\SPUM\Script\SPUM_Manager.cs" />
+    <Compile Include="Assets\Scripts\TestScripts\CharacterStatsManager.cs" />
     <Compile Include="Assets\SPUM\SPUM\Script\Plugin\Moments Recorder\Scripts\Gif\NeuQuant.cs" />
     <Compile Include="Assets\SPUM\SPUM\Script\Plugin\Moments Recorder\Scripts\Gif\GifEncoder.cs" />
     <Compile Include="Assets\SPUM\SPUM\Script\SPUM_HorseSpriteList.cs" />
@@ -164,7 +164,6 @@
     <Compile Include="Assets\Scripts\S2\UnitMovement.cs" />
     <Compile Include="Assets\Scripts\MapData\TileInfo.cs" />
     <Compile Include="Assets\SPUM\SPUM\Script\SPUM_PaginationManager.cs" />
-    <Compile Include="Assets\Scripts\TestScripts\CharacterManager.cs" />
     <Compile Include="Assets\SPUM\SPUM\Script\Data\SpumPackage.cs" />
     <Compile Include="Assets\SPUM\SPUM\Script\SPUM_AnimationController.cs" />
     <Compile Include="Assets\Scripts\MapData\Tile.cs" />

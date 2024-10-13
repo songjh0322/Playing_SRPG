@@ -10,6 +10,7 @@ public class GameManager2 : MonoBehaviour
 
     public Text characterNameText; // 캐릭터 이름을 출력할 텍스트 UI
     private List<string> selectedCharacters = new List<string>(); // 선택된 캐릭터들을 저장할 리스트
+    private List<CharacterStats> selectedCharacterStats = new List<CharacterStats>(); // 캐릭터 스탯 저장
     private int maxSelectableCharacters = 5; // 최대 선택 가능한 캐릭터 수
 
     public Image[] selectedCharacterImages; // 선택된 캐릭터 정보를 표시할 Content 밑의 5개의 Image 오브젝트
@@ -92,6 +93,12 @@ public class GameManager2 : MonoBehaviour
                 if (selectedCharacters.Count < maxSelectableCharacters)
                 {
                     selectedCharacters.Add(currentSelectedName);
+                    //스탯 매니저를 통해 선택된 캐릭터의 스탯 가져오기
+                    CharacterStats stats = CharacterStatsManager.instance.GetCharacterStats(currentSelectedName);
+                    if (stats != null)
+                    {
+                        selectedCharacterStats.Add(stats); //스탯 저장
+                    }
                     UpdateSelectedCharactersUI();  // UI 업데이트
                     ChangeButtonColor(currentSelectedIndex);  // 버튼 색상 변경
                     Debug.Log("저장된 캐릭터: " + currentSelectedName);
