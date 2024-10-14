@@ -79,6 +79,7 @@
     <Compile Include="Assets\SPUM\SPUM\Sprite_Editor(Beta)\Script\SPUM_SpriteEditManager.cs" />
     <Compile Include="Assets\SPUM\SPUM\Script\Data\PreviewMatchingElement.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
+    <Compile Include="Assets\Scripts\TestScripts\TestScene3Manager.cs" />
     <Compile Include="Assets\SPUM\SPUM\Script\SPUM_AnimationPackagePanel.cs" />
     <Compile Include="Assets\SPUM\SPUM\Script\Data\SpumAnimationClip.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />

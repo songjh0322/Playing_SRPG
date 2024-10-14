@@ -10,7 +10,7 @@ public class GameManager2 : MonoBehaviour
 
     public Text characterNameText; // 캐릭터 이름을 출력할 텍스트 UI
     private List<string> selectedCharacters = new List<string>(); // 선택된 캐릭터들을 저장할 리스트
-    private List<CharacterStats> selectedCharacterStats = new List<CharacterStats>(); // 캐릭터 스탯 저장
+    public List<CharacterStats> selectedCharacterStats = new List<CharacterStats>(); // 캐릭터 스탯 저장
     private int maxSelectableCharacters = 5; // 최대 선택 가능한 캐릭터 수
 
     public Image[] selectedCharacterImages; // 선택된 캐릭터 정보를 표시할 Content 밑의 5개의 Image 오브젝트
