@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731704, g: 0.13414727, b: 0.121078536, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731704, g: 0.1341472, b: 0.121078566, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4889,7 +4889,7 @@ GameObject:
   - component: {fileID: 643815255}
   - component: {fileID: 643815254}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: CharacterText4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5139,7 +5139,7 @@ GameObject:
   - component: {fileID: 1075432461}
   - component: {fileID: 1075432460}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: CharacterText1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5395,7 +5395,7 @@ GameObject:
   - component: {fileID: 1407547602}
   - component: {fileID: 1407547601}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: CharacterText5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5659,7 +5659,7 @@ GameObject:
   - component: {fileID: 1908378764}
   - component: {fileID: 1908378763}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: CharacterText3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5996,7 +5996,7 @@ GameObject:
   - component: {fileID: 2026594487}
   - component: {fileID: 2026594486}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: CharacterText2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

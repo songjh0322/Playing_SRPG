@@ -29,6 +29,8 @@ public class GameManager2 : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject); // 씬이 바뀌어도 GameManager가 파괴되지 않도록..
+
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
         {
@@ -40,6 +42,15 @@ public class GameManager2 : MonoBehaviour
     {
         // 게임 시작 시 모든 Image와 Text를 비활성화
         ResetSelectedCharactersUI();
+    }
+
+    private void OnDestroy()
+    {
+        // 이벤트 구독 해제
+        if (instance == this)
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
     }
 
     // 씬 전환 함수
@@ -180,6 +191,26 @@ public class GameManager2 : MonoBehaviour
         {
             characterButtons[characterIndex].color = new Color32(46, 162, 176, 255);  // #2EA2B0 색상
             Debug.Log("Button color changed for character: " + characterIndex);
+        }
+    }
+
+    // 씬이 로드될 때 호출되는 함수
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // 씬이 전환되면 새로 생성된 텍스트 오브젝트를 찾음
+        if (scene.name == "TestScene3") 
+        {
+            int numberOfTexts = 5;
+    
+            // 반복문을 사용해 각 텍스트 오브젝트를 찾아 배열에 저장
+            for (int i = 0; i < numberOfTexts; i++)
+            {
+                // 오브젝트 이름을 "CharacterText1", "CharacterText2", ..., "CharacterText5" 형식으로 동적으로 생성
+                string objectName = "CharacterText" + (i + 1);
+                selectedCharacterTexts[i] = GameObject.Find(objectName).GetComponent<Text>();
+                selectedCharacterTexts[i].text = selectedCharacters[i];
+                Debug.Log("find " + objectName);
+            }
         }
     }
 }

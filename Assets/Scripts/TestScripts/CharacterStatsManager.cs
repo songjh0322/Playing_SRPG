@@ -11,7 +11,7 @@ public class CharacterStats
     public int attackPower;
     public int defense;
     public int moveRange;
-    public int skillRanage;
+    public int skillRange;
 
     public CharacterStats(string name, int hp, int att, int def, int move, int skill)
     {
@@ -20,7 +20,7 @@ public class CharacterStats
         attackPower = att;
         defense = def;
         moveRange = move;
-        skillRanage = skill;
+        skillRange = skill;
 
     }
 }
