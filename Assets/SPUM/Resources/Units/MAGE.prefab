@@ -4271,7 +4271,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8856650971213054630}
   m_Layer: 5
-  m_Name: SPUM_20241007171541114
+  m_Name: MAGE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

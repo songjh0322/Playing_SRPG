@@ -4209,7 +4209,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6021994190537657180}
   m_Layer: 5
-  m_Name: SPUM_20241007170221299
+  m_Name: RANGER
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

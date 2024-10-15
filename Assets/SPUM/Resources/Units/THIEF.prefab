@@ -1176,7 +1176,7 @@ GameObject:
   - component: {fileID: 8552177116288423115}
   - component: {fileID: 2893459081286634554}
   m_Layer: 5
-  m_Name: SPUM_20241007172747562
+  m_Name: THIEF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

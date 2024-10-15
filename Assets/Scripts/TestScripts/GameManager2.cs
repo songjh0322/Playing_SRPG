@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class GameManager2 : MonoBehaviour
 {
     public static GameManager2 instance;  // 싱글톤 패턴으로 모든 씬에서 GameManager에 쉽게 접근할 수 있도록 함.
+    public List<GameObject> characterPrefabs; // 각 캐릭터의 프리팹을 미리 연결해둘 리스트
+    public List<GameObject> selectedCharacterPrefabs = new List<GameObject>(); // 선택된 캐릭터의 프리팹 저장 리스트
 
     public Text characterNameText; // 캐릭터 이름을 출력할 텍스트 UI
     private List<string> selectedCharacters = new List<string>(); // 선택된 캐릭터들을 저장할 리스트
@@ -40,6 +42,7 @@ public class GameManager2 : MonoBehaviour
 
     private void Start()
     {
+        ResetSelectedCharacterPrefabs();  // 게임 시작 시 프리팹 리스트 초기화
         // 게임 시작 시 모든 Image와 Text를 비활성화
         ResetSelectedCharactersUI();
     }
@@ -110,6 +113,12 @@ public class GameManager2 : MonoBehaviour
                     {
                         selectedCharacterStats.Add(stats); //스탯 저장
                     }
+                    // 선택된 캐릭터 이름에 맞는 프리팹을 가져와서 리스트에 저장
+                    GameObject prefab = FindCharacterPrefabByName(currentSelectedName);
+                    if (prefab != null)
+                    {
+                        selectedCharacterPrefabs.Add(prefab); // 프리팹 저장
+                    }
                     UpdateSelectedCharactersUI();  // UI 업데이트
                     ChangeButtonColor(currentSelectedIndex);  // 버튼 색상 변경
                     Debug.Log("저장된 캐릭터: " + currentSelectedName);
@@ -117,7 +126,7 @@ public class GameManager2 : MonoBehaviour
                 else
                 {
                     // 캐릭터가 5명을 넘었을 때 오류 메시지 출력
-                    Debug.LogWarning("You have already selected 5 characters!");
+                    Debug.LogWarning("5명의 캐릭터가 이미 선택되었습니다.");
                 }
             }
             else
@@ -198,10 +207,10 @@ public class GameManager2 : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         // 씬이 전환되면 새로 생성된 텍스트 오브젝트를 찾음
-        if (scene.name == "TestScene3") 
+        if (scene.name == "TestScene3")
         {
             int numberOfTexts = 5;
-    
+
             // 반복문을 사용해 각 텍스트 오브젝트를 찾아 배열에 저장
             for (int i = 0; i < numberOfTexts; i++)
             {
@@ -213,4 +222,21 @@ public class GameManager2 : MonoBehaviour
             }
         }
     }
+    // 캐릭터 이름에 따라 프리팹을 찾는 함수
+    private GameObject FindCharacterPrefabByName(string characterName)
+    {
+        foreach (GameObject prefab in characterPrefabs)
+        {
+            if (prefab.name == characterName) // 이름으로 프리팹을 찾음
+            {
+                return prefab;
+            }
+        }
+        Debug.LogWarning("프리팹을 찾을 수 없습니다: " + characterName);
+        return null;
+    }
+    private void ResetSelectedCharacterPrefabs()
+{
+    selectedCharacterPrefabs.Clear(); // 기존 리스트를 초기화
+}
 }

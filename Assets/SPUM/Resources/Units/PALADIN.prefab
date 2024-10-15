@@ -2280,7 +2280,7 @@ GameObject:
   - component: {fileID: 936818159790780723}
   - component: {fileID: 7365269554100643466}
   m_Layer: 5
-  m_Name: SPUM_20241007172409987
+  m_Name: PALADIN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

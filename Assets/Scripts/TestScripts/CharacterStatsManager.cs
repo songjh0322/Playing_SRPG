@@ -27,6 +27,7 @@ public class CharacterStats
 public class CharacterStatsManager : MonoBehaviour
 {
     public static CharacterStatsManager instance;
+    
     private Dictionary<string, CharacterStats> characterStatsDatabase = new Dictionary<string, CharacterStats>();
 
     private void Awake()

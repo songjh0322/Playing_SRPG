@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731704, g: 0.1341472, b: 0.121078566, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731704, g: 0.13414727, b: 0.121078536, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 77355110}
   - component: {fileID: 77355109}
   m_Layer: 5
-  m_Name: Image
+  m_Name: BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -215,8 +215,9 @@ GameObject:
   - component: {fileID: 165985918}
   - component: {fileID: 165985917}
   - component: {fileID: 165985916}
+  - component: {fileID: 165985919}
   m_Layer: 5
-  m_Name: Button (Legacy) (3)
+  m_Name: CharBtn4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -285,7 +286,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 165985917}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 165985919}
+        m_TargetAssemblyTypeName: TilemapCharacterPlacement, Assembly-CSharp
+        m_MethodName: OnCharacterButtonClick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &165985917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -324,6 +337,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 165985914}
   m_CullTransparentMesh: 1
+--- !u!114 &165985919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 165985914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b062f3b46e32272409a05ee903bf2801, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilemap: {fileID: 0}
+  characterPrefabs: []
 --- !u!1 &219978816
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,8 +465,9 @@ GameObject:
   - component: {fileID: 335036859}
   - component: {fileID: 335036858}
   - component: {fileID: 335036857}
+  - component: {fileID: 335036860}
   m_Layer: 5
-  m_Name: Button (Legacy) (2)
+  m_Name: CharBtn3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -508,7 +536,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 335036858}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 335036860}
+        m_TargetAssemblyTypeName: TilemapCharacterPlacement, Assembly-CSharp
+        m_MethodName: OnCharacterButtonClick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &335036858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -547,6 +587,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 335036855}
   m_CullTransparentMesh: 1
+--- !u!114 &335036860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 335036855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b062f3b46e32272409a05ee903bf2801, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilemap: {fileID: 0}
+  characterPrefabs: []
 --- !u!114 &532928620 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3744046105682257370, guid: bd557657e7bee7142bb30988e7fdb00e, type: 3}
@@ -569,6 +623,7 @@ GameObject:
   - component: {fileID: 598124646}
   - component: {fileID: 598124648}
   - component: {fileID: 598124647}
+  - component: {fileID: 598124649}
   m_Layer: 0
   m_Name: Tilemap
   m_TagString: Untagged
@@ -4820,6 +4875,42 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!19719996 &598124649
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598124645}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0
+  m_UseDelaunayMesh: 0
 --- !u!1 &632875397
 GameObject:
   m_ObjectHideFlags: 0
@@ -4968,8 +5059,9 @@ GameObject:
   - component: {fileID: 670126829}
   - component: {fileID: 670126828}
   - component: {fileID: 670126827}
+  - component: {fileID: 670126830}
   m_Layer: 5
-  m_Name: Button (Legacy)
+  m_Name: CharBtn1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5038,7 +5130,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 670126828}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 670126830}
+        m_TargetAssemblyTypeName: TilemapCharacterPlacement, Assembly-CSharp
+        m_MethodName: OnCharacterButtonClick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &670126828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5077,6 +5181,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 670126825}
   m_CullTransparentMesh: 1
+--- !u!114 &670126830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 670126825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b062f3b46e32272409a05ee903bf2801, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilemap: {fileID: 0}
+  characterPrefabs: []
 --- !u!1 &692902840
 GameObject:
   m_ObjectHideFlags: 0
@@ -5474,8 +5592,9 @@ GameObject:
   - component: {fileID: 1555398353}
   - component: {fileID: 1555398352}
   - component: {fileID: 1555398351}
+  - component: {fileID: 1555398354}
   m_Layer: 5
-  m_Name: Button (Legacy) (1)
+  m_Name: CharBtn2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5544,7 +5663,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1555398352}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1555398354}
+        m_TargetAssemblyTypeName: TilemapCharacterPlacement, Assembly-CSharp
+        m_MethodName: OnCharacterButtonClick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1555398352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5583,6 +5714,71 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1555398349}
   m_CullTransparentMesh: 1
+--- !u!114 &1555398354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1555398349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b062f3b46e32272409a05ee903bf2801, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilemap: {fileID: 0}
+  characterPrefabs: []
+--- !u!1 &1787967916
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1787967918}
+  - component: {fileID: 1787967917}
+  m_Layer: 0
+  m_Name: CharacterManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1787967917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787967916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b062f3b46e32272409a05ee903bf2801, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilemap: {fileID: 598124648}
+  characterPrefabs:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!4 &1787967918
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787967916}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.7042625, y: 1.7466571, z: 6.7463493}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1904628299
 GameObject:
   m_ObjectHideFlags: 0
@@ -5738,8 +5934,9 @@ GameObject:
   - component: {fileID: 1917980419}
   - component: {fileID: 1917980418}
   - component: {fileID: 1917980417}
+  - component: {fileID: 1917980420}
   m_Layer: 5
-  m_Name: Button (Legacy) (4)
+  m_Name: CharBtn5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5808,7 +6005,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1917980418}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1917980420}
+        m_TargetAssemblyTypeName: TilemapCharacterPlacement, Assembly-CSharp
+        m_MethodName: OnCharacterButtonClick
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1917980418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5847,6 +6056,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1917980415}
   m_CullTransparentMesh: 1
+--- !u!114 &1917980420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1917980415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b062f3b46e32272409a05ee903bf2801, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tilemap: {fileID: 0}
+  characterPrefabs: []
 --- !u!1 &1965362377
 GameObject:
   m_ObjectHideFlags: 0
@@ -6537,3 +6760,4 @@ SceneRoots:
   - {fileID: 1965362379}
   - {fileID: 219978820}
   - {fileID: 692902842}
+  - {fileID: 1787967918}
