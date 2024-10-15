@@ -50,10 +50,12 @@ public class AIRandomPlacement : MonoBehaviour
                 Vector3Int tilePos = availableTiles[randomIndex];
 
                 // 타일맵 상의 월드 좌표로 변환
-                Vector3 worldPos = tilemap.CellToWorld(tilePos) + tilemap.cellSize / 2;  // 중앙에 배치되도록 조정
+                Vector3 tileWorldPosition = tilemap.GetCellCenterWorld(tilePos); // 타일 중앙 좌표로 변환
+
 
                 // AI 캐릭터 생성 및 위치 설정
-                Instantiate(aiPrefab, worldPos, Quaternion.identity);
+                GameObject aiInstance = Instantiate(aiPrefab, tileWorldPosition, Quaternion.identity);
+                aiInstance.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f); //크기 변경
 
                 // 사용한 타일 좌표는 리스트에서 제거
                 availableTiles.RemoveAt(randomIndex);

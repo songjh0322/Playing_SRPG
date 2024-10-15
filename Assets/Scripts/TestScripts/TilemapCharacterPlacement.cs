@@ -65,6 +65,7 @@ public class TilemapCharacterPlacement : MonoBehaviour
         }
 
         currentCharacter = Instantiate(characterPrefabs[characterIndex]); // 캐릭터 인스턴스 생성
+        currentCharacter.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f); // 크기 변경
         isPlacing = true; // 배치 모드 활성화
 
         // 캐릭터를 배치한 것으로 간주하고 인덱스를 저장
