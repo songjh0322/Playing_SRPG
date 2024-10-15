@@ -13576,13 +13576,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterPrefabs:
-  - {fileID: 7558001647160434544, guid: ef90d5ecdb4a8472da5e6a93310038e3, type: 3}
-  - {fileID: 7193671356185754064, guid: ac21a65f5d15f4724b969183a2126612, type: 3}
-  - {fileID: 3488108785306379391, guid: ecddceec6484248b9958603a22ab9336, type: 3}
-  - {fileID: 2782137688234905449, guid: fd3e0cb5d2aae4c71849be984a3ca098, type: 3}
-  - {fileID: 6680128444929509260, guid: 066811fea5ce042f490301a8b4b3219d, type: 3}
-  - {fileID: 3315993456231614610, guid: 1ea30fa42b81443899314227a2e7dfbd, type: 3}
-  - {fileID: 8718665652961480134, guid: 26f4ee28655b9462bbd90c9dd3ef8c46, type: 3}
+  - {fileID: 7558001647160434544, guid: 5f4018aea1eb078478f117a528fa04b8, type: 3}
+  - {fileID: 7193671356185754064, guid: 2a4eeff91e7a86e4e88e8dde09508fc0, type: 3}
+  - {fileID: 3488108785306379391, guid: 407cd740abb2123488fc6cd3bf2394d8, type: 3}
+  - {fileID: 2782137688234905449, guid: 3e5ff738b981a6c499ec213980dde752, type: 3}
+  - {fileID: 6680128444929509260, guid: 802d860c01b1bb440b24e99220b18bfe, type: 3}
+  - {fileID: 3315993456231614610, guid: d0972332ffccc7b4c879fadd1b8e7efc, type: 3}
+  - {fileID: 8718665652961480134, guid: 46a81f8702b178b41be5af66cf823f5c, type: 3}
   selectedCharacterPrefabs:
   - {fileID: 0}
   - {fileID: 0}

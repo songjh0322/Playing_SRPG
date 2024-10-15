@@ -15,7 +15,7 @@ public class TilemapCharacterPlacement : MonoBehaviour
     private void Start()
     {
         mainCamera = Camera.main;
-        
+
         // GameManager2에서 선택된 캐릭터 프리팹을 가져옴
         characterPrefabs = GameManager2.instance.selectedCharacterPrefabs;
     }
@@ -41,7 +41,7 @@ public class TilemapCharacterPlacement : MonoBehaviour
             Vector3 tileWorldPosition = tilemap.GetCellCenterWorld(tilePosition);
 
             // 타일 위치에 캐릭터 배치
-            currentCharacter.transform.position = tileWorldPosition;
+            currentCharacter.transform.position = new Vector3(tileWorldPosition.x, tileWorldPosition.y, 0); // Z를 0으로 설정
             isPlacing = false;
             currentCharacter = null;
         }
@@ -53,6 +53,7 @@ public class TilemapCharacterPlacement : MonoBehaviour
         if (currentCharacter != null)
         {
             Destroy(currentCharacter); // 기존 캐릭터 제거
+            currentCharacter = null;   // null로 설정하여 중복 방지
         }
 
         currentCharacter = Instantiate(characterPrefabs[characterIndex]); // 캐릭터 인스턴스 생성
