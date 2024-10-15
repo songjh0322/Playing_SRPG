@@ -5283,6 +5283,10 @@ MonoBehaviour:
   - {fileID: 3758567855716550445, guid: f733c0a13ee2a414a9fe3ede72b7ce67, type: 3}
   - {fileID: 1706414400820913433, guid: 1486e06ed3128451ba7127c04d880be7, type: 3}
   - {fileID: 5380797525318970501, guid: 90fb33faa30c34066b56c52b155d6cce, type: 3}
+  xMin: 5
+  xMax: 9
+  yMin: -2
+  yMax: 7
 --- !u!4 &704064650
 Transform:
   m_ObjectHideFlags: 0

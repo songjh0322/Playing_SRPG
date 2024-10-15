@@ -9,19 +9,25 @@ public class AIRandomPlacement : MonoBehaviour
     public GameObject[] aiPrefabs;  // AI 캐릭터 프리팹 배열
     private List<Vector3Int> availableTiles = new List<Vector3Int>();  // 유효한 타일 좌표 리스트
 
+    // 작은 네모 선의 좌표 범위 설정 
+    public int xMin = 5;
+    public int xMax = 9;
+    public int yMin = -2;
+    public int yMax = 7;
+
     private void Start()
     {
         // 타일맵 상의 모든 타일 좌표를 가져옴
         BoundsInt bounds = tilemap.cellBounds;
         TileBase[] allTiles = tilemap.GetTilesBlock(bounds);
 
-        // 유효한 타일 좌표를 저장 (타일이 존재하는 좌표)
-        for (int x = bounds.xMin; x < bounds.xMax; x++)
+
+        for (int x = xMin; x <= xMax; x++)
         {
-            for (int y = bounds.yMin; y < bounds.yMax; y++)
+            for (int y = yMin; y <= yMax; y++)
             {
                 Vector3Int tilePos = new Vector3Int(x, y, 0);
-                if (tilemap.HasTile(tilePos))
+                if (tilemap.HasTile(tilePos))  // 타일이 존재하는지 확인
                 {
                     availableTiles.Add(tilePos);  // 유효한 타일을 리스트에 추가
                 }
