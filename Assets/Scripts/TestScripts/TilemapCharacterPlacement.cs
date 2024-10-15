@@ -9,6 +9,7 @@ public class TilemapCharacterPlacement : MonoBehaviour
     private List<GameObject> characterPrefabs; // 동적으로 할당될 캐릭터 프리팹 리스트
     private GameObject currentCharacter; // 현재 선택된 캐릭터
     private bool isPlacing = false; // 캐릭터 배치 중인지 확인
+    private HashSet<int> placedCharacterIndices = new HashSet<int>(); // 배치된 캐릭터 인덱스를 저장하는 HashSet
 
     private Camera mainCamera;
 
@@ -50,6 +51,13 @@ public class TilemapCharacterPlacement : MonoBehaviour
     // 캐릭터 버튼을 클릭하면 캐릭터를 선택하여 타일맵에 배치
     public void OnCharacterButtonClick(int characterIndex)
     {
+        // 이미 배치된 캐릭터라면 다시 배치하지 않도록 막음
+        if (placedCharacterIndices.Contains(characterIndex))
+        {
+            Debug.LogWarning("이미 배치된 캐릭터입니다: " + characterPrefabs[characterIndex].name);
+            return;
+        }
+
         if (currentCharacter != null)
         {
             Destroy(currentCharacter); // 기존 캐릭터 제거
@@ -58,5 +66,8 @@ public class TilemapCharacterPlacement : MonoBehaviour
 
         currentCharacter = Instantiate(characterPrefabs[characterIndex]); // 캐릭터 인스턴스 생성
         isPlacing = true; // 배치 모드 활성화
+
+        // 캐릭터를 배치한 것으로 간주하고 인덱스를 저장
+        placedCharacterIndices.Add(characterIndex);
     }
 }
