@@ -139,6 +139,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\Scripts\Managers\PrefabManager.cs" />
     <Compile Include="Assets\Scripts\Managers\UIManager.cs" />
+    <Compile Include="Assets\Scripts\TestScripts\AIRandomPlacement.cs" />
     <Compile Include="Assets\SPUM\SPUM\Script\SPUM_PackageButton.cs" />
     <Compile Include="Assets\Scripts\UI\Scene2Scripts\Scene4Switcher.cs" />
     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
