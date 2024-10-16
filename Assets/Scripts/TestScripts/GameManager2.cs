@@ -31,8 +31,6 @@ public class GameManager2 : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject); // 씬이 바뀌어도 GameManager가 파괴되지 않도록..
-
-            SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
         {
@@ -45,15 +43,6 @@ public class GameManager2 : MonoBehaviour
         ResetSelectedCharacterPrefabs();  // 게임 시작 시 프리팹 리스트 초기화
         // 게임 시작 시 모든 Image와 Text를 비활성화
         ResetSelectedCharactersUI();
-    }
-
-    private void OnDestroy()
-    {
-        // 이벤트 구독 해제
-        if (instance == this)
-        {
-            SceneManager.sceneLoaded -= OnSceneLoaded;
-        }
     }
 
     // 씬 전환 함수
