@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731704, g: 0.13414727, b: 0.121078536, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731704, g: 0.1341472, b: 0.121078566, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -857,6 +857,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1756781259}
+        m_TargetAssemblyTypeName: GameManager2, Assembly-CSharp
+        m_MethodName: SetCharacterIndex
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1756781256}
         m_TargetAssemblyTypeName: CharacterSelection, Assembly-CSharp
         m_MethodName: OnSelectCharacter
@@ -878,19 +890,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: WARRIOR
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1756781259}
-        m_TargetAssemblyTypeName: GameManager2, Assembly-CSharp
-        m_MethodName: SetCharacterIndex
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 4
-          m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Warrior
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &76119775
@@ -907,7 +907,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.745283, g: 0.409562, b: 0.27069238, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1155,7 +1155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.745283, g: 0.409562, b: 0.27069238, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1223,6 +1223,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1756781259}
+        m_TargetAssemblyTypeName: GameManager2, Assembly-CSharp
+        m_MethodName: SetCharacterIndex
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 5
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1756781256}
         m_TargetAssemblyTypeName: CharacterSelection, Assembly-CSharp
         m_MethodName: OnSelectCharacter
@@ -1244,19 +1256,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: THIEF
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1756781259}
-        m_TargetAssemblyTypeName: GameManager2, Assembly-CSharp
-        m_MethodName: SetCharacterIndex
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 5
-          m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Thief
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &119182597
@@ -4106,10 +4106,10 @@ RectTransform:
   - {fileID: 1093189418}
   m_Father: {fileID: 699502376}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 370, y: -625}
-  m_SizeDelta: {x: 730, y: 150}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 150}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &519848217
 MonoBehaviour:
@@ -4249,6 +4249,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1756781259}
+        m_TargetAssemblyTypeName: GameManager2, Assembly-CSharp
+        m_MethodName: SetCharacterIndex
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1756781256}
         m_TargetAssemblyTypeName: CharacterSelection, Assembly-CSharp
         m_MethodName: OnSelectCharacter
@@ -4270,19 +4282,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: ROBIN HOOD
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1756781259}
-        m_TargetAssemblyTypeName: GameManager2, Assembly-CSharp
-        m_MethodName: SetCharacterIndex
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
-          m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Robin Hood
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &523044056
@@ -4299,7 +4299,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.745283, g: 0.409562, b: 0.27069238, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -4636,7 +4636,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0.8
-  m_Text: warrior
+  m_Text: Warrior
 --- !u!222 &604893997
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5884,7 +5884,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0.8
-  m_Text: guardian
+  m_Text: Guardian
 --- !u!222 &749161538
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8896,6 +8896,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1756781259}
+        m_TargetAssemblyTypeName: GameManager2, Assembly-CSharp
+        m_MethodName: SetCharacterIndex
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 6
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1756781256}
         m_TargetAssemblyTypeName: CharacterSelection, Assembly-CSharp
         m_MethodName: OnSelectCharacter
@@ -8917,19 +8929,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: GUARDIAN
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1756781259}
-        m_TargetAssemblyTypeName: GameManager2, Assembly-CSharp
-        m_MethodName: SetCharacterIndex
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 6
-          m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Guardian
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1161591040
@@ -8946,7 +8946,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.745283, g: 0.409562, b: 0.27069238, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -9121,6 +9121,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1756781259}
+        m_TargetAssemblyTypeName: GameManager2, Assembly-CSharp
+        m_MethodName: SetCharacterIndex
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1756781256}
         m_TargetAssemblyTypeName: CharacterSelection, Assembly-CSharp
         m_MethodName: OnSelectCharacter
@@ -9142,19 +9154,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: MAGE
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1756781259}
-        m_TargetAssemblyTypeName: GameManager2, Assembly-CSharp
-        m_MethodName: SetCharacterIndex
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Mage
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1191187803
@@ -9171,7 +9171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.745283, g: 0.409562, b: 0.27069238, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -10369,6 +10369,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1756781259}
+        m_TargetAssemblyTypeName: GameManager2, Assembly-CSharp
+        m_MethodName: SetCharacterIndex
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1756781256}
         m_TargetAssemblyTypeName: CharacterSelection, Assembly-CSharp
         m_MethodName: OnSelectCharacter
@@ -10390,19 +10402,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: PALADIN
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1756781259}
-        m_TargetAssemblyTypeName: GameManager2, Assembly-CSharp
-        m_MethodName: SetCharacterIndex
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 3
-          m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Paladin
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1327608083
@@ -10419,7 +10419,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.745283, g: 0.409562, b: 0.27069238, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -11371,10 +11371,10 @@ RectTransform:
   - {fileID: 299100125}
   m_Father: {fileID: 699502376}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 370, y: -470}
-  m_SizeDelta: {x: 730, y: 150}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 150}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1498463833
 MonoBehaviour:
@@ -11633,10 +11633,10 @@ RectTransform:
   - {fileID: 1689897639}
   m_Father: {fileID: 699502376}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 370, y: -315}
-  m_SizeDelta: {x: 730, y: 150}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 150}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1526608938
 MonoBehaviour:
@@ -12010,9 +12010,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1756781256}
-        m_TargetAssemblyTypeName: CharacterSelection, Assembly-CSharp
-        m_MethodName: OnSelectCharacter
+      - m_Target: {fileID: 1756781259}
+        m_TargetAssemblyTypeName: GameManager2, Assembly-CSharp
+        m_MethodName: SetCharacterIndex
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12022,9 +12022,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1756781259}
-        m_TargetAssemblyTypeName: GameManager2, Assembly-CSharp
-        m_MethodName: SetCharacterIndex
+      - m_Target: {fileID: 1756781256}
+        m_TargetAssemblyTypeName: CharacterSelection, Assembly-CSharp
+        m_MethodName: OnSelectCharacter
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12043,7 +12043,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: RANGER
+          m_StringArgument: Ranger
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1602641294
@@ -12060,7 +12060,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.745283, g: 0.409562, b: 0.27069238, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -14209,7 +14209,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0.8
-  m_Text: thief
+  m_Text: Thief
 --- !u!222 &1873306344
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -14619,10 +14619,10 @@ RectTransform:
   - {fileID: 14726653}
   m_Father: {fileID: 699502376}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 370, y: -5}
-  m_SizeDelta: {x: 730, y: 150}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 150}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1931102803
 MonoBehaviour:
@@ -15100,10 +15100,10 @@ RectTransform:
   - {fileID: 1482516207}
   m_Father: {fileID: 699502376}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 370, y: -160}
-  m_SizeDelta: {x: 730, y: 150}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 150}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &2047409631
 MonoBehaviour:
@@ -15229,7 +15229,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0.8
-  m_Text: paladin
+  m_Text: Paladin
 --- !u!222 &2073956188
 CanvasRenderer:
   m_ObjectHideFlags: 0

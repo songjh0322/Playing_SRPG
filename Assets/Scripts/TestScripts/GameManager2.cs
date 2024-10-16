@@ -96,6 +96,7 @@ public class GameManager2 : MonoBehaviour
                 if (selectedCharacters.Count < maxSelectableCharacters)
                 {
                     selectedCharacters.Add(currentSelectedName);
+                    Debug.Log("" + currentSelectedName);
                     //스탯 매니저를 통해 선택된 캐릭터의 스탯 가져오기
                     CharacterStats stats = CharacterStatsManager.instance.GetCharacterStats(currentSelectedName);
                     if (stats != null)
@@ -131,16 +132,17 @@ public class GameManager2 : MonoBehaviour
         {
             Debug.Log("캐릭터 삭제: " + selectedCharacters[index]);
 
-            // 버튼 색상 초기화
-            for (int i = 0; i < characterButtons.Length; i++)
-            {
-                // 캐릭터 이름이 동일하면 해당 캐릭터 버튼의 색상만 초기화
-                if (characterButtons[i].transform.Find("Text").GetComponent<Text>().text == selectedCharacters[index])
-                {
-                    characterButtons[i].color = new Color32(190, 104, 69, 255);  // 원래 색상으로 변경
-                    break;
-                }
-            }
+            // // 버튼 색상 초기화
+            // for (int i = 0; i < characterButtons.Length; i++)
+            // {
+            //     // 캐릭터 이름이 동일하면 해당 캐릭터 버튼의 색상만 초기화
+            //     if (characterButtons[i].transform.Find("Text").GetComponent<Text>().text == selectedCharacters[index])
+            //     {
+            //         Debug.Log("RemoveCharacter ButtonColor");
+            //         characterButtons[i].color = new Color32(190, 104, 69, 255);  // 원래 색상으로 변경
+            //         break;
+            //     }
+            // }
             selectedCharacters.RemoveAt(index);  // 리스트에서 해당 캐릭터 삭제
             UpdateSelectedCharactersUI();        // UI 업데이트
         }
@@ -173,9 +175,10 @@ public class GameManager2 : MonoBehaviour
         }
 
         // 선택된 캐릭터의 텍스트와 버튼이 일치하는지 확인하고 색상 초기화
-        for (int i = 0; i < characterButtons.Length && i < selectedCharacterTexts.Length; i++)
+        for (int i = 0; i < characterButtons.Length; i++)
         {
-            if (!selectedCharacters.Contains(selectedCharacterTexts[i].text))
+            string buttonCharacterName = characterButtons[i].transform.Find("Text").GetComponent<Text>().text;
+            if (!selectedCharacters.Contains(buttonCharacterName))
             {
                 characterButtons[i].color = new Color32(190, 104, 69, 255);  // 원래 색상으로 변경
             }
@@ -183,7 +186,7 @@ public class GameManager2 : MonoBehaviour
     }
 
     // 버튼 색상을 변경하는 함수
-    private void ChangeButtonColor(int characterIndex)
+    public void ChangeButtonColor(int characterIndex)
     {
         if (characterIndex >= 0 && characterIndex < characterButtons.Length)
         {

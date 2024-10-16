@@ -48,7 +48,7 @@ public class CharacterStatsManager : MonoBehaviour
     {
         characterStatsDatabase.Add("Ranger", new CharacterStats("Ranger", 100, 20, 10, 2, 3));
         characterStatsDatabase.Add("Mage", new CharacterStats("Mage", 80, 25, 10, 2, 3));
-        characterStatsDatabase.Add("RoBin Hood", new CharacterStats("RoBin Hood", 150, 30, 20, 1, 2));
+        characterStatsDatabase.Add("Robin Hood", new CharacterStats("RoBin Hood", 150, 30, 20, 1, 2));
         characterStatsDatabase.Add("Paladin", new CharacterStats("Paladin", 200, 40, 30, 1, 2));
         characterStatsDatabase.Add("Warrior", new CharacterStats("Warrior", 200, 40, 30, 1, 2));
         characterStatsDatabase.Add("Thief", new CharacterStats("Thief", 100, 50, 0, 3, 3));
