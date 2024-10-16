@@ -24,6 +24,10 @@ public class GameManager2 : MonoBehaviour
     private int currentSelectedIndex = -1; // 현재 선택된 캐릭터의 인덱스 (-1은 선택되지 않은 상태)
     private string currentSelectedName = ""; // 선택된 캐릭터의 이름
 
+    public BGMoveManager bgMoveManager; // BGMoveManager 참조
+    public LeftPanelMoveManager leftPanelMoveManager;  // LeftPanelMoveManager 참조
+    private int placedCharacterCount = 0;
+
     private void Awake()
     {
         // 싱글톤 패턴
@@ -36,6 +40,13 @@ public class GameManager2 : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        // 씬 로드 이벤트에 OnSceneLoaded 함수 등록
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    private void OnDestroy()
+    {
+        // 씬 로드 이벤트에서 함수 제거 (중복 등록 방지)
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     private void Start()
@@ -109,7 +120,7 @@ public class GameManager2 : MonoBehaviour
                     {
                         selectedCharacterPrefabs.Add(prefab); // 프리팹 저장
                     }
-                    else{Debug.Log("프리팹 저장 안 됨");}
+                    else { Debug.Log("프리팹 저장 안 됨"); }
                     UpdateSelectedCharactersUI();  // UI 업데이트
                     ChangeButtonColor(currentSelectedIndex);  // 버튼 색상 변경
                     Debug.Log("저장된 캐릭터: " + currentSelectedName);
@@ -213,6 +224,18 @@ public class GameManager2 : MonoBehaviour
                 selectedCharacterTexts[i].text = selectedCharacters[i];
                 Debug.Log("find " + objectName);
             }
+
+
+            bgMoveManager = FindObjectOfType<BGMoveManager>(); // TestScene3에서 BGMoveManager 찾기
+            if (bgMoveManager != null)
+            {
+                Debug.Log("BGMoveManager가 설정되었습니다.");
+            }
+            else
+            {
+                Debug.LogError("BGMoveManager를 찾을 수 없습니다.");
+            }
+            leftPanelMoveManager = FindObjectOfType<LeftPanelMoveManager>();
         }
     }
     // 캐릭터 이름에 따라 프리팹을 찾는 함수
@@ -231,5 +254,37 @@ public class GameManager2 : MonoBehaviour
     private void ResetSelectedCharacterPrefabs()
     {
         selectedCharacterPrefabs.Clear(); // 기존 리스트를 초기화
+    }
+    // 캐릭터가 배치될 때마다 호출
+    public void OnCharacterPlaced()
+    {
+        placedCharacterCount++;
+
+        if (placedCharacterCount == 5)
+        {
+            if (bgMoveManager != null)
+            {
+                // 5명의 캐릭터가 모두 배치되었을 때 BG를 이동
+                bgMoveManager.MoveBG();
+            }
+            else
+            {
+                Debug.LogError("BGMoveManager가 설정되지 않았습니다.");
+            }
+            // 왼쪽 패널 이동
+            if (leftPanelMoveManager != null)
+            {
+                leftPanelMoveManager.MoveLeftPanel();
+                Debug.Log("왼쪽 패널 이동 중...");
+            }
+            else
+            {
+                Debug.LogError("LeftPanelMoveManager를 찾을 수 없습니다.");
+            }
+        }
+        else
+        {
+            Debug.Log("현재 배치된 캐릭터 수: " + placedCharacterCount);
+        }
     }
 }

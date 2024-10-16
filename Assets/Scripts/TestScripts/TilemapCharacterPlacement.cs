@@ -57,6 +57,16 @@ public class TilemapCharacterPlacement : MonoBehaviour
             currentCharacter.transform.position = new Vector3(tileWorldPosition.x, tileWorldPosition.y, 0); // Z를 0으로 설정
             isPlacing = false;
             currentCharacter = null;
+
+            // 캐릭터가 배치된 후 GameManager2에 배치 완료를 알림
+            if (GameManager2.instance != null)
+            {
+                GameManager2.instance.OnCharacterPlaced();  // 캐릭터가 배치되었음을 알림
+            }
+            else
+            {
+                Debug.LogError("GameManager2.instance가 null 상태입니다. 캐릭터 배치 완료를 알릴 수 없습니다.");
+            }
         }
     }
 

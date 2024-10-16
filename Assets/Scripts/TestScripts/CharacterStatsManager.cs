@@ -12,7 +12,6 @@ public class CharacterStats
     public int defense;
     public int moveRange;
     public int skillRange;
-
     public CharacterStats(string name, int hp, int att, int def, int move, int skill)
     {
         characterName = name;
@@ -21,13 +20,12 @@ public class CharacterStats
         defense = def;
         moveRange = move;
         skillRange = skill;
-
     }
 }
 public class CharacterStatsManager : MonoBehaviour
 {
     public static CharacterStatsManager instance;
-    
+
     private Dictionary<string, CharacterStats> characterStatsDatabase = new Dictionary<string, CharacterStats>();
 
     private void Awake()
