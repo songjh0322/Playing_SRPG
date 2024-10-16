@@ -19,6 +19,18 @@ public class TilemapCharacterPlacement : MonoBehaviour
 
         // GameManager2에서 선택된 캐릭터 프리팹을 가져옴
         characterPrefabs = GameManager2.instance.selectedCharacterPrefabs;
+        if (characterPrefabs != null && characterPrefabs.Count > 0)
+        {
+            Debug.Log("CharacterPrefabs 리스트가 잘 할당되었습니다. 프리팹 개수: " + characterPrefabs.Count);
+            for (int i = 0; i < characterPrefabs.Count; i++)
+            {
+                Debug.Log($"[{i}] 프리팹 이름: {characterPrefabs[i].name}");
+            }
+        }
+        else
+        {
+            Debug.LogError("CharacterPrefabs 리스트가 null이거나 빈 상태입니다!");
+        }
     }
 
     void Update()

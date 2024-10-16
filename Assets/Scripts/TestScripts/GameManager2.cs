@@ -109,6 +109,7 @@ public class GameManager2 : MonoBehaviour
                     {
                         selectedCharacterPrefabs.Add(prefab); // 프리팹 저장
                     }
+                    else{Debug.Log("프리팹 저장 안 됨");}
                     UpdateSelectedCharactersUI();  // UI 업데이트
                     ChangeButtonColor(currentSelectedIndex);  // 버튼 색상 변경
                     Debug.Log("저장된 캐릭터: " + currentSelectedName);
@@ -228,7 +229,7 @@ public class GameManager2 : MonoBehaviour
         return null;
     }
     private void ResetSelectedCharacterPrefabs()
-{
-    selectedCharacterPrefabs.Clear(); // 기존 리스트를 초기화
-}
+    {
+        selectedCharacterPrefabs.Clear(); // 기존 리스트를 초기화
+    }
 }
