@@ -54,10 +54,7 @@ public class CharacterSelectionManager : MonoBehaviour
 
     void Start()
     {
-        if (GameManager.Instance.playerFaction == PlayerFaction.Guwol)
-            allUnitsInFaction = UnitManager.Instance.guwol_unitsList;
-        else if (GameManager.Instance.playerFaction == PlayerFaction.Seo)
-            allUnitsInFaction = UnitManager.Instance.seo_unitsList;
+        allUnitsInFaction = UnitManager.Instance.GetUnits(GameManager.Instance.playerFaction);
 
         // 폰트 로드
         hangeulFont = Resources.Load<TMP_FontAsset>("Fonts/Orbit-Regular SDF");

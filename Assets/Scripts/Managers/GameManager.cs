@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.UI.CanvasScaler;
+using UnityEngine.SceneManagement;
 
-// 게임 매니저는 모든 매니저를 관리하는 매니저 (플레이어의 정보 또한 저장)
+// 게임의 전반적인 흐름 및 전역 변수 관리
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
@@ -16,23 +16,17 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            this.AddComponent<UnitManager>();
+            gameObject.AddComponent<UnitManager>();
             DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
         }
     }
 
     void Start()
     {
-        //GameObject unitManagerObject = new GameObject("@UnitManager");
-        //unitManagerObject.AddComponent<UnitManager>();
-
-        // 필수 요소 (필요한 유닛 데이터, 프리팹 불러오기)
         UnitManager.Instance.LoadBasicStatsFromJSON();
         UnitManager.Instance.LoadAllUnits();
+
+        SceneManager.LoadScene("MainScene");
     }
 
     // 디버깅용
@@ -54,19 +48,6 @@ public class GameManager : MonoBehaviour
             Debug.Log(CharacterSelectionManager.Instance.selectedCharacters[0]);
         }
     }
-
-    /*    // 타일 클릭 시 호출되는 메서드
-        public void OnTileClicked(Tile clickedTile)
-        {
-            // MapManager의 GetReachableTiles() 함수를 호출하여 맨해튼 거리 3 이내의 타일을 가져옴
-            List<Tile> reachableTiles = MapManager.Instance.GetReachableTiles(3, clickedTile);
-
-            // 가져온 타일들의 색상을 초록색으로 변경
-            foreach (Tile tile in reachableTiles)
-            {
-                tile.ChangeColor(Color.green);
-            }
-        }*/
 }
 
 public enum PlayerFaction

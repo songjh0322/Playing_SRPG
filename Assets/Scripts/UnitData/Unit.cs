@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-// 각 유닛의 기본 능력치 구조체 (인게임에서 절대 불변함)
+// 각 유닛의 기본 능력치 구조체 (인게임에서 절대 불변)
 [Serializable]
 public struct BasicStats
 {
@@ -18,7 +18,8 @@ public struct BasicStats
     public string skillName2;
     public string skillDescription2;
 
-    public int faction;
+    public int unitCode;
+    public PlayerFaction faction;
     public int maxHealth;
     public int attackPoint;
     public int defensePoint;

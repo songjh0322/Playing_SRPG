@@ -1,6 +1,7 @@
 {
   "statsWrapper": [
     {
+      "unitCode": 1,
       "unitName": "철봉",
       "faction": 0,
       "characterDescription": "철봉의 삶은 철봉으로 풀업하는 삶",
@@ -16,6 +17,7 @@
       "skillDescription2": "도끼를 두 번 던져 범위 4 내의 적에게 공격력의 200%의 피해를 입힙니다."
     },
     {
+      "unitCode": 2,
       "unitName": "딱쇠",
       "faction": 0,
       "characterDescription": "딱쇠는 딱한 쇠끼..",
@@ -31,6 +33,7 @@
       "skillDescription2": "범위 3 내의 적에게 공격력의 200%의 피해를 입힙니다. 해당 적은 30% 확률로 기절하여 다음 턴 행동이 봉쇄됩니다."
     },
     {
+      "unitCode": 3,
       "unitName": "서빈",
       "faction": 0,
       "characterDescription": "배신자",
@@ -46,6 +49,7 @@
       "skillDescription2": ""
     },
     {
+      "unitCode": 4,
       "unitName": "땡중",
       "faction": 0,
       "characterDescription": "",
@@ -61,6 +65,7 @@
       "skillDescription2": ""
     },
     {
+      "unitCode": 5,
       "unitName": "갑이",
       "faction": 0,
       "characterDescription": "",
@@ -76,6 +81,7 @@
       "skillDescription2": ""
     },
     {
+      "unitCode": 6,
       "unitName": "무명",
       "faction": 0,
       "characterDescription": "",
@@ -91,6 +97,7 @@
       "skillDescription2": ""
     },
     {
+      "unitCode": 7,
       "unitName": "환조",
       "faction": 0,
       "characterDescription": "",
@@ -106,6 +113,7 @@
       "skillDescription2": ""
     },
     {
+      "unitCode": 8,
       "unitName": "달구지",
       "faction": 0,
       "characterDescription": "",
@@ -121,6 +129,7 @@
       "skillDescription2": ""
     },
     {
+      "unitCode": 9,
       "unitName": "서하윤",
       "faction": 1,
       "characterDescription": "",
@@ -136,6 +145,7 @@
       "skillDescription2": ""
     },
     {
+      "unitCode": 10,
       "unitName": "서린",
       "faction": 1,
       "characterDescription": "",
@@ -151,6 +161,7 @@
       "skillDescription2": ""
     },
     {
+      "unitCode": 11,
       "unitName": "도검수",
       "faction": 1,
       "characterDescription": "",
@@ -166,6 +177,7 @@
       "skillDescription2": ""
     },
     {
+      "unitCode": 12,
       "unitName": "신행태보 대종",
       "faction": 1,
       "characterDescription": "",
@@ -181,6 +193,7 @@
       "skillDescription2": ""
     },
     {
+      "unitCode": 13,
       "unitName": "집사",
       "faction": 1,
       "characterDescription": "",
@@ -196,6 +209,7 @@
       "skillDescription2": ""
     },
     {
+      "unitCode": 14,
       "unitName": "영의관",
       "faction": 1,
       "characterDescription": "",
@@ -211,6 +225,7 @@
       "skillDescription2": ""
     },
     {
+      "unitCode": 15,
       "unitName": "주치의",
       "faction": 1,
       "characterDescription": "",
@@ -226,6 +241,7 @@
       "skillDescription2": ""
     },
     {
+      "unitCode": 16,
       "unitName": "노지심",
       "faction": 1,
       "characterDescription": "",
@@ -241,6 +257,7 @@
       "skillDescription2": ""
     },
     {
+      "unitCode": 17,
       "unitName": "시보",
       "faction": 1,
       "characterDescription": "",
@@ -256,6 +273,7 @@
       "skillDescription2": ""
     },
     {
+      "unitCode": 18,
       "unitName": "공손승",
       "faction": 1,
       "characterDescription": "",

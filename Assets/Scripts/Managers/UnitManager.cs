@@ -30,18 +30,16 @@ public class UnitManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
 
             basicStatsList = new List<BasicStats>();
-            unitsList = new List<Unit>();
+            allUnits = new List<Unit>();
             player1Units = new List<Unit>();
             player2Units = new List<Unit>();
         }
     }
 
-    public const int maxUnits = 6;      // 최대 유닛 선택 수
+    public const int maxUnits = 5;      // 최대 유닛 선택 수
 
     public List<BasicStats> basicStatsList;     // 모든 기본 능력치를 저장할 List (원본)
-    public List<Unit> unitsList;    // 모든 유닛을 저장할 List (원본, 인게임에서 사용하지 않음)
-    public List<Unit> guwol_unitsList;
-    public List<Unit> seo_unitsList;
+    public List<Unit> allUnits;    // 모든 유닛을 저장할 List (원본, 인게임에서 사용하지 않음)
 
     public List<Unit> player1Units;      // Player1이 인게임에서 사용할 유닛 리스트 (참조)
     public List<Unit> player2Units;      // Player2가 인게임에서 사용할 유닛 리스트 (참조)
@@ -84,18 +82,7 @@ public class UnitManager : MonoBehaviour
         else
         {
             foreach (BasicStats basicStats in basicStatsList)
-                unitsList.Add(new Unit(basicStats));
-        }
-
-        guwol_unitsList = new List<Unit>();
-        seo_unitsList = new List<Unit>();
-
-        foreach (Unit unit in unitsList)
-        {
-            if (unit.basicStats.faction == 0)
-                guwol_unitsList.Add(unit);
-            if (unit.basicStats.faction == 1)
-                seo_unitsList.Add(unit);
+                allUnits.Add(new Unit(basicStats));
         }
     }
 
@@ -112,7 +99,7 @@ public class UnitManager : MonoBehaviour
         {
             foreach (string unitName in unitNames)
             {
-                Unit foundUnit = unitsList.Find(unit => unit.basicStats.unitName == unitName);
+                Unit foundUnit = allUnits.Find(unit => unit.basicStats.unitName == unitName);
 
                 if (foundUnit != null)
                 {
@@ -131,16 +118,11 @@ public class UnitManager : MonoBehaviour
 
     // 사용 : [캐릭터 선택을 모두 마쳤습니다. 전투를 시작하시겠습니까?] -> [예] 버튼 클릭 시 호출
     // 기능 : Player2가 사용할 유닛들을 랜덤으로 결정 (반대 진영에서 임의로 차출)
+    // 현재 사용 불가
     public void RandomizePlayer2Units()
     {
         player2Units.Clear();
         List<Unit> allUnitsInFaction = new List<Unit>();
-
-        // 현재 진영이 2개뿐이라고 가정한 코드
-        if (GameManager.Instance.playerFaction == PlayerFaction.Guwol)
-            allUnitsInFaction = seo_unitsList;
-        else if (GameManager.Instance.playerFaction == PlayerFaction.Seo)
-            allUnitsInFaction = guwol_unitsList;
 
         // 현재 진영의 순서를 랜덤하게 섞음
         Random random = new Random();
@@ -155,6 +137,28 @@ public class UnitManager : MonoBehaviour
         }
     }
 
+    // unitCode를 통해 대응되는 Unit 객체를 얻음
+    public Unit GetUnit(int unitCode)
+    {
+        foreach (Unit unit in allUnits)
+        {
+            if (unitCode == unit.basicStats.unitCode)
+                return unit;
+        }
 
+        return null;
+    }
+
+    // 진영 정보를 통해 해당 유닛들의 리스트를 얻음
+    public List<Unit> GetUnits(PlayerFaction playerFaction)
+    {
+        List<Unit> factionUnits = new List<Unit>();
+        foreach (Unit unit in allUnits)
+        {
+            if (playerFaction == unit.basicStats.faction)
+                factionUnits.Add(unit);
+        }
+        return factionUnits;
+    }
 }
 
