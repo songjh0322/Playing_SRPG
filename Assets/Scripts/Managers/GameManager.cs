@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    public PlayerFaction playerFaction;
+    public Faction playerFaction;
 
     private void Awake()
     {
@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
     }
 }
 
-public enum PlayerFaction
+public enum Faction
 {
     Guwol,
     Seo,

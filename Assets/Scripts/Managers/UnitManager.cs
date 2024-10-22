@@ -41,8 +41,8 @@ public class UnitManager : MonoBehaviour
     public List<BasicStats> basicStatsList;     // 모든 기본 능력치를 저장할 List (원본)
     public List<Unit> allUnits;    // 모든 유닛을 저장할 List (원본, 인게임에서 사용하지 않음)
 
-    public List<Unit> player1Units;      // Player1이 인게임에서 사용할 유닛 리스트 (참조)
-    public List<Unit> player2Units;      // Player2가 인게임에서 사용할 유닛 리스트 (참조)
+    public List<Unit> player1Units;      // Player1이 인게임에서 실제로 사용할 유닛 리스트 (참조)
+    public List<Unit> player2Units;      // Player2가 인게임에서 실제로 사용할 유닛 리스트 (참조)
 
     private void Start()
     {
@@ -50,7 +50,7 @@ public class UnitManager : MonoBehaviour
     }
 
     // 기능 : JSON 파일로부터 데이터를 basicStatsList에 저장
-    // 주의 : 게임 실행 시 최초 1회만 호출
+    // 주의 : 게임 실행 시 최초 1회만 호출해야 함
     public void LoadBasicStatsFromJSON()
     {
         // JSON 파일 경로
@@ -73,8 +73,8 @@ public class UnitManager : MonoBehaviour
         }
     }
 
-    // 기능 : basicStatsList로부터 Unit 객체를 모두 생성하고 unitsList에 저장
-    // 주의 : 게임 실행 시 최초 1회만 호출
+    // 기능 : basicStatsList로부터 Unit 객체를 모두 생성하고 allUnits에 저장
+    // 주의 : 게임 실행 시 최초 1회만 호출해야 함
     public void LoadAllUnits()
     {
         if (basicStatsList == null)
@@ -150,15 +150,26 @@ public class UnitManager : MonoBehaviour
     }
 
     // 진영 정보를 통해 해당 유닛들의 리스트를 얻음
-    public List<Unit> GetUnits(PlayerFaction playerFaction)
+    public List<Unit> GetUnits(Faction faction)
     {
         List<Unit> factionUnits = new List<Unit>();
         foreach (Unit unit in allUnits)
         {
-            if (playerFaction == unit.basicStats.faction)
+            if (faction == unit.basicStats.faction)
                 factionUnits.Add(unit);
         }
         return factionUnits;
+    }
+
+    public List<int> GetUnitCodes(Faction faction)
+    {
+        List<int> unitCodes = new List<int>();
+        foreach (Unit unit in allUnits)
+        {
+            if (faction == unit.basicStats.faction)
+                unitCodes.Add(unit.basicStats.unitCode);
+        }
+        return unitCodes;
     }
 }
 

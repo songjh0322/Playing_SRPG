@@ -9,6 +9,6 @@ public class Scene4Switcher : MonoBehaviour
     {       
         SceneManager.LoadScene("Scene4");
 
-        GameManager.Instance.playerFaction = PlayerFaction.Seo;
+        GameManager.Instance.playerFaction = Faction.Seo;
     }
 }

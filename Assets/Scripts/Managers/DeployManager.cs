@@ -12,6 +12,8 @@ public class DeployManager : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("DeployScene ·Îµå");
+
         if (Instance == null)
         {
             Instance = this;
@@ -20,10 +22,10 @@ public class DeployManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log(UnitManager.Instance.player1Units[0].basicStats.unitName);
+        /*Debug.Log(UnitManager.Instance.player1Units[0].basicStats.unitName);
         Debug.Log(UnitManager.Instance.player1Units[1].basicStats.unitName);
         Debug.Log(UnitManager.Instance.player1Units[2].basicStats.unitName);
         Debug.Log(UnitManager.Instance.player1Units[3].basicStats.unitName);
-        Debug.Log(UnitManager.Instance.player1Units[4].basicStats.unitName);
+        Debug.Log(UnitManager.Instance.player1Units[4].basicStats.unitName);*/
     }
 }

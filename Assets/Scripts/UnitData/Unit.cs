@@ -19,7 +19,7 @@ public struct BasicStats
     public string skillDescription2;
 
     public int unitCode;
-    public PlayerFaction faction;
+    public Faction faction;
     public int maxHealth;
     public int attackPoint;
     public int defensePoint;

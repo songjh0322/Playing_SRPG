@@ -36,14 +36,14 @@ public class FactionSelectionManager : MonoBehaviour
     // 시작 버튼
     private void OnGuwolButtonClicked()
     {
-        GameManager.Instance.playerFaction = PlayerFaction.Guwol;
+        GameManager.Instance.playerFaction = Faction.Guwol;
         SceneManager.LoadScene("UnitSelectionScene");
     }
 
     // 종료 버튼
     private void OnSeoButtonClicked()
     {
-        GameManager.Instance.playerFaction = PlayerFaction.Seo;
+        GameManager.Instance.playerFaction = Faction.Seo;
         SceneManager.LoadScene("UnitSelectionScene");
     }
 

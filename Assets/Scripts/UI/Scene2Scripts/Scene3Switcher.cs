@@ -9,6 +9,6 @@ public class Scene3Switcher : MonoBehaviour
     {       
         SceneManager.LoadScene("Scene3");
 
-        GameManager.Instance.playerFaction = PlayerFaction.Guwol;
+        GameManager.Instance.playerFaction = Faction.Guwol;
     }
 }
