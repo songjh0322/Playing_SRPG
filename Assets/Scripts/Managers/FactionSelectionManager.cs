@@ -12,7 +12,7 @@ public class FactionSelectionManager : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("FactionScene 로드");
+        Debug.Log("FactionSelectionManager 생성됨");
 
         if (GuwolButton == null)
             Debug.LogError("StartButton이 할당되지 않음", GuwolButton);

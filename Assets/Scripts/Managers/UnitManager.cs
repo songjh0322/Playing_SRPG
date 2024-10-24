@@ -18,6 +18,16 @@ public class UnitManager : MonoBehaviour
 {
     public static UnitManager Instance { get; private set; }
 
+    public const int maxUnits = 5;      // 최대 유닛 선택 수
+
+    public List<BasicStats> basicStatsList;     // 모든 기본 능력치를 저장할 List (원본)
+    public List<Unit> allUnits;    // 모든 유닛을 저장할 List (원본, 인게임에서 사용하지 않음)
+
+    public List<int> player1UnitCodes;
+    public List<int> player2UnitCodes;
+    public List<Unit> player1Units;      // Player1이 인게임에서 실제로 사용할 유닛 리스트 (참조)
+    public List<Unit> player2Units;      // Player2가 인게임에서 실제로 사용할 유닛 리스트 (참조)
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -31,19 +41,12 @@ public class UnitManager : MonoBehaviour
 
             basicStatsList = new List<BasicStats>();
             allUnits = new List<Unit>();
+            player1UnitCodes = new List<int>();
+            player2UnitCodes = new List<int>();
             player1Units = new List<Unit>();
             player2Units = new List<Unit>();
         }
     }
-
-    public const int maxUnits = 5;      // 최대 유닛 선택 수
-
-    public List<BasicStats> basicStatsList;     // 모든 기본 능력치를 저장할 List (원본)
-    public List<Unit> allUnits;    // 모든 유닛을 저장할 List (원본, 인게임에서 사용하지 않음)
-
-    public List<Unit> player1Units;      // Player1이 인게임에서 실제로 사용할 유닛 리스트 (참조)
-    public List<Unit> player2Units;      // Player2가 인게임에서 실제로 사용할 유닛 리스트 (참조)
-
     private void Start()
     {
         

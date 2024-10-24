@@ -37,7 +37,7 @@ public class UnitSelectionManager : MonoBehaviour
     // 싱글톤 인스턴스 설정
     private void Awake()
     {
-        Debug.Log("UnitSelectionScene 로드");
+        Debug.Log("UnitSelectionManager 생성됨");
 
         if (Instance == null)
         {
@@ -148,7 +148,10 @@ public class UnitSelectionManager : MonoBehaviour
         if (selectedUnitCodes.Count == 5)
         {
             foreach (int unitCode in selectedUnitCodes)
+            {
+                UnitManager.Instance.player1UnitCodes.Add(unitCode);
                 UnitManager.Instance.player1Units.Add(new(UnitManager.Instance.GetUnit(unitCode)));
+            }
 
             SceneManager.LoadScene("DeployScene");
         }
@@ -173,6 +176,7 @@ public class UnitSelectionManager : MonoBehaviour
         }
     }
 
+    // selectedUnitBar를 정렬하는 함수(unitCode를 기준으로)
     void SortUnitBarsByButtonIndex()
     {
         // 자식 오브젝트들을 리스트로 불러오기

@@ -13,7 +13,7 @@ public class MainManager : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("MainScene 로드");
+        Debug.Log("MainManager 로드됨");
 
         if (StartButton == null)
             Debug.LogError("StartButton이 할당되지 않음", StartButton);

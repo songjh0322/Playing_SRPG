@@ -20,12 +20,13 @@ public class AIManager : MonoBehaviour
 
     private void Start()
     {
+        // 랜덤하게 5명을 추출
         RandomSelection(5);
-        Debug.Log(UnitManager.Instance.player2Units[0].basicStats.unitName);
+        /*Debug.Log(UnitManager.Instance.player2Units[0].basicStats.unitName);
         Debug.Log(UnitManager.Instance.player2Units[1].basicStats.unitName);
         Debug.Log(UnitManager.Instance.player2Units[2].basicStats.unitName);
         Debug.Log(UnitManager.Instance.player2Units[3].basicStats.unitName);
-        Debug.Log(UnitManager.Instance.player2Units[4].basicStats.unitName);
+        Debug.Log(UnitManager.Instance.player2Units[4].basicStats.unitName);*/
     }
 
     // player2Units에 랜덤한 유닛을 생성하고 추가
@@ -45,6 +46,9 @@ public class AIManager : MonoBehaviour
         randomSelectionUnitCodes.Sort();
 
         foreach (int unitCode in randomSelectionUnitCodes)
+        {
+            UnitManager.Instance.player2UnitCodes.Add(unitCode);
             UnitManager.Instance.player2Units.Add(new(UnitManager.Instance.GetUnit(unitCode)));
+        }   
     }
 }

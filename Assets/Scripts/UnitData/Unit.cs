@@ -26,16 +26,16 @@ public struct BasicStats
     public int moveRange;
 }
 
-// 각 유닛의 인터페이스
+/*// 각 유닛의 인터페이스
 public interface IUnit
 {
     void move(Tile toTile);
     void castSkill(string unitName);
-}
+}*/
 
 // 인게임에서 객체로 만들 Unit 클래스
 [Serializable]
-public class Unit : IUnit
+public class Unit// : IUnit
 {
     // 각 유닛의 기본 능력치 (인게임에서 절대 불변함)
     public BasicStats basicStats;
@@ -73,10 +73,10 @@ public class Unit : IUnit
         return (0, 0);
     }
 
-    public void move(Tile toTile)
+/*    public void move(Tile toTile)
     {
         
-    }
+    }*/
 
     public void castSkill(string skillName)
     {
