@@ -25,6 +25,7 @@ public class InitialDeployManager : MonoBehaviour
     public int currentUnitCode;     // 현재 배치하려는 유닛의 코드
     public GameObject currentUnitPrefab;    // 현재 배치하려는 유닛의 프리팹
     public List<int> deployedUnitsCodes;    // 현재 배치되어있는 유닛의 코드 리스트
+    public List<GameObject> playerUnitPrefabs;
 
     // 프리팹 관리 (Inspector에서 할당)
     public List<Button> playerUnitButtons;
@@ -49,6 +50,7 @@ public class InitialDeployManager : MonoBehaviour
         currentUnitCode = -1;
         currentUnitPrefab = null;
         deployedUnitsCodes = new List<int>();
+        playerUnitPrefabs = new List<GameObject>();
 
         for (int i = 0; i < unitNameTexts.Count; i++)
         {
@@ -78,6 +80,12 @@ public class InitialDeployManager : MonoBehaviour
             mousePosition.z = 0f;
 
             currentUnitPrefab.transform.position = mousePosition;
+        }
+
+        // 테스트용
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Reset();
         }
     }
 
@@ -114,10 +122,11 @@ public class InitialDeployManager : MonoBehaviour
             && tileInfo.unit == null
             && tileInfo.initialDeployment == InitialDeployment.Player1)
         {
-            // 유닛을 시각적으로 배치
-            currentUnitPrefab.transform.position = tileInfo.worldXY;
             // 해당 TileInfo 업데이트
             tileInfo.unit = UnitManager.Instance.GetPlayer1Unit(currentUnitCode);
+            // 유닛을 시각적으로 배치
+            currentUnitPrefab.transform.position = tileInfo.worldXY;
+            playerUnitPrefabs.Add(currentUnitPrefab);
 
             // 상태 설정 및 초기화
             deployedUnitsCodes.Add(currentUnitCode);
@@ -134,5 +143,16 @@ public class InitialDeployManager : MonoBehaviour
         state = State.NotSelected;
         currentUnitCode = -1;
         currentUnitPrefab = null;
+    }
+
+    private void Reset()
+    {
+        deployedUnitsCodes.Clear();
+        // TileInfo 업데이트
+        List<TileInfo> deployableTileInfos = MapManager.Instance.GetTileInfos(InitialDeployment.Player1);
+        for (int i = 0; i < deployableTileInfos.Count; i++)
+            deployableTileInfos[i].unit = null;
+        foreach (GameObject playerUnitPrefab in playerUnitPrefabs)
+            Destroy(playerUnitPrefab);
     }
 }
