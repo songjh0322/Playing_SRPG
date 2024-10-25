@@ -10,6 +10,7 @@ public class UnitSelectionManager : MonoBehaviour
     public static UnitSelectionManager Instance { get; private set; }
 
     private int currentUnitCode;  // 현재 선택한 유닛의 코드 (0~7)
+    private GameObject currentUnitPrefab;
     private List<int> selectedUnitCodes;
     private List<Unit> units;   // 현재 선택한 진영의 유닛들 (8명)
     private List<Unit> selectedUnits;
@@ -20,6 +21,7 @@ public class UnitSelectionManager : MonoBehaviour
 
     // CenterPanel
     public Text currentUnitNameText;
+    public GameObject unitDisplayArea;  // Inspector에서 할당
     public Button idleButton;   // Inspector에서 할당
     public Button moveButton;   // Inspector에서 할당
     public Button attackButton; // Inspector에서 할당
@@ -93,11 +95,21 @@ public class UnitSelectionManager : MonoBehaviour
         {
             SceneManager.LoadScene("FactionSelectionScene");
         }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            RectTransform rt = currentUnitPrefab.GetComponent<RectTransform>();
+            rt.position = new Vector3(0f, 680.0f, 0f);
+        }
     }
 
     void OnUnitButtonClicked(Unit unit)
     {
+        Destroy(currentUnitPrefab);
         currentUnitCode = unit.basicStats.unitCode;
+        currentUnitPrefab = UnitPrefabManager.Instance.InstantiateUnitPrefab(currentUnitCode, 360.0f);
+        currentUnitPrefab.transform.SetParent(unitDisplayArea.transform, false);
+        RectTransform rt = currentUnitPrefab.GetComponent<RectTransform>();
+        rt.anchoredPosition = new Vector2(0.0f, -180.0f);
 
         // CenterPanel 상단에 현재 선택한 유닛 이름을 표시
         currentUnitNameText.text = unit.basicStats.unitName;

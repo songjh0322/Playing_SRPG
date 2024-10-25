@@ -44,12 +44,13 @@ public class UnitPrefabManager : MonoBehaviour
         allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/AI10"));  // 여기까지 unitCode = 16
     }
 
-    // 원본 프리팹
+/*    // 원본 프리팹
     private GameObject GetUnitPrefab(int unitCode)
     {
         return allUnitPrefabs[unitCode];
-    }
+    }*/
 
+    // 새로운 프리팹(복제)
     public GameObject InstantiateUnitPrefab(int unitCode, float scale)
     {
         GameObject transformedUnitPrefab = Instantiate(allUnitPrefabs[unitCode]);
