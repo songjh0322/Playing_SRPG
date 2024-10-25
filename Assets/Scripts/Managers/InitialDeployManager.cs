@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Collections;
 using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -14,22 +15,25 @@ public enum State
     Done,   // 모두 배치된 상태
 }
 
-public class DeployManager : MonoBehaviour
+public class InitialDeployManager : MonoBehaviour
 {
-    public static DeployManager Instance { get; private set; }
+    public static InitialDeployManager Instance { get; private set; }
 
     // 상태 관리
     public State state;     // 현재 상태
     public int currentUnitCode;     // 현재 배치하려는 유닛의 코드
     public GameObject currentUnitPrefab;    // 현재 배치하려는 유닛의 프리팹
 
+    // 프리팹 관리
     public List<Button> playerUnitButtons;
     public List<Text> unitNameTexts;
-    public Tilemap tilemap;
+    public Button completeButton;
+    public GameObject map;
 
     private void Awake()
     {
-        Debug.Log("DeployManager 생성됨");
+        GameManager.Instance.gameState = GameState.InitialDeployment;
+        // Debug.Log("InitialDeployManager 생성됨");
 
         if (Instance == null)
         {
@@ -53,6 +57,8 @@ public class DeployManager : MonoBehaviour
             int index = i;
             playerUnitButtons[index].onClick.AddListener(() => OnPlayerUnitButtonClicked(UnitManager.Instance.player1UnitCodes[index]));
         }
+
+        //completeButton.onClick.AddListener(() => OnCompleteButtonClicked());
     }
 
     // 플레이어의 키보드 입력과 실시간 업데이트가 필요한 코드만 여기서 처리
@@ -60,9 +66,7 @@ public class DeployManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape) && state == State.Selected)
         {
-            Destroy(currentUnitPrefab);
-            state = State.NotSelected;
-            currentUnitCode = -1;
+            CancelUnitSelection();
         }
         if (state == State.Selected)
         {
@@ -75,16 +79,43 @@ public class DeployManager : MonoBehaviour
 
     private void OnPlayerUnitButtonClicked(int unitCode)
     {
-        // 같은 버튼을 클릭하면 상태 유지
+        // 같은 버튼을 클릭하면 선택 해제
         if (currentUnitCode == unitCode)
+        {
+            CancelUnitSelection();
             return;
+        }
         // 다른 버튼을 클릭하면 다른 유닛으로 대체
         if (currentUnitCode != unitCode)
         {
             Destroy(currentUnitPrefab);
             state = State.Selected;
             currentUnitCode = unitCode;
-            currentUnitPrefab = Instantiate(UnitPrefabManager.Instance.GetUnitPrefab(unitCode));
+            currentUnitPrefab = UnitPrefabManager.Instance.InstantiateUnitPrefab(unitCode, 2.0f);
         }
+    }
+
+    private void OnCompleteButtonClicked()
+    {
+
+    }
+
+    public void OnTileClicked(Vector3 worldXY)
+    {
+        if (state == State.Selected)
+        {
+            // 유닛을 실질적으로 배치
+            currentUnitPrefab.transform.position = worldXY;
+            state = State.NotSelected;
+            currentUnitCode = -1;
+            currentUnitPrefab = null;
+        }
+    }
+
+    private void CancelUnitSelection()
+    {
+        Destroy(currentUnitPrefab);
+        state = State.NotSelected;
+        currentUnitCode = -1;
     }
 }

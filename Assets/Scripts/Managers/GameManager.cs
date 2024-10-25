@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
+    public GameState gameState;
     public Faction playerFaction;
 
     private void Awake()
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             gameObject.AddComponent<UnitManager>();
+            gameObject.AddComponent<UnitPrefabManager>();
             DontDestroyOnLoad(gameObject);
         }
     }
@@ -54,4 +56,13 @@ public enum Faction
 {
     Guwol,
     Seo,
+}
+
+public enum GameState
+{
+    MainMenu,
+    FactionSelection,
+    UnitSelection,
+    InitialDeployment,
+    InGame
 }

@@ -93,6 +93,7 @@
     <Compile Include="Assets\Scripts\JongKwon\TileInfo.cs" />
     <Compile Include="Assets\SPUM\SPUM\Script\SPUM_HorseSpriteList.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
+    <Compile Include="Assets\Scripts\JongKwon\Unit.cs" />
     <Compile Include="Assets\SPUM\SPUM\Script\Plugin\Moments Recorder\Scripts\MinAttribute.cs" />
     <Compile Include="Assets\SPUM\SPUM\Script\SPUM_SpriteButtonST.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="Assets\SPUM\SPUM\Basic_Resources\Package\Script\SPUM_PresetData.cs" />
     <Compile Include="Assets\Scripts\Managers\UnitPrefabManager.cs" />
     <Compile Include="Assets\SPUM\SPUM\Script\SPUM_PackagePanel.cs" />
+    <Compile Include="Assets\Scripts\Managers\InitialDeployManager.cs" />
     <Compile Include="Assets\SPUM\SPUM\Sprite_Editor(Beta)\Script\SpriteSync.cs" />
     <Compile Include="Assets\SPUM\SPUM\Script\Plugin\Moments Recorder\Scripts\Worker.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
@@ -154,7 +156,6 @@
     <Compile Include="Assets\SPUM\SPUM\Script\Data\SPUM_Prefabs.cs" />
     <Compile Include="Assets\SPUM\SPUM\Script\Plugin\Moments Recorder\Scripts\ReflectionUtils.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
-    <Compile Include="Assets\Scripts\Managers\DeployManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\SPUM\SPUM\Script\SPUM_PreviewItem.cs" />
     <Compile Include="Assets\SPUM\SPUM\Script\Plugin\Moments Recorder\Scripts\Gif\GifFrame.cs" />
@@ -178,7 +179,6 @@
     <Compile Include="Assets\SPUM\SPUM\Script\Data\SPUM_MatchingList.cs" />
     <Compile Include="Assets\SPUM\SPUM\Script\SPUM_AnimationStateElement.cs" />
     <Compile Include="Assets\Scripts\TestScripts\LeftPanelMoveManager.cs" />
-    <Compile Include="Assets\Scripts\UnitData\Unit.cs" />
     <Compile Include="Assets\Scripts\UI\Scene2Scripts\BackToScene1.cs" />
   </ItemGroup>
   <ItemGroup>

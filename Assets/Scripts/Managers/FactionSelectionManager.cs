@@ -12,7 +12,8 @@ public class FactionSelectionManager : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("FactionSelectionManager 생성됨");
+        GameManager.Instance.gameState = GameState.FactionSelection;
+        // Debug.Log("FactionSelectionScene 로드됨");
 
         if (GuwolButton == null)
             Debug.LogError("StartButton이 할당되지 않음", GuwolButton);
@@ -31,6 +32,14 @@ public class FactionSelectionManager : MonoBehaviour
         guwolBtnComponent.onClick.AddListener(OnGuwolButtonClicked);
         seoBtnComponent.onClick.AddListener(OnSeoButtonClicked);
         backBtnComponent.onClick.AddListener(OnBackButtonClicked);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            OnBackButtonClicked();
+        }
     }
 
     // 시작 버튼

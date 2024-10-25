@@ -13,7 +13,8 @@ public class MainManager : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("MainManager 로드됨");
+        GameManager.Instance.gameState = GameState.MainMenu;
+        // Debug.Log("MainScene 로드됨");
 
         if (StartButton == null)
             Debug.LogError("StartButton이 할당되지 않음", StartButton);

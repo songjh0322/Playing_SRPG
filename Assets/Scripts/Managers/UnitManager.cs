@@ -18,11 +18,10 @@ public class UnitManager : MonoBehaviour
 {
     public static UnitManager Instance { get; private set; }
 
-    public const int maxUnits = 5;      // 최대 유닛 선택 수
-
-    public List<BasicStats> basicStatsList;     // 모든 기본 능력치를 저장할 List (원본)
+    public List<BasicStats> basicStatsList;     // 모든 기본 능력치를 저장하는 리스트 (원본)
     public List<Unit> allUnits;    // 모든 유닛을 저장할 List (원본, 인게임에서 사용하지 않음)
 
+    // 인게임에서 참조되는 요소
     public List<int> player1UnitCodes;
     public List<int> player2UnitCodes;
     public List<Unit> player1Units;      // Player1이 인게임에서 실제로 사용할 유닛 리스트 (참조)
@@ -86,57 +85,6 @@ public class UnitManager : MonoBehaviour
         {
             foreach (BasicStats basicStats in basicStatsList)
                 allUnits.Add(new Unit(basicStats));
-        }
-    }
-
-    // 사용 : [캐릭터 선택을 모두 마쳤습니다. 전투를 시작하시겠습니까?] -> [예] 버튼 클릭 시 호출
-    // 파라미터 : UI에서 선택한 유닛들의 이름을 담은 List
-    // 기능 : Player1이 사용할 유닛들을 캐릭터 이름을 통해 최종 결정
-    public void ConfirmPlayer1Units(List<string> unitNames)
-    {
-        player1Units.Clear();
-
-        if (unitNames == null)
-            Debug.LogError("ConfirmPlayer1Units의 파라미터가 null입니다.");
-        else
-        {
-            foreach (string unitName in unitNames)
-            {
-                Unit foundUnit = allUnits.Find(unit => unit.basicStats.unitName == unitName);
-
-                if (foundUnit != null)
-                {
-                    Unit newUnit = new Unit(foundUnit);     // 참조가 아닌 복사
-                    player1Units.Add(newUnit);
-                }
-            }
-        }
-    }
-
-    // 현재 미사용 함수
-    public void ConfirmPlayer2Units()
-    {
-        
-    }
-
-    // 사용 : [캐릭터 선택을 모두 마쳤습니다. 전투를 시작하시겠습니까?] -> [예] 버튼 클릭 시 호출
-    // 기능 : Player2가 사용할 유닛들을 랜덤으로 결정 (반대 진영에서 임의로 차출)
-    // 현재 사용 불가
-    public void RandomizePlayer2Units()
-    {
-        player2Units.Clear();
-        List<Unit> allUnitsInFaction = new List<Unit>();
-
-        // 현재 진영의 순서를 랜덤하게 섞음
-        Random random = new Random();
-        List<Unit> shuffledUnits = allUnitsInFaction.OrderBy(x => random.Next()).ToList();
-
-        // maxUnits만큼 추가
-        for (int i = 0; i < maxUnits; i++)
-        {
-            Unit originalUnit = shuffledUnits[i];
-            Unit newUnit = new Unit(originalUnit);
-            player2Units.Add(newUnit);
         }
     }
 
