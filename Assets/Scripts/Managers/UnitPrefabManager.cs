@@ -24,6 +24,7 @@ public class UnitPrefabManager : MonoBehaviour
 
         // 여기에 유닛의 코드순으로 프리팹 넣기
         allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/TempUnitPrefab"));   // unitCode는 1부터 유효함
+        
         allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/GUARDIAN"));
         allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/MAGE"));
         allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/PALADIN"));
@@ -31,6 +32,16 @@ public class UnitPrefabManager : MonoBehaviour
         allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/ROBIN HOOD"));
         allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/THIEF"));
         allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/WARRIOR"));
+        allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/AI1"));  // 여기까지 unitCode = 8
+
+        allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/AI3"));
+        allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/AI4"));
+        allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/AI5"));
+        allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/AI6"));
+        allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/AI7"));
+        allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/AI8"));
+        allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/AI9"));
+        allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/AI10"));  // 여기까지 unitCode = 16
     }
 
     // 원본 프리팹

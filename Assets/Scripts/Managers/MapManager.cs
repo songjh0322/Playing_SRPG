@@ -13,7 +13,8 @@ public class MapManager : MonoBehaviour
     public Sprite middleZone;
 
     // 현재 맵 정보 관리
-    public List<TileInfo> tileInfos;
+    public List<GameObject> allTiles;
+    public List<TileInfo> allTileInfos;
 
     private void Awake()
     {
@@ -27,7 +28,7 @@ public class MapManager : MonoBehaviour
 
     private void Start()
     {
-        tileInfos = new List<TileInfo>();
+        allTileInfos = new List<TileInfo>();
         CreateTestMap();
     }
 
@@ -55,8 +56,22 @@ public class MapManager : MonoBehaviour
                 }
                 else
                     tileInfo.Initialize(x, y, TileType.Normal, InitialDeployment.Player2);
+
+                allTiles.Add(createdTile);
+                allTileInfos.Add(tileInfo);
             }
         }
+    }
+
+    public List<TileInfo> GetTileInfos(InitialDeployment initialDeployment)
+    {
+        List<TileInfo> returnTileInfos = new List<TileInfo>();
+        foreach (TileInfo tileInfo in allTileInfos)
+        {
+            if (initialDeployment == tileInfo.initialDeployment)
+                returnTileInfos.Add(tileInfo);
+        }
+        return returnTileInfos;
     }
 
 }

@@ -34,21 +34,7 @@ public class GameManager : MonoBehaviour
     // µð¹ö±ë¿ë
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            foreach (Unit unit in UnitManager.Instance.player1Units)
-                Debug.Log($"{unit.basicStats.unitName}");
-        }
-        else if (Input.GetKeyDown(KeyCode.W))
-        {
-            foreach (Unit unit in UnitManager.Instance.player2Units)
-                Debug.Log($"{unit.basicStats.unitName}");
-        }
-        else if (Input.GetKeyDown(KeyCode.E))
-        {
-            Debug.Log(CharacterSelectionManager.Instance.selectedCharacters.Count);
-            Debug.Log(CharacterSelectionManager.Instance.selectedCharacters[0]);
-        }
+        
     }
 }
 

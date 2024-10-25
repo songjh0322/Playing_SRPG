@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
+using static TileEnums;
+using Unity.VisualScripting;
+using Unity.Collections;
 
 public class AIManager : MonoBehaviour
 {
@@ -24,14 +27,22 @@ public class AIManager : MonoBehaviour
 
     private void Start()
     {
-        // 랜덤하게 5명을 추출
-        RandomSelection(5);
-
         aiUnitNum = 5;
+
+        // 랜덤하게 5명을 추출
+        RandomSelection(aiUnitNum);
         aiUnitCodes = UnitManager.Instance.player2UnitCodes;
         aiUnits = UnitManager.Instance.player2Units;
 
-        RandomDeploy();
+        //RandomDeploy(); // 반드시 TileInfo의 Start()가 모두 호출된 이후에 실행해야 함
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            RandomDeploy();
+        }
     }
 
     // player2Units에 랜덤한 유닛을 생성하고 추가
@@ -44,10 +55,13 @@ public class AIManager : MonoBehaviour
         else if (GameManager.Instance.playerFaction == Faction.Seo)
             aiFactionUnitCodes = UnitManager.Instance.GetUnitCodes(Faction.Guwol);
 
+        // 랜덤하게 섞고 앞에서 num개를 리스트로 반환
         List<int> randomSelectionUnitCodes = aiFactionUnitCodes
             .OrderBy(x => Guid.NewGuid())
             .Take(num)
             .ToList();
+
+        // 정렬
         randomSelectionUnitCodes.Sort();
 
         foreach (int unitCode in randomSelectionUnitCodes)
@@ -60,6 +74,27 @@ public class AIManager : MonoBehaviour
     // AI의 유닛을 랜덤하게 배치
     private void RandomDeploy()
     {
+        // Player2가 배치 가능한 타일 정보만 획득
+        List<TileInfo> deployableTileInfos = MapManager.Instance.GetTileInfos(InitialDeployment.Player2);
 
+        // AI 유닛을 배치할 타일을 뽑음
+        List<TileInfo> targetTileInfos = deployableTileInfos
+            .OrderBy(x => Guid.NewGuid())
+            .Take(aiUnitNum)
+            .ToList();
+
+        // 게임 로직
+        /*foreach (TileInfo tileInfo in targetTileInfos)
+        {
+            tileInfo.unit = 
+        }*/
+
+        // 시각적으로 배치
+        GameObject unitPrefab;
+        for (int i = 0; i < aiUnitNum; i++)
+        {
+            unitPrefab = UnitPrefabManager.Instance.InstantiateUnitPrefab(aiUnitCodes[i], 2.0f);
+            unitPrefab.transform.position = targetTileInfos[i].worldXY;
+        }
     }
 }

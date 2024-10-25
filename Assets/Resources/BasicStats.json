@@ -255,38 +255,6 @@
       "skillDescription1": "",
       "skillName2": "",
       "skillDescription2": ""
-    },
-    {
-      "unitCode": 17,
-      "unitName": "시보",
-      "faction": 1,
-      "characterDescription": "",
-      "maxHealth": 0,
-      "attackPoint": 0,
-      "defensePoint": 0,
-      "moveRange": 0,
-      "passiveName": "",
-      "passiveDescription": "",
-      "skillName1": "",
-      "skillDescription1": "",
-      "skillName2": "",
-      "skillDescription2": ""
-    },
-    {
-      "unitCode": 18,
-      "unitName": "공손승",
-      "faction": 1,
-      "characterDescription": "",
-      "maxHealth": 0,
-      "attackPoint": 0,
-      "defensePoint": 0,
-      "moveRange": 0,
-      "passiveName": "",
-      "passiveDescription": "",
-      "skillName1": "",
-      "skillDescription1": "",
-      "skillName2": "",
-      "skillDescription2": ""
     }
   ]
 }

@@ -1052,6 +1052,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 631a0871dab394c47abaa6f3f4d14758, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aiUnitNum: 0
+  aiUnitCodes: 
+  aiUnits: []
 --- !u!1 &638360958
 GameObject:
   m_ObjectHideFlags: 0
@@ -4371,6 +4374,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilePrefab: {fileID: 1769054922421178348, guid: 5e5c5f1ba75583a4a97bdb8e2e8cb0bd, type: 3}
   middleZone: {fileID: 21300000, guid: 60146cc9932efca4990d74049ac6cd99, type: 3}
+  allTiles: []
+  allTileInfos: []
 --- !u!4 &2079594304
 Transform:
   m_ObjectHideFlags: 0
