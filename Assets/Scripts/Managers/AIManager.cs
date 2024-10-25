@@ -11,10 +11,12 @@ public class AIManager : MonoBehaviour
 {
     public static AIManager Instance { get; private set; }
 
+    public bool isAllDeployed;
     public int aiUnitNum;
     public List<int> aiUnitCodes;
     public List<Unit> aiUnits;
 
+    // 프리팹
     public List<GameObject> aiUnitPrefabs;
 
     private void Awake()
@@ -29,6 +31,7 @@ public class AIManager : MonoBehaviour
 
     private void Start()
     {
+        isAllDeployed = false;
         aiUnitNum = 5;
         aiUnitPrefabs = new List<GameObject>();
 
@@ -42,10 +45,7 @@ public class AIManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            RandomDeploy();
-        }
+
     }
 
     // player2Units에 랜덤한 유닛을 생성하고 추가
@@ -75,7 +75,7 @@ public class AIManager : MonoBehaviour
     }
 
     // AI의 유닛을 랜덤하게 배치
-    private void RandomDeploy()
+    public void RandomDeploy()
     {
         // 초기화
         Reset();
@@ -99,6 +99,8 @@ public class AIManager : MonoBehaviour
             unitPrefab.transform.position = targetTileInfos[i].worldXY;
             aiUnitPrefabs.Add(unitPrefab);
         }
+
+        isAllDeployed = true;
     }
 
     // Player2(AI)가 배치 가능한 구역을 전부 초기화 (TileInfo, 시각적 업데이트)

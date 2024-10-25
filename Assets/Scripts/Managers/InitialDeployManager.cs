@@ -13,7 +13,6 @@ public enum State
 {
     NotSelected,
     Selected,
-    Done,   // 모두 배치된 상태
 }
 
 public class InitialDeployManager : MonoBehaviour
@@ -31,6 +30,8 @@ public class InitialDeployManager : MonoBehaviour
     public List<Button> playerUnitButtons;
     public List<Text> unitNameTexts;
     public Button completeButton;
+    public Button playerResetButton;
+    public Button aiRandomDeployButton;
     public GameObject map;
 
     private void Awake()
@@ -64,7 +65,9 @@ public class InitialDeployManager : MonoBehaviour
             playerUnitButtons[index].onClick.AddListener(() => OnPlayerUnitButtonClicked(UnitManager.Instance.player1UnitCodes[index]));
         }
 
-        //completeButton.onClick.AddListener(() => OnCompleteButtonClicked());
+        completeButton.onClick.AddListener(() => OnCompleteButtonClicked());
+        playerResetButton.onClick.AddListener(() => OnPlayerResetButtonClicked());
+        aiRandomDeployButton.onClick.AddListener(() => OnAIRandomDeployButtonClicked());
     }
 
     // 플레이어의 키보드 입력과 실시간 업데이트가 필요한 코드만 여기서 처리
@@ -80,12 +83,6 @@ public class InitialDeployManager : MonoBehaviour
             mousePosition.z = 0f;
 
             currentUnitPrefab.transform.position = mousePosition;
-        }
-
-        // 테스트용
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            Reset();
         }
     }
 
@@ -113,7 +110,29 @@ public class InitialDeployManager : MonoBehaviour
 
     private void OnCompleteButtonClicked()
     {
+        Debug.Log(deployedUnitsCodes);
+        Debug.Log(UnitManager.Instance.player1UnitCodes);
+        // 모두 배치한 경우에 한해 완료 버튼 클릭 가능
+        if (deployedUnitsCodes.Count == UnitManager.Instance.player1UnitCodes.Count && AIManager.Instance.isAllDeployed)
+        {
+            Debug.Log("여기");
+            // 기존의 모든 버튼을 비활성화
+            for (int i = 0; i < deployedUnitsCodes.Count; i++)
+                playerUnitButtons[i].gameObject.SetActive(false);
+            completeButton.gameObject.SetActive(false);
+            playerResetButton.gameObject.SetActive(false);
+            aiRandomDeployButton.gameObject.SetActive(false);
+        }
+    }
 
+    private void OnPlayerResetButtonClicked()
+    {
+        Reset();
+    }
+
+    private void OnAIRandomDeployButtonClicked()
+    {
+        AIManager.Instance.RandomDeploy();
     }
 
     public void OnTileClicked(TileInfo tileInfo)
@@ -133,7 +152,7 @@ public class InitialDeployManager : MonoBehaviour
             deployedUnitsCodes.Sort();
             state = State.NotSelected;
             currentUnitCode = -1;
-            currentUnitPrefab = null; 
+            currentUnitPrefab = null;
         }
     }
 
