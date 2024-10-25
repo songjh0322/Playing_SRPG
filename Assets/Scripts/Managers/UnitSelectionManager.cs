@@ -15,24 +15,24 @@ public class UnitSelectionManager : MonoBehaviour
     private List<Unit> selectedUnits;
 
     // LeftPanel
-    public List<Button> unitButtons;
+    public List<Button> unitButtons;    // Inspector에서 할당
     public List<Text> unitNameTexts;
 
     // CenterPanel
     public Text currentUnitNameText;
-    public Button idleButton;
-    public Button moveButton;
-    public Button attackButton;
-    public Button damagedButton;
-    public Button diedButton;
-    public Button DebuffedButton;
+    public Button idleButton;   // Inspector에서 할당
+    public Button moveButton;   // Inspector에서 할당
+    public Button attackButton; // Inspector에서 할당
+    public Button damagedButton;    // Inspector에서 할당
+    public Button diedButton;   // Inspector에서 할당
+    public Button DebuffedButton;   // Inspector에서 할당
 
     // RightPanel
     public List<GameObject> selectedUnitBars;
-    public GameObject content;  // 여기에 Vertical Layout Group 컴포넌트 존재
-    public GameObject selectedUnitBarPrefab;
-    public Button selectButton;
-    public Button startButton;
+    public GameObject content;      // Vertical Layout Group 컴포넌트를 가짐 (Inspector에서 할당)
+    public GameObject selectedUnitBarPrefab;    // Inspector에서 할당
+    public Button selectButton;     // Inspector에서 할당
+    public Button startButton;      // Inspector에서 할당
 
     // 싱글톤 인스턴스 설정
     private void Awake()

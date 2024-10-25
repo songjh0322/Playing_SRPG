@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class FactionSelectionManager : MonoBehaviour
 {
+    // 프리팹 관리 (Inspector에서 할당)
     public GameObject GuwolButton;
     public GameObject SeoButton;
     public GameObject BackButton;

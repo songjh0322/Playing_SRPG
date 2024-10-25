@@ -5,10 +5,13 @@ using static TileEnums;
 
 public class TileInfo : MonoBehaviour
 {
+    // 게임 로직용
     public int x, y;
     public Unit unit;
     public TileType tileType;
     public InitialDeployment initialDeployment;
+
+    // 시각적 표시용
     public Vector3 worldXY;
 
     private void Start()

@@ -10,7 +10,7 @@ public class UnitPrefabManager : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("UnitPrefabManager 积己凳");
+        // Debug.Log("UnitPrefabManager 积己凳");
 
         if (Instance == null)
         {

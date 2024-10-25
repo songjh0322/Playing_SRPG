@@ -8,8 +8,9 @@ public class AIManager : MonoBehaviour
 {
     public static AIManager Instance { get; private set; }
 
-    List<int> aiUnitCodes;
-    List<Unit> aiUnits;
+    public int aiUnitNum;
+    public List<int> aiUnitCodes;
+    public List<Unit> aiUnits;
 
     private void Awake()
     {
@@ -26,8 +27,11 @@ public class AIManager : MonoBehaviour
         // 랜덤하게 5명을 추출
         RandomSelection(5);
 
+        aiUnitNum = 5;
         aiUnitCodes = UnitManager.Instance.player2UnitCodes;
         aiUnits = UnitManager.Instance.player2Units;
+
+        RandomDeploy();
     }
 
     // player2Units에 랜덤한 유닛을 생성하고 추가
@@ -51,5 +55,11 @@ public class AIManager : MonoBehaviour
             UnitManager.Instance.player2UnitCodes.Add(unitCode);
             UnitManager.Instance.player2Units.Add(new(UnitManager.Instance.GetUnit(unitCode)));
         }   
+    }
+
+    // AI의 유닛을 랜덤하게 배치
+    private void RandomDeploy()
+    {
+
     }
 }

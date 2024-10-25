@@ -26,7 +26,7 @@ public class InitialDeployManager : MonoBehaviour
     public GameObject currentUnitPrefab;    // 현재 배치하려는 유닛의 프리팹
     public List<int> deployedUnitsCodes;    // 현재 배치되어있는 유닛의 코드 리스트
 
-    // 프리팹 관리
+    // 프리팹 관리 (Inspector에서 할당)
     public List<Button> playerUnitButtons;
     public List<Text> unitNameTexts;
     public Button completeButton;

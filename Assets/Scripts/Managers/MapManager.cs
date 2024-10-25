@@ -8,11 +8,12 @@ public class MapManager : MonoBehaviour
 {
     public static MapManager Instance { get; private set; }
 
-    // 橇府普 包府
+    // 橇府普 包府 (Inspector俊辑 且寸)
     public GameObject tilePrefab;
+    public Sprite middleZone;
 
     // 泅犁 甘 沥焊 包府
-    public TileInfo[][] tileInfos;
+    public List<TileInfo> tileInfos;
 
     private void Awake()
     {
@@ -26,16 +27,17 @@ public class MapManager : MonoBehaviour
 
     private void Start()
     {
+        tileInfos = new List<TileInfo>();
         CreateTestMap();
     }
 
-    // 甘 橇府普 积己侩
+    // 甘 橇府普 积己侩 (10 by 12)
     public void CreateTestMap()
     {
         GameObject testMap = new GameObject("TestMap");
-        testMap.transform.position = new Vector3(-18, 0, 0);
+        testMap.transform.position = new Vector3(-20, 0, 0);
 
-        for (int y = 0; y < 10; y++)
+        for (int y = 0; y < 12; y++)
         {
             for (int x = 0; x < 10; x++)
             {
@@ -45,6 +47,12 @@ public class MapManager : MonoBehaviour
                 TileInfo tileInfo = createdTile.GetComponent<TileInfo>();
                 if (y < 5)
                     tileInfo.Initialize(x, y, TileType.Normal, InitialDeployment.Player1);
+                else if (y < 7)
+                {
+                    tileInfo.Initialize(x, y, TileType.Normal, InitialDeployment.None);
+                    SpriteRenderer sr = tileInfo.GetComponent<SpriteRenderer>();
+                    sr.sprite = middleZone;
+                }
                 else
                     tileInfo.Initialize(x, y, TileType.Normal, InitialDeployment.Player2);
             }
