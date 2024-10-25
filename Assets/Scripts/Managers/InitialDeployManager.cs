@@ -32,7 +32,8 @@ public class InitialDeployManager : MonoBehaviour
     public Button completeButton;
     public Button playerResetButton;
     public Button aiRandomDeployButton;
-    public GameObject map;
+    public GameObject inGameManager;
+    public GameObject ActiveUnits;  // 생성된 유닛 프리팹들을 묶을 빈 게임 오브젝트
 
     private void Awake()
     {
@@ -115,13 +116,15 @@ public class InitialDeployManager : MonoBehaviour
         // 모두 배치한 경우에 한해 완료 버튼 클릭 가능
         if (deployedUnitsCodes.Count == UnitManager.Instance.player1UnitCodes.Count && AIManager.Instance.isAllDeployed)
         {
-            Debug.Log("여기");
-            // 기존의 모든 버튼을 비활성화
+            // 배치에서 사용되는 기존의 모든 버튼을 비활성화
             for (int i = 0; i < deployedUnitsCodes.Count; i++)
                 playerUnitButtons[i].gameObject.SetActive(false);
             completeButton.gameObject.SetActive(false);
             playerResetButton.gameObject.SetActive(false);
             aiRandomDeployButton.gameObject.SetActive(false);
+
+            inGameManager.SetActive(true);
+            gameObject.SetActive(false);
         }
     }
 
@@ -145,6 +148,7 @@ public class InitialDeployManager : MonoBehaviour
             tileInfo.unit = UnitManager.Instance.GetPlayer1Unit(currentUnitCode);
             // 유닛을 시각적으로 배치
             currentUnitPrefab.transform.position = tileInfo.worldXY;
+            currentUnitPrefab.transform.SetParent(ActiveUnits.transform);
             playerUnitPrefabs.Add(currentUnitPrefab);
 
             // 상태 설정 및 초기화
