@@ -15,6 +15,8 @@ public class AIManager : MonoBehaviour
     public List<int> aiUnitCodes;
     public List<Unit> aiUnits;
 
+    public List<GameObject> aiUnitPrefabs;
+
     private void Awake()
     {
         // Debug.Log("AIManager가 생성됨");
@@ -28,6 +30,7 @@ public class AIManager : MonoBehaviour
     private void Start()
     {
         aiUnitNum = 5;
+        aiUnitPrefabs = new List<GameObject>();
 
         // 랜덤하게 5명을 추출
         RandomSelection(aiUnitNum);
@@ -74,6 +77,9 @@ public class AIManager : MonoBehaviour
     // AI의 유닛을 랜덤하게 배치
     private void RandomDeploy()
     {
+        // 초기화
+        Reset();
+
         // Player2가 배치 가능한 타일 정보만 획득
         List<TileInfo> deployableTileInfos = MapManager.Instance.GetTileInfos(InitialDeployment.Player2);
 
@@ -83,18 +89,26 @@ public class AIManager : MonoBehaviour
             .Take(aiUnitNum)
             .ToList();
 
-        // 게임 로직
-        /*foreach (TileInfo tileInfo in targetTileInfos)
-        {
-            tileInfo.unit = 
-        }*/
-
-        // 시각적으로 배치
         GameObject unitPrefab;
         for (int i = 0; i < aiUnitNum; i++)
         {
+            // TileInfo 업데이트
+            targetTileInfos[i].unit = aiUnits[i];
+            // 시각적 업데이트
             unitPrefab = UnitPrefabManager.Instance.InstantiateUnitPrefab(aiUnitCodes[i], 2.0f);
             unitPrefab.transform.position = targetTileInfos[i].worldXY;
+            aiUnitPrefabs.Add(unitPrefab);
         }
+    }
+
+    // Player2(AI)가 배치 가능한 구역을 전부 초기화 (TileInfo, 시각적 업데이트)
+    private void Reset()
+    {
+        // TileInfo 업데이트
+        List<TileInfo> deployableTileInfos = MapManager.Instance.GetTileInfos(InitialDeployment.Player2);
+        for (int i = 0; i < deployableTileInfos.Count; i++)
+            deployableTileInfos[i].unit = null;
+        foreach (GameObject aiUnitPrefab in aiUnitPrefabs)
+            Destroy(aiUnitPrefab);
     }
 }
