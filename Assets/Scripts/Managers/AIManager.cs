@@ -8,9 +8,12 @@ public class AIManager : MonoBehaviour
 {
     public static AIManager Instance { get; private set; }
 
+    List<int> aiUnitCodes;
+    List<Unit> aiUnits;
+
     private void Awake()
     {
-        Debug.Log("AIManager가 생성됨");
+        // Debug.Log("AIManager가 생성됨");
 
         if (Instance == null)
         {
@@ -22,11 +25,9 @@ public class AIManager : MonoBehaviour
     {
         // 랜덤하게 5명을 추출
         RandomSelection(5);
-        /*Debug.Log(UnitManager.Instance.player2Units[0].basicStats.unitName);
-        Debug.Log(UnitManager.Instance.player2Units[1].basicStats.unitName);
-        Debug.Log(UnitManager.Instance.player2Units[2].basicStats.unitName);
-        Debug.Log(UnitManager.Instance.player2Units[3].basicStats.unitName);
-        Debug.Log(UnitManager.Instance.player2Units[4].basicStats.unitName);*/
+
+        aiUnitCodes = UnitManager.Instance.player2UnitCodes;
+        aiUnits = UnitManager.Instance.player2Units;
     }
 
     // player2Units에 랜덤한 유닛을 생성하고 추가

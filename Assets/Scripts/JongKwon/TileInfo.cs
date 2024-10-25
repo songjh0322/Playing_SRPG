@@ -9,15 +9,11 @@ public class TileInfo : MonoBehaviour
     public Unit unit;
     public TileType tileType;
     public InitialDeployment initialDeployment;
-
     public Vector3 worldXY;
 
     private void Start()
     {
         unit = null;
-        tileType = TileType.Normal;
-        initialDeployment = InitialDeployment.Player1;
-
         worldXY = transform.position;
     }
 

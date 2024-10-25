@@ -35,15 +35,18 @@ public class MapManager : MonoBehaviour
         GameObject testMap = new GameObject("TestMap");
         testMap.transform.position = new Vector3(-18, 0, 0);
 
-        for (int j = 0; j < 10; j++)
+        for (int y = 0; y < 10; y++)
         {
-            for (int i = 0; i < 10; i++)
+            for (int x = 0; x < 10; x++)
             {
-                Vector3 position = new Vector3((i + j) * 2, j - i, 0);
+                Vector3 position = new Vector3((x + y) * 2, y - x, 0);
                 GameObject createdTile = Instantiate(tilePrefab, position, Quaternion.identity);
                 createdTile.transform.SetParent(testMap.transform, false);
                 TileInfo tileInfo = createdTile.GetComponent<TileInfo>();
-                tileInfo.Initialize(i, j, TileType.Normal, InitialDeployment.Player1);
+                if (y < 5)
+                    tileInfo.Initialize(x, y, TileType.Normal, InitialDeployment.Player1);
+                else
+                    tileInfo.Initialize(x, y, TileType.Normal, InitialDeployment.Player2);
             }
         }
     }
