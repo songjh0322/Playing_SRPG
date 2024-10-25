@@ -24,8 +24,10 @@ public class TileInfo : MonoBehaviour
     private void OnMouseDown()
     {
         Debug.Log($"({x},{y}) 타일 클릭됨");
+        if (unit != null)
+            Debug.Log($"현재 {unit.basicStats.unitName}이(가) 위치하고 있습니다.");
         if (GameManager.Instance.gameState == GameState.InitialDeployment)
-            InitialDeployManager.Instance.OnTileClicked(worldXY);
+            InitialDeployManager.Instance.OnTileClicked(this);
     }
 
     public void Initialize(int x, int y, TileType tileType, InitialDeployment initialDeployment)

@@ -88,7 +88,7 @@ public class UnitManager : MonoBehaviour
         }
     }
 
-    // unitCode를 통해 대응되는 Unit 객체를 얻음
+    // unitCode를 통해 대응되는 Unit 객체를 얻음 (주의 : 인게임에서 사용하면 안됨)
     public Unit GetUnit(int unitCode)
     {
         foreach (Unit unit in allUnits)
@@ -121,6 +121,17 @@ public class UnitManager : MonoBehaviour
                 unitCodes.Add(unit.basicStats.unitCode);
         }
         return unitCodes;
+    }
+
+    // unitCode를 통해 player1Units에서 Unit 객체를 얻음 (인게임에서 사용)
+    public Unit GetPlayer1Unit(int unitCode)
+    {
+        foreach (Unit unit in player1Units)
+        {
+            if (unit.basicStats.unitCode == unitCode)
+                return unit;
+        }
+        return null;
     }
 }
 

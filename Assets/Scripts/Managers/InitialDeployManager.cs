@@ -7,6 +7,7 @@ using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
+using static TileEnums;
 
 public enum State
 {
@@ -23,6 +24,7 @@ public class InitialDeployManager : MonoBehaviour
     public State state;     // 현재 상태
     public int currentUnitCode;     // 현재 배치하려는 유닛의 코드
     public GameObject currentUnitPrefab;    // 현재 배치하려는 유닛의 프리팹
+    public List<int> deployedUnitsCodes;    // 현재 배치되어있는 유닛의 코드 리스트
 
     // 프리팹 관리
     public List<Button> playerUnitButtons;
@@ -45,6 +47,8 @@ public class InitialDeployManager : MonoBehaviour
     {
         state = State.NotSelected;
         currentUnitCode = -1;
+        currentUnitPrefab = null;
+        deployedUnitsCodes = new List<int>();
 
         for (int i = 0; i < unitNameTexts.Count; i++)
         {
@@ -79,6 +83,10 @@ public class InitialDeployManager : MonoBehaviour
 
     private void OnPlayerUnitButtonClicked(int unitCode)
     {
+        // 이미 배치된 유닛인지 확인
+        if (deployedUnitsCodes.Contains(unitCode))
+            return;
+        
         // 같은 버튼을 클릭하면 선택 해제
         if (currentUnitCode == unitCode)
         {
@@ -100,15 +108,23 @@ public class InitialDeployManager : MonoBehaviour
 
     }
 
-    public void OnTileClicked(Vector3 worldXY)
+    public void OnTileClicked(TileInfo tileInfo)
     {
-        if (state == State.Selected)
+        if (state == State.Selected
+            && tileInfo.unit == null
+            && tileInfo.initialDeployment == InitialDeployment.Player1)
         {
-            // 유닛을 실질적으로 배치
-            currentUnitPrefab.transform.position = worldXY;
+            // 유닛을 시각적으로 배치
+            currentUnitPrefab.transform.position = tileInfo.worldXY;
+            // 해당 TileInfo 업데이트
+            tileInfo.unit = UnitManager.Instance.GetPlayer1Unit(currentUnitCode);
+
+            // 상태 설정 및 초기화
+            deployedUnitsCodes.Add(currentUnitCode);
+            deployedUnitsCodes.Sort();
             state = State.NotSelected;
             currentUnitCode = -1;
-            currentUnitPrefab = null;
+            currentUnitPrefab = null; 
         }
     }
 
@@ -117,5 +133,6 @@ public class InitialDeployManager : MonoBehaviour
         Destroy(currentUnitPrefab);
         state = State.NotSelected;
         currentUnitCode = -1;
+        currentUnitPrefab = null;
     }
 }

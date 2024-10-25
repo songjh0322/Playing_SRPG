@@ -8,7 +8,11 @@ public class MapManager : MonoBehaviour
 {
     public static MapManager Instance { get; private set; }
 
+    // 프리팹 관리
     public GameObject tilePrefab;
+
+    // 현재 맵 정보 관리
+    public TileInfo[][] tileInfos;
 
     private void Awake()
     {
