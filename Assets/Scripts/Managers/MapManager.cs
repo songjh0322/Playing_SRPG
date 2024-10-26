@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using static TileEnums;
 
@@ -47,13 +46,8 @@ public class MapManager : MonoBehaviour
     {
         UpdateCurrentHoverTile();
 
-        if (currentHoveredTile != null && currentHoveredTileInfo.unit != null)
-        {
-            List<GameObject> targetTiles = GetManhattanTiles(currentHoveredTileInfo, currentHoveredTileInfo.unit.basicStats.moveRange);
-            HighlightTiles(targetTiles, Color.red);
-            Debug.Log($"{currentHoveredTileInfo.unit.basicStats.unitName}");
-        }
-        else if (currentHoveredTile != lastHoveredTile)
+        // 가리키는 타일이 변경될때마다 초기화
+        if (currentHoveredTile != lastHoveredTile)
         {
             foreach (TileInfo tileInfo in allTileInfos)
             {
@@ -61,6 +55,24 @@ public class MapManager : MonoBehaviour
                 sr.color = Color.white;
             }
         }
+
+        // 배치 화면에서 표기
+        if (GameManager.Instance.gameState == GameState.InitialDeployment
+            && currentHoveredTile != null
+            && InitialDeployManager.Instance.currentUnitCode != -1)
+        {
+            int moveRange = UnitManager.Instance.GetUnit(InitialDeployManager.Instance.currentUnitCode).currentMoveRange;
+            List<GameObject> targetTiles = GetManhattanTiles(currentHoveredTileInfo, moveRange);
+            HighlightTiles(targetTiles, Color.red);
+        }
+        // 
+        else if (currentHoveredTile != null && currentHoveredTileInfo.unit != null)
+        {
+            List<GameObject> targetTiles = GetManhattanTiles(currentHoveredTileInfo, currentHoveredTileInfo.unit.basicStats.moveRange);
+            HighlightTiles(targetTiles, Color.red);
+        }
+
+        HighlightCurrentHoveredTile();
     }
 
     // 맵 프리팹 생성용 (10 by 12)
@@ -167,35 +179,12 @@ public class MapManager : MonoBehaviour
     }
 
     // GPT
-    private void HighlightHoveredTile()
+    private void HighlightCurrentHoveredTile()
     {
-        // 이전 타일의 색상을 흰색으로 되돌림
-        if (lastHoveredTile != null)
-        {
-            SpriteRenderer lastSR = lastHoveredTile.GetComponent<SpriteRenderer>();
-            if (lastSR != null)
-            {
-                lastSR.color = Color.white;
-            }
-        }
-
-        // 새로운 타일의 색상을 변경
         if (currentHoveredTile != null)
         {
-            SpriteRenderer newSR = currentHoveredTile.GetComponent<SpriteRenderer>();
-            if (newSR != null)
-            {
-                TileInfo tileInfo = currentHoveredTile.GetComponent<TileInfo>();
-                if (tileInfo != null)
-                {
-                    if (tileInfo.unit == null)
-                        newSR.color = Color.gray;
-                    else if (tileInfo.unit.team == Team.Ally)
-                        newSR.color = Color.green;
-                    else if (tileInfo.unit.team == Team.Enemy)
-                        newSR.color = Color.red;
-                }
-            }
+            SpriteRenderer sr = currentHoveredTile.GetComponent<SpriteRenderer>();
+            sr.color = Color.gray;
         }
     }
 }

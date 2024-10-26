@@ -1,11 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
-using Unity.Collections;
-using UnityEditor.EditorTools;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 using static TileEnums;
 
