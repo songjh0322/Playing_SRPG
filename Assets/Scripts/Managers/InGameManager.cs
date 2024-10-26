@@ -85,7 +85,7 @@ public class InGameManager : MonoBehaviour
         Unit unit = currentTileInfo.unit;
         unitBehaviourButtons.SetActive(false);
 
-        DisplayRange(unit.current);
+        //DisplayRange(unit.current);
     }
 
     void OnMoveButtonClicked()
@@ -93,7 +93,7 @@ public class InGameManager : MonoBehaviour
         Unit unit = currentTileInfo.unit;
         unitBehaviourButtons.SetActive(false);
 
-        DisplayRange(unit.currentMoveRange);
+        //DisplayRange(unit.currentMoveRange);
     }
 
     void OnCancelButtonClicked()
