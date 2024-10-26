@@ -96,7 +96,7 @@ public class AIManager : MonoBehaviour
             // TileInfo 업데이트
             targetTileInfos[i].unit = aiUnits[i];
             // 시각적 업데이트
-            unitPrefab = UnitPrefabManager.Instance.InstantiateUnitPrefab(aiUnitCodes[i], 2.0f);
+            unitPrefab = UnitPrefabManager.Instance.InstantiateUnitPrefab(aiUnitCodes[i], 2.0f, false);
             unitPrefab.transform.position = targetTileInfos[i].worldXY;
             unitPrefab.transform.SetParent(InitialDeployManager.Instance.ActiveUnits.transform);
             aiUnitPrefabs.Add(unitPrefab);

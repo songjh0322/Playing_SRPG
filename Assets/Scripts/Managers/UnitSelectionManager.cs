@@ -106,7 +106,7 @@ public class UnitSelectionManager : MonoBehaviour
     {
         Destroy(currentUnitPrefab);
         currentUnitCode = unit.basicStats.unitCode;
-        currentUnitPrefab = UnitPrefabManager.Instance.InstantiateUnitPrefab(currentUnitCode, 360.0f);
+        currentUnitPrefab = UnitPrefabManager.Instance.InstantiateUnitPrefab(currentUnitCode, 360.0f, false);
         currentUnitPrefab.transform.SetParent(unitDisplayArea.transform, false);
         RectTransform rt = currentUnitPrefab.GetComponent<RectTransform>();
         rt.anchoredPosition = new Vector2(0.0f, -180.0f);

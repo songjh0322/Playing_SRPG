@@ -12,7 +12,7 @@ public class InGameManager : MonoBehaviour
     GameObject currentHoveredTile;
 
     // Inspector에서 할당
-    public GameObject UnitBehaviourButtons;
+    public GameObject unitBehaviourButtons;
     public Button attackButton;
     public Button moveButton;
     public Button cancelButton;
@@ -57,7 +57,20 @@ public class InGameManager : MonoBehaviour
     {
         if (isPlayerTurn && tileInfo.unit != null)
         {
-
+            // 아군이 있는 타일 클릭 시 -> 행동 선택 버튼 표시
+            if (tileInfo.unit.team == Team.Ally)
+            {
+                unitBehaviourButtons.SetActive(true);
+                unitBehaviourButtons.transform.position = currentHoveredTile.transform.position;
+            }
+            // 적군이 있는 타일 클릭 시
+            else if (tileInfo.unit.team == Team.Enemy)
+            {
+                unitBehaviourButtons.SetActive(false);
+            }
+            // 아무것도 없는 타일 클릭 시
+            else
+                unitBehaviourButtons.SetActive(false);
         }
     }
 

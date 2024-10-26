@@ -22,6 +22,7 @@ public class InitialDeployManager : MonoBehaviour
     // 상태 관리
     public State state;     // 현재 상태
     public int currentUnitCode;     // 현재 배치하려는 유닛의 코드
+    GameObject currentHoveredTile;
     public GameObject currentUnitPrefab;    // 현재 배치하려는 유닛의 프리팹
     public List<int> deployedUnitsCodes;    // 현재 배치되어있는 유닛의 코드 리스트
     public List<GameObject> playerUnitPrefabs;
@@ -74,6 +75,7 @@ public class InitialDeployManager : MonoBehaviour
     // 플레이어의 키보드 입력과 실시간 업데이트가 필요한 코드만 여기서 처리
     void Update()
     {
+        // 키보드 입력
         if (Input.GetKeyDown(KeyCode.Escape) && state == State.Selected)
         {
             CancelUnitSelection();
@@ -85,6 +87,9 @@ public class InitialDeployManager : MonoBehaviour
 
             currentUnitPrefab.transform.position = mousePosition;
         }
+
+        // 상시 업데이트 요소
+        HightlightHoveredTile();
     }
 
     private void OnPlayerUnitButtonClicked(int unitCode)
@@ -105,7 +110,7 @@ public class InitialDeployManager : MonoBehaviour
             Destroy(currentUnitPrefab);
             state = State.Selected;
             currentUnitCode = unitCode;
-            currentUnitPrefab = UnitPrefabManager.Instance.InstantiateUnitPrefab(unitCode, 2.0f);
+            currentUnitPrefab = UnitPrefabManager.Instance.InstantiateUnitPrefab(unitCode, 2.0f, true);
         }
     }
 
@@ -175,5 +180,48 @@ public class InitialDeployManager : MonoBehaviour
             deployableTileInfos[i].unit = null;
         foreach (GameObject playerUnitPrefab in playerUnitPrefabs)
             Destroy(playerUnitPrefab);
+    }
+
+    // (GPT) 배치 가능한 타일만 초록색, 그 외에는 빨간색
+    private void HightlightHoveredTile()
+    {
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition.z = 0f;
+
+        // 마우스 위치에서 레이캐스트 수행
+        RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero, 0f, LayerMask.GetMask("Map"));
+
+        // 현재 마우스가 가리키고 있는 타일
+        GameObject hoveredTile = hit.collider != null ? hit.collider.gameObject : null;
+
+        // 현재 타일이 이전 타일과 다른 경우에만 처리
+        if (hoveredTile != currentHoveredTile)
+        {
+            // 이전 타일의 색상을 흰색으로 되돌림
+            if (currentHoveredTile != null)
+            {
+                SpriteRenderer currentSR = currentHoveredTile.GetComponent<SpriteRenderer>();
+                if (currentSR != null)
+                {
+                    currentSR.color = Color.white; // 흰색으로 되돌림
+                }
+            }
+
+            if (hoveredTile != null)
+            {
+                SpriteRenderer newSR = hoveredTile.GetComponent<SpriteRenderer>();
+                if (newSR != null)
+                {
+                    TileInfo tileInfo = hoveredTile.GetComponent<TileInfo>();
+                    if (tileInfo.initialDeployment == InitialDeployment.Player1 && tileInfo.unit == null)
+                        newSR.color = Color.green;
+                    else
+                        newSR.color = Color.red;
+                }
+            }
+
+            // 현재 마우스가 가리키고 있는 타일 업데이트
+            currentHoveredTile = hoveredTile;
+        }
     }
 }

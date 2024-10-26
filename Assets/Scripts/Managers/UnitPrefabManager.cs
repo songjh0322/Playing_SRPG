@@ -51,10 +51,13 @@ public class UnitPrefabManager : MonoBehaviour
     }*/
 
     // 货肺款 橇府普(汗力)
-    public GameObject InstantiateUnitPrefab(int unitCode, float scale)
+    public GameObject InstantiateUnitPrefab(int unitCode, float scale, bool reverse)
     {
         GameObject transformedUnitPrefab = Instantiate(allUnitPrefabs[unitCode]);
-        transformedUnitPrefab.transform.localScale = new Vector3(scale, scale, scale);
+        if (reverse)
+            transformedUnitPrefab.transform.localScale = new Vector3(-scale, scale, scale);
+        else
+            transformedUnitPrefab.transform.localScale = new Vector3(scale, scale, scale);
 
         return transformedUnitPrefab;
     }

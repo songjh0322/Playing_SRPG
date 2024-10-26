@@ -3275,7 +3275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayerTurn: 0
-  UnitBehaviourButtons: {fileID: 1362970206}
+  unitBehaviourButtons: {fileID: 1362970206}
   attackButton: {fileID: 1362970205}
   moveButton: {fileID: 1362970204}
   cancelButton: {fileID: 1362970203}
