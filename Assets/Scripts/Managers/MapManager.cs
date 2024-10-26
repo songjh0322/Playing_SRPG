@@ -56,7 +56,7 @@ public class MapManager : MonoBehaviour
             }
         }
 
-        // 배치 화면에서 표기
+        // 배치 화면에서 유닛 선택 중일 때
         if (GameManager.Instance.gameState == GameState.InitialDeployment
             && currentHoveredTile != null
             && InitialDeployManager.Instance.currentUnitCode != -1)
@@ -65,11 +65,16 @@ public class MapManager : MonoBehaviour
             List<GameObject> targetTiles = GetManhattanTiles(currentHoveredTileInfo, moveRange);
             HighlightTiles(targetTiles, Color.red);
         }
-        // 
+        /*// 배치된 유닛에 마우스 커서가 있을 때
         else if (currentHoveredTile != null && currentHoveredTileInfo.unit != null)
         {
             List<GameObject> targetTiles = GetManhattanTiles(currentHoveredTileInfo, currentHoveredTileInfo.unit.basicStats.moveRange);
             HighlightTiles(targetTiles, Color.red);
+        }*/
+        // 배치된 유닛에 마우스 커서가 있을 때
+        else if (currentHoveredTile != null && currentHoveredTileInfo.unit != null)
+        {
+            DisplayRange();
         }
 
         HighlightCurrentHoveredTile();
@@ -185,6 +190,36 @@ public class MapManager : MonoBehaviour
         {
             SpriteRenderer sr = currentHoveredTile.GetComponent<SpriteRenderer>();
             sr.color = Color.gray;
+        }
+    }
+
+    // moveRange와 attackRange를 모두 시각적으로 표기
+    public void DisplayRange()
+    {
+        if (currentHoveredTile != null)
+        {
+            int moveRange = currentHoveredTileInfo.unit.currentMoveRange;
+            int attackRange = currentHoveredTileInfo.unit.currentAttackRange;
+            
+            if (moveRange > attackRange)
+            {
+                List<GameObject> targetTiles1 = GetManhattanTiles(currentHoveredTileInfo, moveRange);
+                HighlightTiles(targetTiles1, Color.green);
+                List<GameObject> targetTiles2 = GetManhattanTiles(currentHoveredTileInfo, attackRange);
+                HighlightTiles(targetTiles2, Color.red);
+            }
+            else if (moveRange < attackRange)
+            {
+                List<GameObject> targetTiles1 = GetManhattanTiles(currentHoveredTileInfo, attackRange);
+                HighlightTiles(targetTiles1, Color.red);
+                List<GameObject> targetTiles2 = GetManhattanTiles(currentHoveredTileInfo, moveRange);
+                HighlightTiles(targetTiles2, Color.green);
+            }
+            else
+            {
+                List<GameObject> targetTiles = GetManhattanTiles(currentHoveredTileInfo, moveRange);
+                HighlightTiles(targetTiles, Color.yellow);
+            }
         }
     }
 }
