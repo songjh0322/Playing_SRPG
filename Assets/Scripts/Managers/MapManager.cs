@@ -73,9 +73,7 @@ public class MapManager : MonoBehaviour
         }*/
         // 배치된 유닛에 마우스 커서가 있을 때
         else if (currentHoveredTile != null && currentHoveredTileInfo.unit != null)
-        {
             DisplayRange();
-        }
 
         HighlightCurrentHoveredTile();
     }
@@ -206,14 +204,14 @@ public class MapManager : MonoBehaviour
                 List<GameObject> targetTiles1 = GetManhattanTiles(currentHoveredTileInfo, moveRange);
                 HighlightTiles(targetTiles1, Color.green);
                 List<GameObject> targetTiles2 = GetManhattanTiles(currentHoveredTileInfo, attackRange);
-                HighlightTiles(targetTiles2, Color.red);
+                HighlightTiles(targetTiles2, Color.yellow);
             }
             else if (moveRange < attackRange)
             {
                 List<GameObject> targetTiles1 = GetManhattanTiles(currentHoveredTileInfo, attackRange);
                 HighlightTiles(targetTiles1, Color.red);
                 List<GameObject> targetTiles2 = GetManhattanTiles(currentHoveredTileInfo, moveRange);
-                HighlightTiles(targetTiles2, Color.green);
+                HighlightTiles(targetTiles2, Color.yellow);
             }
             else
             {
