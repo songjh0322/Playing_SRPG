@@ -98,8 +98,10 @@ public class AIManager : MonoBehaviour
             // 시각적 업데이트
             unitPrefab = UnitPrefabManager.Instance.InstantiateUnitPrefab(aiUnitCodes[i], 2.0f, false);
             unitPrefab.transform.position = targetTileInfos[i].worldXY;
+            targetTileInfos[i].unitPrefab = unitPrefab; // 오류 나면 여기 볼것!!!!!!!!!!!
             unitPrefab.transform.SetParent(InitialDeployManager.Instance.ActiveUnits.transform);
             aiUnitPrefabs.Add(unitPrefab);
+
         }
 
         isAllDeployed = true;

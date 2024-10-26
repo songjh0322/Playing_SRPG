@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class UnitPrefabManager : MonoBehaviour
 {
-    public List<GameObject> allUnitPrefabs; // ¿øº» ÇÁ¸®ÆÕ
-
     public static UnitPrefabManager Instance { get; private set; }
+
+    public List<GameObject> allUnitPrefabs;     // ¿øº» ÇÁ¸®ÆÕ
 
     private void Awake()
     {

@@ -127,6 +127,10 @@ public class InitialDeployManager : MonoBehaviour
             aiRandomDeployButton.gameObject.SetActive(false);
 
             inGameManager.SetActive(true);
+
+            // InitialDeployManager에서 InGameManager로 필요한 정보 전달
+            //
+
             gameObject.SetActive(false);
         }
     }
@@ -151,6 +155,7 @@ public class InitialDeployManager : MonoBehaviour
             tileInfo.unit = UnitManager.Instance.GetPlayer1Unit(currentUnitCode);
             // 유닛을 시각적으로 배치
             currentUnitPrefab.transform.position = tileInfo.worldXY;
+            tileInfo.unitPrefab = currentUnitPrefab;    // 오류 나면 여기 볼것!!!!!!!!!!!
             currentUnitPrefab.transform.SetParent(ActiveUnits.transform);
             playerUnitPrefabs.Add(currentUnitPrefab);
 
