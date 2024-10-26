@@ -9,14 +9,14 @@ using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 using static TileEnums;
 
-public enum State
-{
-    NotSelected,
-    Selected,
-}
-
 public class InitialDeployManager : MonoBehaviour
 {
+    public enum State
+    {
+        NotSelected,
+        Selected,
+    }
+
     public static InitialDeployManager Instance { get; private set; }
 
     // 상태 관리
