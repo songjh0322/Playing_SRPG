@@ -59,7 +59,7 @@ public class UnitSelectionManager : MonoBehaviour
         selectedUnitBars.Clear();
 
         // 플레이어가 선택한 진영의 모든 유닛을 저장
-        units = UnitManager.Instance.GetUnits(GameManager.Instance.playerFaction);
+        units = UnitManager.Instance.GetAllUnits(GameManager.Instance.playerFaction);
 
         // 현재 진영의 유닛 정보를 등록
         for (int i = 0; i < unitNameTexts.Count; i++)
@@ -164,6 +164,9 @@ public class UnitSelectionManager : MonoBehaviour
                 UnitManager.Instance.player1UnitCodes.Add(unitCode);
                 UnitManager.Instance.player1Units.Add(new(UnitManager.Instance.GetUnit(unitCode)));
             }
+
+            foreach (Unit unit in UnitManager.Instance.player1Units)
+                unit.team = Team.Ally;
 
             SceneManager.LoadScene("DeployScene");
         }

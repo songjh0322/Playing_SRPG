@@ -33,7 +33,7 @@ public class InitialDeployManager : MonoBehaviour
     public Button playerResetButton;
     public Button aiRandomDeployButton;
     public GameObject inGameManager;
-    public GameObject ActiveUnits;  // 생성된 유닛 프리팹들을 묶을 빈 게임 오브젝트
+    public GameObject ActiveUnits;  // 생성된 유닛 프리팹들을 묶을 빈 게임 오브젝트(아군 및 적군)
 
     private void Awake()
     {
@@ -111,8 +111,6 @@ public class InitialDeployManager : MonoBehaviour
 
     private void OnCompleteButtonClicked()
     {
-        Debug.Log(deployedUnitsCodes);
-        Debug.Log(UnitManager.Instance.player1UnitCodes);
         // 모두 배치한 경우에 한해 완료 버튼 클릭 가능
         if (deployedUnitsCodes.Count == UnitManager.Instance.player1UnitCodes.Count && AIManager.Instance.isAllDeployed)
         {

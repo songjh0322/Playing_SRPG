@@ -101,7 +101,7 @@ public class UnitManager : MonoBehaviour
     }
 
     // 진영 정보를 통해 해당 유닛들의 리스트를 얻음
-    public List<Unit> GetUnits(Faction faction)
+    public List<Unit> GetAllUnits(Faction faction)
     {
         List<Unit> factionUnits = new List<Unit>();
         foreach (Unit unit in allUnits)
@@ -112,7 +112,7 @@ public class UnitManager : MonoBehaviour
         return factionUnits;
     }
 
-    public List<int> GetUnitCodes(Faction faction)
+    public List<int> GetAllUnitCodes(Faction faction)
     {
         List<int> unitCodes = new List<int>();
         foreach (Unit unit in allUnits)

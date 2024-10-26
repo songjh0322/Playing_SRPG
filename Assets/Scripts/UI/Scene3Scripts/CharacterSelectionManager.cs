@@ -54,7 +54,7 @@ public class CharacterSelectionManager : MonoBehaviour
 
     void Start()
     {
-        allUnitsInFaction = UnitManager.Instance.GetUnits(GameManager.Instance.playerFaction);
+        allUnitsInFaction = UnitManager.Instance.GetAllUnits(GameManager.Instance.playerFaction);
 
         // 폰트 로드
         hangeulFont = Resources.Load<TMP_FontAsset>("Fonts/Orbit-Regular SDF");

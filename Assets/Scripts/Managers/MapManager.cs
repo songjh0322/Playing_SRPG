@@ -8,13 +8,13 @@ public class MapManager : MonoBehaviour
 {
     public static MapManager Instance { get; private set; }
 
-    // 프리팹 관리 (Inspector에서 할당)
+    // 프리팹 관리 (Inspector에서 할당, 맵 생성용)
     public GameObject tilePrefab;
     public Sprite middleZone;
 
     // 현재 맵 정보 관리
-    public List<GameObject> allTiles;
-    public List<TileInfo> allTileInfos;
+    public List<GameObject> allTiles;   // 모든 Tile 게임 오브젝트
+    public List<TileInfo> allTileInfos; // 모든 TileInfo
 
     private void Awake()
     {
@@ -29,7 +29,9 @@ public class MapManager : MonoBehaviour
     private void Start()
     {
         allTileInfos = new List<TileInfo>();
+
         CreateTestMap();
+
     }
 
     // 맵 프리팹 생성용 (10 by 12)
@@ -63,6 +65,7 @@ public class MapManager : MonoBehaviour
         }
     }
 
+    // 초기 배치가 가능한 타일의 리스트를 획득
     public List<TileInfo> GetTileInfos(InitialDeployment initialDeployment)
     {
         List<TileInfo> returnTileInfos = new List<TileInfo>();
@@ -74,4 +77,8 @@ public class MapManager : MonoBehaviour
         return returnTileInfos;
     }
 
+    public void GetManhattanDistance()
+    {
+
+    }
 }

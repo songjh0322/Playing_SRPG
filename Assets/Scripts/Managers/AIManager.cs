@@ -34,13 +34,6 @@ public class AIManager : MonoBehaviour
         isAllDeployed = false;
         aiUnitNum = 5;
         aiUnitPrefabs = new List<GameObject>();
-
-        // 랜덤하게 5명을 추출
-        RandomSelection(aiUnitNum);
-        aiUnitCodes = UnitManager.Instance.player2UnitCodes;
-        aiUnits = UnitManager.Instance.player2Units;
-
-        //RandomDeploy(); // 반드시 TileInfo의 Start()가 모두 호출된 이후에 실행해야 함
     }
 
     private void Update()
@@ -49,14 +42,14 @@ public class AIManager : MonoBehaviour
     }
 
     // player2Units에 랜덤한 유닛을 생성하고 추가
-    public void RandomSelection(int num)
+    private void RandomSelection(int num)
     {
         List<int> aiFactionUnitCodes = new List<int>();
 
         if (GameManager.Instance.playerFaction == Faction.Guwol)
-            aiFactionUnitCodes = UnitManager.Instance.GetUnitCodes(Faction.Seo);
+            aiFactionUnitCodes = UnitManager.Instance.GetAllUnitCodes(Faction.Seo);
         else if (GameManager.Instance.playerFaction == Faction.Seo)
-            aiFactionUnitCodes = UnitManager.Instance.GetUnitCodes(Faction.Guwol);
+            aiFactionUnitCodes = UnitManager.Instance.GetAllUnitCodes(Faction.Guwol);
 
         // 랜덤하게 섞고 앞에서 num개를 리스트로 반환
         List<int> randomSelectionUnitCodes = aiFactionUnitCodes
@@ -71,12 +64,20 @@ public class AIManager : MonoBehaviour
         {
             UnitManager.Instance.player2UnitCodes.Add(unitCode);
             UnitManager.Instance.player2Units.Add(new(UnitManager.Instance.GetUnit(unitCode)));
-        }   
+        }
+
+        foreach (Unit unit in UnitManager.Instance.player2Units)
+            unit.team = Team.Enemy;
     }
 
-    // AI의 유닛을 랜덤하게 배치
+    // AI의 유닛을 랜덤하게 배치 (TileInfo의 Start()가 모두 호출된 이후에 실행되야 함)
     public void RandomDeploy()
     {
+        // 랜덤하게 5명을 추출
+        RandomSelection(aiUnitNum);
+        aiUnitCodes = UnitManager.Instance.player2UnitCodes;
+        aiUnits = UnitManager.Instance.player2Units;
+
         // 초기화
         Reset();
 
@@ -97,6 +98,7 @@ public class AIManager : MonoBehaviour
             // 시각적 업데이트
             unitPrefab = UnitPrefabManager.Instance.InstantiateUnitPrefab(aiUnitCodes[i], 2.0f);
             unitPrefab.transform.position = targetTileInfos[i].worldXY;
+            unitPrefab.transform.SetParent(InitialDeployManager.Instance.ActiveUnits.transform);
             aiUnitPrefabs.Add(unitPrefab);
         }
 

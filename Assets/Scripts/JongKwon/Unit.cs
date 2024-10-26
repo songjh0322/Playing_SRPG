@@ -5,6 +5,12 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+public enum Team
+{
+    Ally,
+    Enemy
+}
+
 // 각 유닛의 기본 능력치 구조체 (인게임에서 절대 불변)
 [Serializable]
 public struct BasicStats
@@ -37,10 +43,13 @@ public interface IUnit
 [Serializable]
 public class Unit// : IUnit
 {
-    // 각 유닛의 기본 능력치 (인게임에서 절대 불변함)
+    // 각 유닛의 기본 능력치 (프로그램에서 불변)
     public BasicStats basicStats;
 
-    // 인게임에서 활용될 능력치 (패시브나 스킬 등을 통해 플레이 도중 변경될 수 있음)
+    // 선택을 통해 부여되는 요소
+    public Team team;
+
+    // 인게임에서 활용될 능력치 (인게임 도중 변경될 수 있음)
     public int currentHealth;
     public int currentAttackPoint;
     public int currentDefensePoint;
