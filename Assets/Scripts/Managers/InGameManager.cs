@@ -9,7 +9,9 @@ public class InGameManager : MonoBehaviour
 
     // 상태 관리
     public bool isPlayerTurn;
-    GameObject currentHoveredTile;
+    public GameObject currentHoveredTile;
+    public TileInfo currentTileInfo;
+    public GameObject currentUnitPrefab;
 
     // Inspector에서 할당
     public GameObject unitBehaviourButtons;
@@ -33,7 +35,7 @@ public class InGameManager : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("InGameManager의 Start() 호출됨");
+        //Debug.Log("InGameManager의 Start() 호출됨");
 
         // Player1부터 시작
         isPlayerTurn = true;
@@ -45,7 +47,8 @@ public class InGameManager : MonoBehaviour
 
     void Update()
     {
-        HightlightHoveredTile();
+        if (isPlayerTurn)
+            HightlightHoveredTile();
     }
 
     public void OnUnitClicked()
@@ -55,38 +58,40 @@ public class InGameManager : MonoBehaviour
 
     public void OnTileClicked(TileInfo tileInfo)
     {
-        if (isPlayerTurn && tileInfo.unit != null)
+        currentTileInfo = tileInfo;
+        //currentUnitPrefab = null;
+
+        if (isPlayerTurn)
         {
             // 아군이 있는 타일 클릭 시 -> 행동 선택 버튼 표시
-            if (tileInfo.unit.team == Team.Ally)
+            if (tileInfo.unit != null && tileInfo.unit.team == Team.Ally)
             {
+                Vector3 currentMousePosition = Input.mousePosition;
+
                 unitBehaviourButtons.SetActive(true);
-                unitBehaviourButtons.transform.position = currentHoveredTile.transform.position;
+                RectTransform rt = unitBehaviourButtons.GetComponent<RectTransform>();
+                rt.position = Camera.main.WorldToScreenPoint(tileInfo.worldXY + new Vector3(2.0f, -1.0f, 0.0f));
             }
-            // 적군이 있는 타일 클릭 시
-            else if (tileInfo.unit.team == Team.Enemy)
-            {
-                unitBehaviourButtons.SetActive(false);
-            }
-            // 아무것도 없는 타일 클릭 시
+            // 그외 경우
             else
-                unitBehaviourButtons.SetActive(false);
+                OnCancelButtonClicked();
         }
+        
     }
 
     void OnAttackButtonClicked()
     {
-        
+        Unit unit = currentTileInfo.unit;
     }
 
     void OnMoveButtonClicked()
     {
-        
+        Unit unit = currentTileInfo.unit;
     }
 
     void OnCancelButtonClicked()
     {
-        
+        unitBehaviourButtons.SetActive(false);
     }
 
     private void EndTurn()
