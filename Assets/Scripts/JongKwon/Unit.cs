@@ -30,6 +30,7 @@ public struct BasicStats
     public int attackPoint;
     public int defensePoint;
     public int moveRange;
+    public int attackRange;
 }
 
 /*// 각 유닛의 인터페이스
@@ -54,6 +55,7 @@ public class Unit// : IUnit
     public int currentAttackPoint;
     public int currentDefensePoint;
     public int currentMoveRange;
+    public int currentAttackRange;
 
     // Unit 생성자 (현재 능력치는 기본 능력치로부터 복사하여 생성됨)
     public Unit(BasicStats basicStats)
@@ -63,6 +65,7 @@ public class Unit// : IUnit
         this.currentAttackPoint = basicStats.attackPoint;
         this.currentDefensePoint = basicStats.defensePoint;
         this.currentMoveRange = basicStats.moveRange;
+        this.currentAttackRange = basicStats.attackRange;
     }
 
     // 복사 생성자 (능력치와 현재 상태가 모두 같지만 완전히 새로운 유닛을 생성)
@@ -73,6 +76,7 @@ public class Unit// : IUnit
         this.currentAttackPoint = originalUnit.currentAttackPoint;
         this.currentDefensePoint = originalUnit.currentDefensePoint;
         this.currentMoveRange = originalUnit.currentMoveRange;
+        this.currentAttackRange = originalUnit.currentAttackRange;
     }
 
     public (int, int) GetPosition()
@@ -81,11 +85,6 @@ public class Unit// : IUnit
 
         return (0, 0);
     }
-
-/*    public void move(Tile toTile)
-    {
-        
-    }*/
 
     public void castSkill(string skillName)
     {

@@ -24,6 +24,7 @@ public class TileInfo : MonoBehaviour
 
     private void OnMouseDown()
     {
+        // 해당 타일 위에 UI가 있으면 아무것도 하지 않음
         if (IsPointerOverUIObject())
             return;
 
@@ -31,8 +32,6 @@ public class TileInfo : MonoBehaviour
         Debug.Log($"({x},{y}) 타일 클릭됨");
         if (unit != null)
             Debug.Log($"현재 {unit.basicStats.unitName}이(가) 위치하고 있습니다.");
-        if (unitPrefab != null)
-            Debug.Log("unitPrefab;이 무언가로 채워져 있습니다.");
 
         // 배치 중, 턴 시작 이후
         if (GameManager.Instance.gameState == GameState.InitialDeployment)
@@ -49,7 +48,7 @@ public class TileInfo : MonoBehaviour
         this.initialDeployment = initialDeployment;
     }
 
-    // (GPT)
+    // (GPT) 타일 위에 UI가 있는지 확인하는 함수
     private bool IsPointerOverUIObject()
     {
         PointerEventData eventData = new PointerEventData(EventSystem.current)

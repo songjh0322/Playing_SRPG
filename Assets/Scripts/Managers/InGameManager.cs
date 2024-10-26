@@ -58,8 +58,9 @@ public class InGameManager : MonoBehaviour
 
     public void OnTileClicked(TileInfo tileInfo)
     {
+        // 클릭한 타일 정보를 가져옴
         currentTileInfo = tileInfo;
-        //currentUnitPrefab = null;
+        currentUnitPrefab = currentTileInfo.unitPrefab;
 
         if (isPlayerTurn)
         {
@@ -82,11 +83,17 @@ public class InGameManager : MonoBehaviour
     void OnAttackButtonClicked()
     {
         Unit unit = currentTileInfo.unit;
+        unitBehaviourButtons.SetActive(false);
+
+        DisplayRange(unit.current);
     }
 
     void OnMoveButtonClicked()
     {
         Unit unit = currentTileInfo.unit;
+        unitBehaviourButtons.SetActive(false);
+
+        DisplayRange(unit.currentMoveRange);
     }
 
     void OnCancelButtonClicked()
