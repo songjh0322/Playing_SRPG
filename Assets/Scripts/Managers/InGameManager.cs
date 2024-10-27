@@ -9,7 +9,8 @@ public class InGameManager : MonoBehaviour
     {
         NotSelected,
         BehaviourButtonsOn,
-        Selected
+        Attack,
+        Move
     }
 
     public static InGameManager Instance { get; private set; }
@@ -63,51 +64,57 @@ public class InGameManager : MonoBehaviour
 
     }
 
-    public void OnTileClicked(TileInfo tileInfo)
+    public void OnTileClicked(TileInfo targetTileInfo)
     {
         // 클릭한 타일 정보를 가져옴
-        currentTileInfo = tileInfo;
+        currentTileInfo = targetTileInfo;
         currentUnitPrefab = currentTileInfo.unitPrefab;
 
         if (isPlayerTurn)
         {
-            // 아군이 있는 타일 클릭 시 -> 행동 선택 버튼 표시
-            if (tileInfo.unit != null && tileInfo.unit.team == Team.Ally)
+            if (state == State.NotSelected)
             {
-                state = State.BehaviourButtonsOn;
+                // 아군이 있는 타일 클릭 시 -> 행동 선택 버튼 표시
+                if (targetTileInfo.unit != null && targetTileInfo.unit.team == Team.Ally)
+                {
+                    state = State.BehaviourButtonsOn;
 
-                Vector3 currentMousePosition = Input.mousePosition;
+                    Vector3 currentMousePosition = Input.mousePosition;
 
-                unitBehaviourButtons.SetActive(true);
-                RectTransform rt = unitBehaviourButtons.GetComponent<RectTransform>();
-                rt.position = Camera.main.WorldToScreenPoint(tileInfo.worldXY + new Vector3(2.0f, -1.0f, 0.0f));
+                    unitBehaviourButtons.SetActive(true);
+                    RectTransform rt = unitBehaviourButtons.GetComponent<RectTransform>();
+                    rt.position = Camera.main.WorldToScreenPoint(targetTileInfo.worldXY + new Vector3(2.0f, -1.0f, 0.0f));
+                }
+                // 그외 경우
+                else
+                    OnCancelButtonClicked();
             }
-            // 그외 경우
-            else
-                OnCancelButtonClicked();
-        }
-        
+            else if (state == State.Attack)
+            {
+
+            }
+            else if (state == State.Move)
+            {
+
+            }
+        }   
     }
 
     void OnAttackButtonClicked()
     {
-        state = State.Selected;
+        state = State.Attack;
 
         Unit unit = currentTileInfo.unit;
         unitBehaviourButtons.SetActive(false);
-
-        List<GameObject> targetTiles = MapManager.Instance.GetManhattanTiles(currentTileInfo, unit.currentAttackRange);
-        MapManager.Instance.HighlightTiles(targetTiles, Color.red);
     }
 
     void OnMoveButtonClicked()
     {
-        state = State.Selected;
+        state = State.Move;
 
         Unit unit = currentTileInfo.unit;
         unitBehaviourButtons.SetActive(false);
 
-        //DisplayRange(unit.currentMoveRange);
     }
 
     void OnCancelButtonClicked()

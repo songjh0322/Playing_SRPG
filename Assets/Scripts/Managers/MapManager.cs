@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static TileEnums;
 
+// 맵 형태 생성 및 맵의 시각적 변화(타일 색)를 담당
 public class MapManager : MonoBehaviour
 {
     public static MapManager Instance { get; private set; }
@@ -48,24 +49,18 @@ public class MapManager : MonoBehaviour
         UpdateCurrentHoveredTile();
 
         // 가리키는 타일이 변경될때마다 초기화
-        if (currentHoveredTile != lastHoveredTile)
-        {
-            foreach (TileInfo tileInfo in allTileInfos)
-            {
-                SpriteRenderer sr = tileInfo.GetComponent<SpriteRenderer>();
-                sr.color = Color.white;
-            }
-        }
+        if (GameManager.Instance.gameState == GameState.InitialDeployment)
+            InitAllRange();
+        else if (GameManager.Instance.gameState == GameState.InGame)
+            InitAllRange();
 
-        /*// 배치 화면에서 유닛 선택 중일 때
-        if (GameManager.Instance.gameState == GameState.InitialDeployment
-            && currentHoveredTile != null
-            && InitialDeployManager.Instance.currentUnitCode != -1)
+        if (GameManager.Instance.gameState == GameState.InitialDeployment)
             DisplayRange();
-        // 배치된 유닛에 마우스 커서가 있을 때
-        else if (currentHoveredTile != null && currentHoveredTileInfo.unit != null)
-            DisplayRange();*/
-        DisplayRange();
+        else if (InGameManager.Instance.state == InGameManager.State.NotSelected
+            || InGameManager.Instance.state == InGameManager.State.BehaviourButtonsOn)
+            DisplayRange();
+
+
 
         HighlightCurrentHoveredTile();
     }
@@ -140,7 +135,7 @@ public class MapManager : MonoBehaviour
         return nearbyTiles;
     }
 
-    public void HighlightTiles(List<GameObject> targetTiles, Color color)
+    private void HighlightTiles(List<GameObject> targetTiles, Color color)
     {
         foreach (GameObject tile in targetTiles)
         {
@@ -183,8 +178,21 @@ public class MapManager : MonoBehaviour
         }
     }
 
+    // 모든 타일의 색을 초기화 (조건 : 마우스 포인터가 가리키는 대상이 변경될 때)
+    private void InitAllRange()
+    {
+        if (currentHoveredTile != lastHoveredTile)
+        {
+            foreach (TileInfo tileInfo in allTileInfos)
+            {
+                SpriteRenderer sr = tileInfo.GetComponent<SpriteRenderer>();
+                sr.color = Color.white;
+            }
+        }
+    }
+
     // moveRange와 attackRange를 모두 시각적으로 표기
-    public void DisplayRange()
+    private void DisplayRange()
     {
         // 타일을 가리키고 있는 경우
         if (currentHoveredTile != null)
@@ -227,5 +235,11 @@ public class MapManager : MonoBehaviour
                 HighlightTiles(targetTiles, Color.yellow);
             }
         }
+    }
+
+    // 하나의 사거리만 표기
+    private void DisplayRange(int range, Color color)
+    {
+
     }
 }
