@@ -2142,7 +2142,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4777264053482484690}
   m_Layer: 0
-  m_Name: AI10
+  m_Name: Xshade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

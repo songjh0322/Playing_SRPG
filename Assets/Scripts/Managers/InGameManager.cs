@@ -18,7 +18,7 @@ public class InGameManager : MonoBehaviour
     // 상태 관리
     public bool isPlayerTurn;
     public State state;
-    public TileInfo firstTileInfo;  // 첫 번째 타일 정보 (아군이 있는 경우만)
+    public TileInfo firstTileInfo;  // 첫 번째 타일 정보 (아군이 있는 경우에만)
     public TileInfo lastTileInfo;   // 대상 타일 정보
 
     // Inspector에서 할당
@@ -56,9 +56,10 @@ public class InGameManager : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
+    // 현재 타일을 기준으로 마우스 포인터 및 클릭을 감지함 -> 미사용
     public void OnUnitClicked()
     {
 
@@ -83,13 +84,35 @@ public class InGameManager : MonoBehaviour
                 }
                 // 그외 경우
                 else
-                    OnCancelButtonClicked();
+                    InitStates();
             }
             else if (state == State.Attack)
             {
                 lastTileInfo = targetTileInfo;
                 List<TileInfo> inRangeTiles = MapManager.Instance.GetManhattanTileInfos(firstTileInfo, firstTileInfo.unit.currentAttackRange);
-                OnCancelButtonClicked();
+
+                // 공격 범위 내이면서 적 유닛이 있는 경우 -> 공격
+                if (inRangeTiles.Contains(lastTileInfo) && lastTileInfo.unit != null && lastTileInfo.unit.team == Team.Enemy)
+                {
+                    // 공격을 수행하는 동안 변하지 않으므로 복사해서 사용
+                    int attackPoint = firstTileInfo.unit.currentAttackPoint;
+                    int defensePoint = lastTileInfo.unit.currentDefensePoint;
+                    int realDamage = Mathf.Max(attackPoint - defensePoint, 0);
+
+                    lastTileInfo.unit.currentHealth -= realDamage;
+
+                    // 이 코드는 오직 공격으로만 적이 처지된다고 가정한 코드임 !!!!
+                    if (lastTileInfo.unit.currentHealth <= 0)
+                    {
+                        lastTileInfo.unit = null;
+                        lastTileInfo.unitPrefab = null;
+                        if (lastTileInfo.unitPrefab == null) { Debug.Log("프리팹이 null임"); }
+                        Destroy(lastTileInfo.unitPrefab);
+                    }
+
+                    //EndTurn();
+                }
+                InitStates();
             }
             else if (state == State.Move)
             {
@@ -106,12 +129,14 @@ public class InGameManager : MonoBehaviour
 
                     firstTileInfo.unit = null;
                     firstTileInfo.unitPrefab = null;
+
+                    //EndTurn();
                 }
-                OnCancelButtonClicked();
+                InitStates();
             }
-            else if (state == State.BehaviourButtonsOn)
-                OnCancelButtonClicked();
-        }   
+            else // (state == State.BehaviourButtonsOn)
+                InitStates();
+        }
     }
 
     void OnAttackButtonClicked()
@@ -131,14 +156,21 @@ public class InGameManager : MonoBehaviour
 
     void OnCancelButtonClicked()
     {
-        firstTileInfo = null;
-        lastTileInfo = null;
-        unitBehaviourButtons.SetActive(false);
-        state = State.NotSelected;
+        InitStates();
     }
 
     private void EndTurn()
     {
+        InitStates();
         isPlayerTurn = !isPlayerTurn;
+    }
+
+    // 유닛을 선택하지 않은 상태로 되돌림
+    private void InitStates()
+    {
+        firstTileInfo = null;
+        lastTileInfo = null;
+        unitBehaviourButtons.SetActive(false);
+        state = State.NotSelected;
     }
 }
