@@ -18,8 +18,8 @@ public class InGameManager : MonoBehaviour
     // 상태 관리
     public bool isPlayerTurn;
     public State state;
-    public TileInfo currentTileInfo;
-    public GameObject currentUnitPrefab;
+    public TileInfo firstTileInfo;  // 첫 번째 타일 정보 (아군이 있는 경우만)
+    public TileInfo lastTileInfo;   // 대상 타일 정보
 
     // Inspector에서 할당
     public GameObject unitBehaviourButtons;
@@ -66,10 +66,6 @@ public class InGameManager : MonoBehaviour
 
     public void OnTileClicked(TileInfo targetTileInfo)
     {
-        // 클릭한 타일 정보를 가져옴
-        currentTileInfo = targetTileInfo;
-        currentUnitPrefab = currentTileInfo.unitPrefab;
-
         if (isPlayerTurn)
         {
             if (state == State.NotSelected)
@@ -77,10 +73,10 @@ public class InGameManager : MonoBehaviour
                 // 아군이 있는 타일 클릭 시 -> 행동 선택 버튼 표시
                 if (targetTileInfo.unit != null && targetTileInfo.unit.team == Team.Ally)
                 {
+                    firstTileInfo = targetTileInfo;
+
                     state = State.BehaviourButtonsOn;
-
                     Vector3 currentMousePosition = Input.mousePosition;
-
                     unitBehaviourButtons.SetActive(true);
                     RectTransform rt = unitBehaviourButtons.GetComponent<RectTransform>();
                     rt.position = Camera.main.WorldToScreenPoint(targetTileInfo.worldXY + new Vector3(2.0f, -1.0f, 0.0f));
@@ -91,12 +87,30 @@ public class InGameManager : MonoBehaviour
             }
             else if (state == State.Attack)
             {
-
+                lastTileInfo = targetTileInfo;
+                List<TileInfo> inRangeTiles = MapManager.Instance.GetManhattanTileInfos(firstTileInfo, firstTileInfo.unit.currentAttackRange);
+            
             }
             else if (state == State.Move)
             {
+                lastTileInfo = targetTileInfo;
+                List<TileInfo> inRangeTiles = MapManager.Instance.GetManhattanTileInfos(firstTileInfo, firstTileInfo.unit.currentMoveRange);
 
+                // 이동 범위 내이면서 유닛이 없는 경우 -> 이동
+                if (inRangeTiles.Contains(lastTileInfo) && lastTileInfo.unit == null)
+                {
+                    firstTileInfo.unitPrefab.transform.position = lastTileInfo.worldXY;
+
+                    lastTileInfo.unit = firstTileInfo.unit;
+                    lastTileInfo.unitPrefab = firstTileInfo.unitPrefab;
+
+                    firstTileInfo.unit = null;
+                    firstTileInfo.unitPrefab = null;
+                }
+                OnCancelButtonClicked();
             }
+            else if (state == State.BehaviourButtonsOn)
+                OnCancelButtonClicked();
         }   
     }
 
@@ -104,7 +118,6 @@ public class InGameManager : MonoBehaviour
     {
         state = State.Attack;
 
-        Unit unit = currentTileInfo.unit;
         unitBehaviourButtons.SetActive(false);
     }
 
@@ -112,13 +125,14 @@ public class InGameManager : MonoBehaviour
     {
         state = State.Move;
 
-        Unit unit = currentTileInfo.unit;
         unitBehaviourButtons.SetActive(false);
 
     }
 
     void OnCancelButtonClicked()
     {
+        firstTileInfo = null;
+        lastTileInfo = null;
         unitBehaviourButtons.SetActive(false);
         state = State.NotSelected;
     }

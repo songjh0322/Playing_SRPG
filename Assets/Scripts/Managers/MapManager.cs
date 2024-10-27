@@ -135,6 +135,31 @@ public class MapManager : MonoBehaviour
         return nearbyTiles;
     }
 
+    public List<TileInfo> GetManhattanTileInfos(TileInfo targetTile, int range)
+    {
+        List<TileInfo> nearbyTileInfos = new List<TileInfo>();
+
+        // 기준 타일의 좌표
+        int targetX = targetTile.x;
+        int targetY = targetTile.y;
+
+        // 모든 타일을 검색
+        foreach (TileInfo tile in allTileInfos)
+        {
+            // 타일의 좌표
+            int tileX = tile.x;
+            int tileY = tile.y;
+
+            // 맨해튼 거리 계산
+            int distance = Mathf.Abs(targetX - tileX) + Mathf.Abs(targetY - tileY);
+
+            // 거리가 range 이내이며 맵의 범위를 벗어나지 않으면 리스트에 추가
+            if (distance <= range && tileX >= 0 && tileX < xLength && tileY >= 0 && tileY < yLength)
+                nearbyTileInfos.Add(tile);
+        }
+        return nearbyTileInfos;
+    }
+
     private void HighlightTiles(List<GameObject> targetTiles, Color color)
     {
         foreach (GameObject tile in targetTiles)
@@ -237,7 +262,7 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    // 하나의 사거리만 표기
+    // 하나의 사거리만 표기 (미구현)
     private void DisplayRange(int range, Color color)
     {
 
