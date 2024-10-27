@@ -104,10 +104,10 @@ public class InGameManager : MonoBehaviour
                     // 이 코드는 오직 공격으로만 적이 처지된다고 가정한 코드임 !!!!
                     if (lastTileInfo.unit.currentHealth <= 0)
                     {
+                        Destroy(lastTileInfo.unitPrefab);
                         lastTileInfo.unit = null;
                         lastTileInfo.unitPrefab = null;
                         if (lastTileInfo.unitPrefab == null) { Debug.Log("프리팹이 null임"); }
-                        Destroy(lastTileInfo.unitPrefab);
                     }
 
                     //EndTurn();

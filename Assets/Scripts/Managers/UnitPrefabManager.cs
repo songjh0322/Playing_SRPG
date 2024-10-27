@@ -32,16 +32,17 @@ public class UnitPrefabManager : MonoBehaviour
         allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/ROBIN HOOD"));
         allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/THIEF"));
         allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/WARRIOR"));
-        allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/AI1"));  // 여기까지 unitCode = 8
+        allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/Hammering"));  // 여기까지 unitCode = 8
 
-        allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/AI3"));
-        allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/AI4"));
-        allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/AI5"));
-        allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/AI6"));
-        allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/AI7"));
-        allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/AI8"));
-        allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/AI9"));
-        allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/AI10"));  // 여기까지 unitCode = 16
+        allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/Venomclaw"));
+        allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/Blade"));
+        allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/Rotfang"));
+        allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/DevX"));
+        allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/Sharpshot"));
+        allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/Warhound"));
+        allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/Sting"));
+        allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/Xshade"));  // 여기까지 unitCode = 16
+        print(allUnitPrefabs.Count);
     }
 
 /*    // 원본 프리팹
