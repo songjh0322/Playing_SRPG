@@ -17,6 +17,8 @@ public class MapManager : MonoBehaviour
     // 현재 맵 정보 관리
     public List<GameObject> allTiles;   // 모든 Tile 게임 오브젝트
     public List<TileInfo> allTileInfos; // 모든 TileInfo
+
+    // 마우스 포인터 관련 정보
     public GameObject lastHoveredTile;
     public GameObject currentHoveredTile;
     public TileInfo currentHoveredTileInfo;
@@ -39,12 +41,11 @@ public class MapManager : MonoBehaviour
         allTileInfos = new List<TileInfo>();
 
         CreateTestMap();
-
     }
 
     private void Update()
     {
-        UpdateCurrentHoverTile();
+        UpdateCurrentHoveredTile();
 
         // 가리키는 타일이 변경될때마다 초기화
         if (currentHoveredTile != lastHoveredTile)
@@ -56,24 +57,15 @@ public class MapManager : MonoBehaviour
             }
         }
 
-        // 배치 화면에서 유닛 선택 중일 때
+        /*// 배치 화면에서 유닛 선택 중일 때
         if (GameManager.Instance.gameState == GameState.InitialDeployment
             && currentHoveredTile != null
             && InitialDeployManager.Instance.currentUnitCode != -1)
-        {
-            int moveRange = UnitManager.Instance.GetUnit(InitialDeployManager.Instance.currentUnitCode).currentMoveRange;
-            List<GameObject> targetTiles = GetManhattanTiles(currentHoveredTileInfo, moveRange);
-            HighlightTiles(targetTiles, Color.red);
-        }
-        /*// 배치된 유닛에 마우스 커서가 있을 때
-        else if (currentHoveredTile != null && currentHoveredTileInfo.unit != null)
-        {
-            List<GameObject> targetTiles = GetManhattanTiles(currentHoveredTileInfo, currentHoveredTileInfo.unit.basicStats.moveRange);
-            HighlightTiles(targetTiles, Color.red);
-        }*/
+            DisplayRange();
         // 배치된 유닛에 마우스 커서가 있을 때
         else if (currentHoveredTile != null && currentHoveredTileInfo.unit != null)
-            DisplayRange();
+            DisplayRange();*/
+        DisplayRange();
 
         HighlightCurrentHoveredTile();
     }
@@ -158,7 +150,7 @@ public class MapManager : MonoBehaviour
     }
 
     // GPT
-    private void UpdateCurrentHoverTile()
+    private void UpdateCurrentHoveredTile()
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mousePosition.z = 0f;
@@ -194,10 +186,26 @@ public class MapManager : MonoBehaviour
     // moveRange와 attackRange를 모두 시각적으로 표기
     public void DisplayRange()
     {
+        // 타일을 가리키고 있는 경우
         if (currentHoveredTile != null)
         {
-            int moveRange = currentHoveredTileInfo.unit.currentMoveRange;
-            int attackRange = currentHoveredTileInfo.unit.currentAttackRange;
+            int moveRange;
+            int attackRange;
+
+            if (currentHoveredTileInfo.unit != null)
+            {
+                moveRange = currentHoveredTileInfo.unit.currentMoveRange;
+                attackRange = currentHoveredTileInfo.unit.currentAttackRange;
+            }
+            else if (InitialDeployManager.Instance.currentUnitCode != -1)
+            {
+                int unitCode = InitialDeployManager.Instance.currentUnitCode;
+                Unit unit = UnitManager.Instance.GetUnit(unitCode);
+                moveRange = unit.currentMoveRange;
+                attackRange = unit.currentAttackRange;
+            }
+            else
+                return;
             
             if (moveRange > attackRange)
             {
