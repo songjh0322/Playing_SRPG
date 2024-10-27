@@ -10,7 +10,8 @@ public class InGameManager : MonoBehaviour
         NotSelected,
         BehaviourButtonsOn,
         Attack,
-        Move
+        Move,
+        GameEnd
     }
 
     public static InGameManager Instance { get; private set; }
@@ -110,7 +111,7 @@ public class InGameManager : MonoBehaviour
                         if (lastTileInfo.unitPrefab == null) { Debug.Log("프리팹이 null임"); }
                     }
 
-                    //EndTurn();
+                    EndTurn();
                 }
                 InitStates();
             }
@@ -130,7 +131,7 @@ public class InGameManager : MonoBehaviour
                     firstTileInfo.unit = null;
                     firstTileInfo.unitPrefab = null;
 
-                    //EndTurn();
+                    EndTurn();
                 }
                 InitStates();
             }
@@ -163,6 +164,7 @@ public class InGameManager : MonoBehaviour
     {
         InitStates();
         isPlayerTurn = !isPlayerTurn;
+        AIManager.Instance.OnAITurnStarted();
     }
 
     // 유닛을 선택하지 않은 상태로 되돌림

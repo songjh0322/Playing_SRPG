@@ -41,6 +41,12 @@ public class AIManager : MonoBehaviour
 
     }
 
+    // 여기서부터 AI 로직 시작
+    public void OnAITurnStarted()
+    {
+        Invoke("EndTurn", 2);
+    }
+
     // player2Units에 랜덤한 유닛을 생성하고 추가
     private void RandomSelection(int num)
     {
@@ -98,7 +104,7 @@ public class AIManager : MonoBehaviour
             // 시각적 업데이트
             unitPrefab = UnitPrefabManager.Instance.InstantiateUnitPrefab(aiUnitCodes[i], 2.0f, false);
             unitPrefab.transform.position = targetTileInfos[i].worldXY;
-            targetTileInfos[i].unitPrefab = unitPrefab; // 오류 나면 여기 볼것!!!!!!!!!!!
+            targetTileInfos[i].unitPrefab = unitPrefab;     // 오류 나면 여기 볼것!!!!!!!!!!!
             unitPrefab.transform.SetParent(InitialDeployManager.Instance.ActiveUnits.transform);
             aiUnitPrefabs.Add(unitPrefab);
 
@@ -116,5 +122,20 @@ public class AIManager : MonoBehaviour
             deployableTileInfos[i].unit = null;
         foreach (GameObject aiUnitPrefab in aiUnitPrefabs)
             Destroy(aiUnitPrefab);
+    }
+
+    private void TryMove()
+    {
+        
+    }
+
+    private void TryAttack()
+    {
+
+    }
+
+    private void EndTurn()
+    {
+        InGameManager.Instance.isPlayerTurn = true;
     }
 }
