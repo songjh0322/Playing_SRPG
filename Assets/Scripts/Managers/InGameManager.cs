@@ -89,7 +89,7 @@ public class InGameManager : MonoBehaviour
             {
                 lastTileInfo = targetTileInfo;
                 List<TileInfo> inRangeTiles = MapManager.Instance.GetManhattanTileInfos(firstTileInfo, firstTileInfo.unit.currentAttackRange);
-            
+                OnCancelButtonClicked();
             }
             else if (state == State.Move)
             {
