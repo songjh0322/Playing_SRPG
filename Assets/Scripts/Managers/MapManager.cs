@@ -23,6 +23,7 @@ public class MapManager : MonoBehaviour
     public GameObject lastHoveredTile;
     public GameObject currentHoveredTile;
     public TileInfo currentHoveredTileInfo;
+    public List<TileInfo> lastTileInfos;    // 범위 표시를 했던 타일의 정보 (초기화를 위함)
 
     private void Awake()
     {
@@ -48,21 +49,34 @@ public class MapManager : MonoBehaviour
     {
         UpdateCurrentHoveredTile();
 
-        // 가리키는 타일이 변경될때마다 초기화
+        // 배치 중일 때
         if (GameManager.Instance.gameState == GameState.InitialDeployment)
-            InitAllRange();
+        {
+            HightlightAllTlies(Color.white);
+            DisplayRange();
+        }
+        // 배치 이후 인게임일 때
         else if (GameManager.Instance.gameState == GameState.InGame)
-            InitAllRange();
+        {
+            HightlightAllTlies(Color.white);
+            if (InGameManager.Instance.state == InGameManager.State.NotSelected
+            || InGameManager.Instance.state == InGameManager.State.BehaviourButtonsOn)
+                DisplayRange();
+        }
+
+        // 가리키는 타일이 변경될때마다 초기화
+/*        if (GameManager.Instance.gameState == GameState.InitialDeployment)
+            HightlightAllTlies(Color.white);
+        else if (GameManager.Instance.gameState == GameState.InGame)
+            HightlightAllTlies(Color.white);
 
         if (GameManager.Instance.gameState == GameState.InitialDeployment)
             DisplayRange();
         else if (InGameManager.Instance.state == InGameManager.State.NotSelected
             || InGameManager.Instance.state == InGameManager.State.BehaviourButtonsOn)
-            DisplayRange();
+            DisplayRange();*/
 
-
-
-        HighlightCurrentHoveredTile();
+        HighlightCurrentHoveredTile(Color.gray);
     }
 
     // 맵 프리팹 생성용 (10 by 12)
@@ -194,24 +208,24 @@ public class MapManager : MonoBehaviour
     }
 
     // GPT
-    private void HighlightCurrentHoveredTile()
+    private void HighlightCurrentHoveredTile(Color color)
     {
         if (currentHoveredTile != null)
         {
             SpriteRenderer sr = currentHoveredTile.GetComponent<SpriteRenderer>();
-            sr.color = Color.gray;
+            sr.color = color;
         }
     }
 
     // 모든 타일의 색을 초기화 (조건 : 마우스 포인터가 가리키는 대상이 변경될 때)
-    private void InitAllRange()
+    private void HightlightAllTlies(Color color)
     {
         if (currentHoveredTile != lastHoveredTile)
         {
             foreach (TileInfo tileInfo in allTileInfos)
             {
                 SpriteRenderer sr = tileInfo.GetComponent<SpriteRenderer>();
-                sr.color = Color.white;
+                sr.color = color;
             }
         }
     }

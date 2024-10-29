@@ -36,18 +36,18 @@ EditorBuildSettings:
     path: Assets/Scenes/TestScene3.unity
     guid: c69f7967d82d4ea499a49c353b97f598
   - enabled: 1
-    path: Assets/Scenes/JongKwon/INIT.unity
+    path: Assets/Scenes/INIT.unity
     guid: d7dc154b69c706d45ae53958aef76aa2
   - enabled: 1
-    path: Assets/Scenes/JongKwon/MainScene.unity
+    path: Assets/Scenes/MainScene.unity
     guid: 20f3f5ef9fc8465499a67b0fdf42514b
   - enabled: 1
-    path: Assets/Scenes/JongKwon/FactionSelectionScene.unity
+    path: Assets/Scenes/FactionSelectionScene.unity
     guid: a5326c7b7d4d78c48947d2d7c357ecdb
   - enabled: 1
-    path: Assets/Scenes/JongKwon/UnitSelectionScene.unity
+    path: Assets/Scenes/UnitSelectionScene.unity
     guid: 365d1e0646d599b4ca12d8c122d28c6e
   - enabled: 1
-    path: Assets/Scenes/JongKwon/DeployScene.unity
+    path: Assets/Scenes/DeployScene.unity
     guid: adadfc77424249d41a54328fe6a00a21
   m_configObjects: {}
