@@ -15,15 +15,14 @@ public class MapManager : MonoBehaviour
     public GameObject tilePrefab;
     public Sprite middleZone;
 
-    // 현재 맵 정보 관리
+    // 현재 맵 정보 데이터
     public List<GameObject> allTiles;   // 모든 Tile 게임 오브젝트
     public List<TileInfo> allTileInfos; // 모든 TileInfo
 
     // 마우스 포인터 관련 정보
-    public GameObject lastHoveredTile;
     public GameObject currentHoveredTile;
-    public TileInfo currentHoveredTileInfo;
-    public List<TileInfo> lastTileInfos;    // 범위 표시를 했던 타일의 정보 (초기화를 위함)
+    public GameObject lastHoveredTile;
+    public List<GameObject> lastHoveredTiles;    // 범위 표시를 했던 타일의 정보 (초기화를 위함)
 
     private void Awake()
     {
@@ -63,18 +62,6 @@ public class MapManager : MonoBehaviour
             || InGameManager.Instance.state == InGameManager.State.BehaviourButtonsOn)
                 DisplayRange();
         }
-
-        // 가리키는 타일이 변경될때마다 초기화
-/*        if (GameManager.Instance.gameState == GameState.InitialDeployment)
-            HightlightAllTlies(Color.white);
-        else if (GameManager.Instance.gameState == GameState.InGame)
-            HightlightAllTlies(Color.white);
-
-        if (GameManager.Instance.gameState == GameState.InitialDeployment)
-            DisplayRange();
-        else if (InGameManager.Instance.state == InGameManager.State.NotSelected
-            || InGameManager.Instance.state == InGameManager.State.BehaviourButtonsOn)
-            DisplayRange();*/
 
         HighlightCurrentHoveredTile(Color.gray);
     }
@@ -123,13 +110,13 @@ public class MapManager : MonoBehaviour
         return returnTileInfos;
     }
 
-    public List<GameObject> GetManhattanTiles(TileInfo targetTile, int range)
+    public List<GameObject> GetManhattanTiles(GameObject targetTile, int range)
     {
         List<GameObject> nearbyTiles = new List<GameObject>();
 
         // 기준 타일의 좌표
-        int targetX = targetTile.x;
-        int targetY = targetTile.y;
+        int targetX = targetTile.GetComponent<TileInfo>().x;
+        int targetY = targetTile.GetComponent<TileInfo>().y;
 
         // 모든 타일을 검색
         foreach (TileInfo tile in allTileInfos)
@@ -199,11 +186,6 @@ public class MapManager : MonoBehaviour
         {
             lastHoveredTile = currentHoveredTile;
             currentHoveredTile = newHoveredTile;
-
-            if (currentHoveredTile != null)
-                currentHoveredTileInfo = currentHoveredTile.GetComponent<TileInfo>();
-            else
-                currentHoveredTileInfo = null;
         }
     }
 
@@ -239,10 +221,10 @@ public class MapManager : MonoBehaviour
             int moveRange;
             int attackRange;
 
-            if (currentHoveredTileInfo.unit != null)
+            if (currentHoveredTile.GetComponent<TileInfo>().unit != null)
             {
-                moveRange = currentHoveredTileInfo.unit.currentMoveRange;
-                attackRange = currentHoveredTileInfo.unit.currentAttackRange;
+                moveRange = currentHoveredTile.GetComponent<TileInfo>().unit.currentMoveRange;
+                attackRange = currentHoveredTile.GetComponent<TileInfo>().unit.currentAttackRange;
             }
             else if (InitialDeployManager.Instance.currentUnitCode != -1)
             {
@@ -253,26 +235,43 @@ public class MapManager : MonoBehaviour
             }
             else
                 return;
-            
-            if (moveRange > attackRange)
+
+            int maxRange = Mathf.Max(moveRange, attackRange);
+            int minRange = Mathf.Min(moveRange, attackRange);
+
+            List<GameObject> maxRangeTiles = GetManhattanTiles(currentHoveredTile, maxRange);
+            Color maxRangeColor = (moveRange > attackRange) ? Color.green : Color.red;
+            HighlightTiles(maxRangeTiles, maxRangeColor);
+
+            if (moveRange != attackRange)
             {
-                List<GameObject> targetTiles1 = GetManhattanTiles(currentHoveredTileInfo, moveRange);
+                List<GameObject> minRangeTiles = GetManhattanTiles(currentHoveredTile, minRange);
+                HighlightTiles(minRangeTiles, Color.yellow);
+            }
+            else
+            {
+                HighlightTiles(maxRangeTiles, Color.yellow);
+            }
+
+            /*if (moveRange > attackRange)
+            {
+                List<GameObject> targetTiles1 = GetManhattanTiles(currentHoveredTile, moveRange);
                 HighlightTiles(targetTiles1, Color.green);
-                List<GameObject> targetTiles2 = GetManhattanTiles(currentHoveredTileInfo, attackRange);
+                List<GameObject> targetTiles2 = GetManhattanTiles(currentHoveredTile, attackRange);
                 HighlightTiles(targetTiles2, Color.yellow);
             }
             else if (moveRange < attackRange)
             {
-                List<GameObject> targetTiles1 = GetManhattanTiles(currentHoveredTileInfo, attackRange);
+                List<GameObject> targetTiles1 = GetManhattanTiles(currentHoveredTile, attackRange);
                 HighlightTiles(targetTiles1, Color.red);
-                List<GameObject> targetTiles2 = GetManhattanTiles(currentHoveredTileInfo, moveRange);
+                List<GameObject> targetTiles2 = GetManhattanTiles(currentHoveredTile, moveRange);
                 HighlightTiles(targetTiles2, Color.yellow);
             }
             else
             {
-                List<GameObject> targetTiles = GetManhattanTiles(currentHoveredTileInfo, moveRange);
+                List<GameObject> targetTiles = GetManhattanTiles(currentHoveredTile, moveRange);
                 HighlightTiles(targetTiles, Color.yellow);
-            }
+            }*/
         }
     }
 
