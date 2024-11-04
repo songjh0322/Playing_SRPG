@@ -36,14 +36,15 @@ public class AIManager : MonoBehaviour
         aiUnitPrefabs = new List<GameObject>();
     }
 
-    private void Update()
-    {
-
-    }
-
     // 여기서부터 AI 로직 시작
     public void OnAITurnStarted()
     {
+        List<GameObject> unitTiles = GetUnitTiles();    // AI 유닛이 존재하는 타일 오브젝트 업데이트
+        foreach (GameObject tile in unitTiles)
+        {
+            
+        }
+
         Invoke("EndTurn", 2);
     }
 
@@ -137,5 +138,20 @@ public class AIManager : MonoBehaviour
     private void EndTurn()
     {
         InGameManager.Instance.isPlayerTurn = true;
+    }
+
+    // AI 유닛이 존재하는 타일 오브젝트 리스트를 반환
+    private List<GameObject> GetUnitTiles()
+    {
+        List<GameObject> tiles = new List<GameObject>();
+
+        foreach (GameObject tile in MapManager.Instance.allTiles)
+        {
+            TileInfo tileInfo = tile.GetComponent<TileInfo>();
+            // 유닛이 존재하면서 적 유닛인 경우
+            if (tileInfo.unit != null && tileInfo.unit.team == Team.Enemy)
+                tiles.Add(tile);
+        }
+        return tiles;
     }
 }
