@@ -78,10 +78,15 @@ public class InitialDeployManager : MonoBehaviour
         }
         if (state == State.Selected)
         {
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePosition.z = 0f;
+            if (MapManager.Instance.currentHoveredTile != null)
+                currentUnitPrefab.transform.position = MapManager.Instance.currentHoveredTile.GetComponent<TileInfo>().worldXY;
+            else
+            {
+                Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                mousePosition.z = 0f;
 
-            currentUnitPrefab.transform.position = mousePosition;
+                currentUnitPrefab.transform.position = mousePosition;
+            }
         }
 
         // 상시 업데이트 요소
