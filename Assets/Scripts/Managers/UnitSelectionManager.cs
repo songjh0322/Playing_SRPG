@@ -36,6 +36,8 @@ public class UnitSelectionManager : MonoBehaviour
     public Button selectButton;     // Inspector에서 할당
     public Button startButton;      // Inspector에서 할당
 
+    bool isFirstCall = true;
+
     // 싱글톤 인스턴스 설정
     private void Awake()
     {
@@ -86,6 +88,8 @@ public class UnitSelectionManager : MonoBehaviour
 
         // 첫 번째 유닛의 정보를 화면에 표시한 상태로 시작
         OnUnitButtonClicked(units[0]);
+        // OnUnitButtonClicked 함수가 처음 불렸을 때는 효과음이 재생되지 않도록 함
+        isFirstCall = false;
     }
 
     // 뒤로 가기
@@ -104,6 +108,10 @@ public class UnitSelectionManager : MonoBehaviour
 
     void OnUnitButtonClicked(Unit unit)
     {
+        if (!isFirstCall)
+        {
+            AudioManager.instance.PlayEffect("successButton");
+        }
         Destroy(currentUnitPrefab);
         currentUnitCode = unit.basicStats.unitCode;
         currentUnitPrefab = UnitPrefabManager.Instance.InstantiateUnitPrefab(currentUnitCode, 360.0f, false);
@@ -121,6 +129,7 @@ public class UnitSelectionManager : MonoBehaviour
         {
             if (!selectedUnitCodes.Contains(currentUnitCode))
             {
+                AudioManager.instance.PlayEffect("successButton");
                 // 데이터 관리
                 selectedUnitCodes.Add(currentUnitCode);
                 selectedUnitCodes.Sort();
@@ -144,11 +153,13 @@ public class UnitSelectionManager : MonoBehaviour
             }
             else
             {
+                AudioManager.instance.PlayEffect("failButton");
                 Debug.Log("선택된 유닛입니다.");
             }
         }
         else
         {
+            AudioManager.instance.PlayEffect("failButton");
             Debug.Log("이미 5명입니다.");
         }
         
@@ -159,6 +170,7 @@ public class UnitSelectionManager : MonoBehaviour
         UnitManager.Instance.player1Units.Clear();
         if (selectedUnitCodes.Count == 5)
         {
+            AudioManager.instance.PlayEffect("successButton");
             foreach (int unitCode in selectedUnitCodes)
             {
                 UnitManager.Instance.player1UnitCodes.Add(unitCode);
@@ -172,12 +184,14 @@ public class UnitSelectionManager : MonoBehaviour
         }
         else
         {
+            AudioManager.instance.PlayEffect("failButton");
             Debug.Log("5개의 유닛을 선택해야 합니다.");
         }
     }
 
     void OnDeleteButtonClicked(int unitCode)
     {
+        AudioManager.instance.PlayEffect("discard");
         // 데이터 관리
         selectedUnitCodes.Remove(unitCode);
         foreach (GameObject unitBar in selectedUnitBars)

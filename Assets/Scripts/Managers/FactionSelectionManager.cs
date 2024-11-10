@@ -39,20 +39,23 @@ public class FactionSelectionManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            AudioManager.instance.PlayEffect("successButton");
             OnBackButtonClicked();
         }
     }
 
-    // 시작 버튼
+    // Hero
     private void OnGuwolButtonClicked()
     {
+        AudioManager.instance.PlayEffect("successButton");
         GameManager.Instance.playerFaction = Faction.Guwol;
         SceneManager.LoadScene("UnitSelectionScene");
     }
 
-    // 종료 버튼
+    // Devil
     private void OnSeoButtonClicked()
     {
+        AudioManager.instance.PlayEffect("successButton");
         GameManager.Instance.playerFaction = Faction.Seo;
         SceneManager.LoadScene("UnitSelectionScene");
     }
@@ -60,6 +63,7 @@ public class FactionSelectionManager : MonoBehaviour
     // 설정 버튼
     private void OnBackButtonClicked()
     {
+        //AudioManager.instance.PlayEffect("successButton");
         SceneManager.LoadScene("MainScene");
     }
 }

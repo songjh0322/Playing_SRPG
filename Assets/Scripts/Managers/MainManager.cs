@@ -38,12 +38,14 @@ public class MainManager : MonoBehaviour
     // 시작 버튼
     private void OnStartButtonClicked()
     {
+        AudioManager.instance.PlayEffect("successButton");
         SceneManager.LoadScene("FactionSelectionScene");
     }
 
     // 종료 버튼
     private void OnQuitButtonClicked()
     {
+        AudioManager.instance.PlayEffect("successButton");
         Debug.Log("게임 종료");
     }
 
