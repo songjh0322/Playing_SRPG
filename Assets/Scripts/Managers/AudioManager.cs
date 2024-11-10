@@ -34,6 +34,7 @@ public class AudioManager : MonoBehaviour
     {
         bgmSource = gameObject.AddComponent<AudioSource>();
         effectSource = gameObject.AddComponent<AudioSource>();
+        PlayBGM(bgmClip);
     }
 
     public void PlayBGM(AudioClip clip)

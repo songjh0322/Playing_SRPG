@@ -346,7 +346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8e6d8df5201d45959af10c82d69e614, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bgmClip: {fileID: 0}
+  bgmClip: {fileID: 8300000, guid: 18dbd2f5bb58543989bcaa5d7fe7f045, type: 3}
   successButtonSound: {fileID: 8300000, guid: 35cf7766e9e2aa542811e896fde57989, type: 3}
   failButtonSound: {fileID: 8300000, guid: 1ed8fb76fc64e4e46847348138782234, type: 3}
   discardSound: {fileID: 8300000, guid: 2831701393b764f8a896010ca78c6a02, type: 3}
