@@ -49,7 +49,8 @@ public class FactionSelectionManager : MonoBehaviour
     {
         AudioManager.instance.PlayEffect("successButton");
         GameManager.Instance.playerFaction = Faction.Guwol;
-        SceneManager.LoadScene("UnitSelectionScene");
+        LoadingSceneController.LoadScene("UnitSelectionScene");
+        //SceneManager.LoadScene("UnitSelectionScene");
     }
 
     // Devil
@@ -57,7 +58,8 @@ public class FactionSelectionManager : MonoBehaviour
     {
         AudioManager.instance.PlayEffect("successButton");
         GameManager.Instance.playerFaction = Faction.Seo;
-        SceneManager.LoadScene("UnitSelectionScene");
+        LoadingSceneController.LoadScene("UnitSelectionScene");
+        //SceneManager.LoadScene("UnitSelectionScene");
     }
 
     // 설정 버튼

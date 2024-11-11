@@ -40,6 +40,7 @@ public class MainManager : MonoBehaviour
     {
         AudioManager.instance.PlayEffect("successButton");
         SceneManager.LoadScene("FactionSelectionScene");
+
     }
 
     // 종료 버튼
