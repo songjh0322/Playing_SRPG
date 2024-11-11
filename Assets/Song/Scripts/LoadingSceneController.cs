@@ -17,6 +17,11 @@ public class LoadingSceneController : MonoBehaviour
         SceneManager.LoadScene("LoadingScene");
 
     }
+    public static void LoadScene2(string sceneName)
+    {
+        nextScene = sceneName;
+        SceneManager.LoadScene("LoadingScene2");
+    }
     private void Start()
     {
         StartCoroutine(LoadSceneProcess());

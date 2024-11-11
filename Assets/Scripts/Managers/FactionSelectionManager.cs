@@ -58,7 +58,7 @@ public class FactionSelectionManager : MonoBehaviour
     {
         AudioManager.instance.PlayEffect("successButton");
         GameManager.Instance.playerFaction = Faction.Seo;
-        LoadingSceneController.LoadScene("UnitSelectionScene");
+        LoadingSceneController.LoadScene2("UnitSelectionScene");
         //SceneManager.LoadScene("UnitSelectionScene");
     }
 
