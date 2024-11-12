@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEngine;
+using UnityEngine.U2D;
 
 public class UnitPrefabManager : MonoBehaviour
 {
     public static UnitPrefabManager Instance { get; private set; }
 
     public List<GameObject> allUnitPrefabs;     // 원본 프리팹
+    public List<AnimatorController> allIdleAnimControllers;
 
     private void Awake()
     {
@@ -21,6 +24,7 @@ public class UnitPrefabManager : MonoBehaviour
     private void Start()
     {
         allUnitPrefabs = new List<GameObject>();
+        allIdleAnimControllers = new List<AnimatorController>();
 
         // 여기에 유닛의 코드순으로 프리팹 넣기
         allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/TempUnitPrefab"));   // unitCode는 1부터 유효함
@@ -42,7 +46,29 @@ public class UnitPrefabManager : MonoBehaviour
         allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/Warhound"));
         allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/Sting"));
         allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/Xshade"));  // 여기까지 unitCode = 16
-        print(allUnitPrefabs.Count);
+        //print(allUnitPrefabs.Count);
+
+        // 스프라이트 추가
+
+        //idleSprites.Add(Resources.Load<Sprite>("UnitSprites/SPUM_20241109144742553_IDLE0_0_idle_0_0"));
+        //idleSprites.Add(Resources.Load<Sprite>("UnitSprites/Guardian_Idle/SPUM_20241109144742553_IDLE0_0_idle_0_0"));
+
+        // idleSpriteAtlases.Add(Resources.Load<SpriteAtlas>("UnitSprites/Guardian_Idle"));
+
+        // idleSpriteAtlases.Add(Resources.Load<SpriteAtlas>("UnitSprites/Guardian_Idle"));
+        // idleSpriteAtlases.Add(Resources.Load<SpriteAtlas>("UnitSprites/Mage_Idle"));
+        // idleSpriteAtlases.Add(Resources.Load<SpriteAtlas>("UnitSprites/Paladin_Idle"));
+        // idleSpriteAtlases.Add(Resources.Load<SpriteAtlas>("UnitSprites/Ranger_Idle"));
+        // idleSpriteAtlases.Add(Resources.Load<SpriteAtlas>("UnitSprites/Robin Hood_Idle"));
+        // idleSpriteAtlases.Add(Resources.Load<SpriteAtlas>("UnitSprites/Thief_Idle"));
+        // idleSpriteAtlases.Add(Resources.Load<SpriteAtlas>("UnitSprites/Warrior_Idle"));
+        // idleSpriteAtlases.Add(Resources.Load<SpriteAtlas>("UnitSprites/Hammering_Idle"));
+        // print(idleSprites.Count);
+
+        allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/Guardian/Guardian_Idle"));
+
+        allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/Guardian/Guardian_Idle"));
+        allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/Guardian/Guardian_Move"));
     }
 
 /*    // 원본 프리팹

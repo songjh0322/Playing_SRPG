@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEngine.Events;
 
 public class UnitSelectionManager : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class UnitSelectionManager : MonoBehaviour
     // CenterPanel
     public Text currentUnitNameText;
     public GameObject unitDisplayArea;  // Inspector에서 할당
+    public GameObject unitModel;
     public Button idleButton;   // Inspector에서 할당
     public Button moveButton;   // Inspector에서 할당
     public Button attackButton; // Inspector에서 할당
@@ -75,14 +77,20 @@ public class UnitSelectionManager : MonoBehaviour
         {
             int index = i;
             unitButtons[index].onClick.AddListener(() => OnUnitButtonClicked(units[index]));
+            idleButton.onClick.AddListener(() => OnIdleButtonClicked(units[index]));
+            moveButton.onClick.AddListener(() => OnMoveButtonClicked(units[index]));
+            attackButton.onClick.AddListener(() => OnAttackButtonClicked(units[index]));
+            // damagedButton.onClick.AddListener(OnDamagedButtonClicked);
+            // diedButton.onClick.AddListener(OnDiedButtonClicked);
+            // debuffedButton.onClick.AddListener(OnDebuffedButtonClicked);    
         }
 
-        /*idleButton.onClick.AddListener(OnIdleButtonClicked);
-        moveButton.onClick.AddListener(OnMoveButtonClicked);
-        attackButton.onClick.AddListener(OnAttackButtonClicked);
-        damagedButton.onClick.AddListener(OnDamagedButtonClicked);
-        diedButton.onClick.AddListener(OnDiedButtonClicked);
-        debuffedButton.onClick.AddListener(OnDebuffedButtonClicked);*/
+        // idleButton.onClick.AddListener(OnIdleButtonClicked);
+        // moveButton.onClick.AddListener(OnMoveButtonClicked);
+        // attackButton.onClick.AddListener(OnAttackButtonClicked);
+        // damagedButton.onClick.AddListener(OnDamagedButtonClicked);
+        // diedButton.onClick.AddListener(OnDiedButtonClicked);
+        // debuffedButton.onClick.AddListener(OnDebuffedButtonClicked);
 
         selectButton.onClick.AddListener(OnSelectButtonClicked);
         startButton.onClick.AddListener(OnStartButtonClicked);
@@ -91,6 +99,26 @@ public class UnitSelectionManager : MonoBehaviour
         OnUnitButtonClicked(units[0]);
         // OnUnitButtonClicked 함수가 처음 불렸을 때는 효과음이 재생되지 않도록 함
         isFirstCall = false;
+    }
+
+    private void OnAttackButtonClicked(Unit unit)
+    {
+        currentUnitCode = unit.basicStats.unitCode;
+        Animator anim = unitModel.GetComponent<Animator>();
+    }
+
+    private void OnMoveButtonClicked(Unit unit)
+    {
+        currentUnitCode = unit.basicStats.unitCode;
+        Animator anim = unitModel.GetComponent<Animator>();
+        anim.runtimeAnimatorController = UnitPrefabManager.Instance.allIdleAnimControllers[2];
+    }
+
+    private void OnIdleButtonClicked(Unit unit)
+    {
+        currentUnitCode = unit.basicStats.unitCode;
+        Animator anim = unitModel.GetComponent<Animator>();
+        anim.runtimeAnimatorController = UnitPrefabManager.Instance.allIdleAnimControllers[1];
     }
 
     // 뒤로 가기
@@ -113,12 +141,20 @@ public class UnitSelectionManager : MonoBehaviour
         {
             AudioManager.instance.PlayEffect("successButton");
         }
+
         Destroy(currentUnitPrefab);
         currentUnitCode = unit.basicStats.unitCode;
-        currentUnitPrefab = UnitPrefabManager.Instance.InstantiateUnitPrefab(currentUnitCode, 360.0f, false);
-        currentUnitPrefab.transform.SetParent(unitDisplayArea.transform, false);
-        RectTransform rt = currentUnitPrefab.GetComponent<RectTransform>();
-        rt.anchoredPosition = new Vector2(0.0f, -180.0f);
+
+        // 기존 방법
+        // currentUnitPrefab = UnitPrefabManager.Instance.InstantiateUnitPrefab(currentUnitCode, 360.0f, false);
+        // currentUnitPrefab.transform.SetParent(unitDisplayArea.transform, false);
+        // RectTransform rt = currentUnitPrefab.GetComponent<RectTransform>();
+        // rt.anchoredPosition = new Vector2(0.0f, -180.0f);
+
+        Debug.Log($"{currentUnitCode}");
+
+        // 스프라이트 사용
+
 
         // CenterPanel 상단에 현재 선택한 유닛 이름을 표시
         currentUnitNameText.text = unit.basicStats.unitName;
