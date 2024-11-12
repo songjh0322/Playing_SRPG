@@ -35,6 +35,7 @@ public class UnitSelectionManager : MonoBehaviour
     public GameObject selectedUnitBarPrefab;    // Inspector에서 할당
     public Button selectButton;     // Inspector에서 할당
     public Button startButton;      // Inspector에서 할당
+    public GameObject[] popup; // 캐릭터 선택에 대한 팝업창
 
     bool isFirstCall = true;
 
@@ -156,7 +157,7 @@ public class UnitSelectionManager : MonoBehaviour
                 else
                     unitButtons[currentUnitCode - 9].GetComponent<Image>().color = new Color(70f / 255f, 176f / 255f, 190f / 255f);
 
-                
+
             }
             else
             {
@@ -168,8 +169,16 @@ public class UnitSelectionManager : MonoBehaviour
         {
             AudioManager.instance.PlayEffect("failButton");
             Debug.Log("이미 5명입니다.");
+            // 팝업창을 띄우고 3초 후 비활성화
+            popup[0].SetActive(true);
+            StartCoroutine(HidePopupAfterDelay(3f));
         }
 
+    }
+    IEnumerator HidePopupAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        popup[0].SetActive(false);
     }
 
     void OnStartButtonClicked()
@@ -192,8 +201,17 @@ public class UnitSelectionManager : MonoBehaviour
         else
         {
             AudioManager.instance.PlayEffect("failButton");
+
             Debug.Log("5개의 유닛을 선택해야 합니다.");
+            // 팝업창을 띄우고 3초 후 비활성화
+            popup[1].SetActive(true);
+            StartCoroutine(HidePopupAfterDelay2(3f));
         }
+    }
+    IEnumerator HidePopupAfterDelay2(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        popup[1].SetActive(false);
     }
 
     void OnDeleteButtonClicked(int unitCode)
