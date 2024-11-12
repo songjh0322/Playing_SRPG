@@ -150,6 +150,13 @@ public class UnitSelectionManager : MonoBehaviour
 
                 // 정렬
                 SortUnitBarsByButtonIndex();
+                // 버튼 색상 변경 코드 추가
+                if (GameManager.Instance.playerFaction == Faction.Guwol)
+                    unitButtons[currentUnitCode - 1].GetComponent<Image>().color = new Color(70f / 255f, 176f / 255f, 190f / 255f);
+                else
+                    unitButtons[currentUnitCode - 9].GetComponent<Image>().color = new Color(70f / 255f, 176f / 255f, 190f / 255f);
+
+                
             }
             else
             {
@@ -162,7 +169,7 @@ public class UnitSelectionManager : MonoBehaviour
             AudioManager.instance.PlayEffect("failButton");
             Debug.Log("이미 5명입니다.");
         }
-        
+
     }
 
     void OnStartButtonClicked()
@@ -203,6 +210,11 @@ public class UnitSelectionManager : MonoBehaviour
                 break;
             }
         }
+        // 버튼 색상 초기화
+        if (GameManager.Instance.playerFaction == Faction.Guwol)
+            unitButtons[unitCode - 1].GetComponent<Image>().color = new Color(190f / 255f, 104f / 255f, 69f / 255f);
+        else
+            unitButtons[unitCode - 9].GetComponent<Image>().color = new Color(190f / 255f, 104f / 255f, 69f / 255f);
     }
 
     // selectedUnitBar를 정렬하는 함수(unitCode를 기준으로)
