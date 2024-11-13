@@ -77,8 +77,8 @@ public class AIManager : MonoBehaviour
             return;
         }
 
-        // 만약 foreach문에서 공격을 수행하지 않았다면 다음을 수행 (이동)
-        print("공격 대상이 없어 턴을 종료함");
+        // 만약 foreach문에서 공격을 수행하지 않았다면 이동 수행
+        print("공격 대상이 없어 이동함");
 
         return;
     }
