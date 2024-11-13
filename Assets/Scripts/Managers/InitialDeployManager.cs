@@ -105,13 +105,18 @@ public class InitialDeployManager : MonoBehaviour
             CancelUnitSelection();
             return;
         }
+
         // 다른 버튼을 클릭하면 다른 유닛으로 대체
         if (currentUnitCode != unitCode)
         {
+            // 기존 프리팹 생성 방식
             Destroy(currentUnitPrefab);
             state = State.Selected;
             currentUnitCode = unitCode;
             currentUnitPrefab = UnitPrefabManager.Instance.InstantiateUnitPrefab(unitCode, 2.0f, true);
+
+            state = State.Selected;
+            currentUnitCode = unitCode;
         }
     }
 

@@ -39,13 +39,48 @@ public class AIManager : MonoBehaviour
     // 여기서부터 AI 로직 시작
     public void OnAITurnStarted()
     {
-        List<GameObject> unitTiles = GetUnitTiles();    // AI 유닛이 존재하는 타일 오브젝트 업데이트
-        foreach (GameObject tile in unitTiles)
+        List<GameObject> aiUnitTiles = GetUnitTiles();    // AI 유닛이 존재하는 타일 오브젝트 업데이트
+        // List<GameObject> playerUnitTiles = new List<GameObject>();
+
+        // AI 유닛의 경우 공격력이 높은 순으로 정렬
+        aiUnitTiles.Sort((a, b) => b.GetComponent<TileInfo>().unit.currentAttackPoint.CompareTo(a.GetComponent<TileInfo>().unit.currentAttackPoint));
+
+
+        foreach (GameObject tile in aiUnitTiles)
         {
+            List<GameObject> targetTiles = MapManager.Instance.GetManhattanTiles(tile, tile.GetComponent<TileInfo>().unit.currentAttackRange);
+            targetTiles.RemoveAll(tile => tile.GetComponent<TileInfo>().unit == null);
+            targetTiles.RemoveAll(tile => tile.GetComponent<TileInfo>().unit.team == Team.Enemy);
+
+            // 현재 AI 유닛의 공격 범위 내에 적 유닛이 없으면 다음 AI 유닛 조사
+            if (targetTiles.Count == 0)
+                continue;
+
+            targetTiles.Sort((a, b) => a.GetComponent<TileInfo>().unit.currentAttackPoint.CompareTo(b.GetComponent<TileInfo>().unit.currentHealth));  // Player 유닛의 경우 체력이 낮은 순으로 정렬
             
+            // 공격 수행
+            Unit aiUnit = tile.GetComponent<TileInfo>().unit;
+            Unit playerUnit = targetTiles[0].GetComponent<TileInfo>().unit;
+
+            int realDamage = Mathf.Max(aiUnit.currentAttackPoint - playerUnit.currentDefensePoint, 0);
+            playerUnit.currentHealth -= realDamage;
+            
+            Debug.Log($"{aiUnit.basicStats.unitName}이(가) {playerUnit.basicStats.unitName}을(를) 공격함");
+            Debug.Log($"{realDamage}의 피해를 입고 체력이 {playerUnit.currentHealth}이(가) 됨");
+
+            if (playerUnit.currentHealth < 0)
+            {
+                Debug.Log($"{playerUnit.basicStats.unitName}이(가) 사망함!");
+                playerUnit = null;
+                Destroy(targetTiles[0].GetComponent<TileInfo>().unitPrefab);
+            }
+            return;
         }
 
-        Invoke("EndTurn", 2);
+        // 만약 foreach문에서 공격을 수행하지 않았다면 다음을 수행 (이동)
+        print("공격 대상이 없어 턴을 종료함");
+
+        return;
     }
 
     // player2Units에 랜덤한 유닛을 생성하고 추가

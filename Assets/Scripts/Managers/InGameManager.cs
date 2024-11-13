@@ -165,6 +165,7 @@ public class InGameManager : MonoBehaviour
         InitStates();
         isPlayerTurn = !isPlayerTurn;
         AIManager.Instance.OnAITurnStarted();
+        isPlayerTurn = true;
     }
 
     // 유닛을 선택하지 않은 상태로 되돌림

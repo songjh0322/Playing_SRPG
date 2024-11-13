@@ -8,12 +8,12 @@ public class UnitPrefabManager : MonoBehaviour
 {
     public static UnitPrefabManager Instance { get; private set; }
 
-    public List<GameObject> allUnitPrefabs;     // ¿øº» ÇÁ¸®ÆÕ
-    public List<AnimatorController> allIdleAnimControllers; // ¾Ö´Ï¸ÞÀÌ¼Ç ÄÁÆ®·Ñ·¯ ¸®½ºÆ®
+    public List<GameObject> allUnitPrefabs;     // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public List<AnimatorController> allIdleAnimControllers; // ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 
     private void Awake()
     {
-        // Debug.Log("UnitPrefabManager »ý¼ºµÊ");
+        // Debug.Log("UnitPrefabManager ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 
         if (Instance == null)
         {
@@ -26,8 +26,8 @@ public class UnitPrefabManager : MonoBehaviour
         allUnitPrefabs = new List<GameObject>();
         allIdleAnimControllers = new List<AnimatorController>();
 
-        // ¿©±â¿¡ À¯´ÖÀÇ ÄÚµå¼øÀ¸·Î ÇÁ¸®ÆÕ ³Ö±â
-        allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/TempUnitPrefab"));   // unitCode´Â 1ºÎÅÍ À¯È¿ÇÔ
+        // ï¿½ï¿½ï¿½â¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö±ï¿½
+        allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/TempUnitPrefab"));   // unitCodeï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¿ï¿½ï¿½
         
         allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/GUARDIAN"));
         allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/MAGE"));
@@ -36,7 +36,7 @@ public class UnitPrefabManager : MonoBehaviour
         allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/ROBIN HOOD"));
         allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/THIEF"));
         allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/WARRIOR"));
-        allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/Hammering"));  // ¿©±â±îÁö unitCode = 8
+        allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/Hammering"));  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ unitCode = 8
 
         allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/Venomclaw"));
         allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/Blade"));
@@ -45,10 +45,10 @@ public class UnitPrefabManager : MonoBehaviour
         allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/Sharpshot"));
         allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/Warhound"));
         allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/Sting"));
-        allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/Xshade"));  // ¿©±â±îÁö unitCode = 16
+        allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/Xshade"));  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ unitCode = 16
         //print(allUnitPrefabs.Count);
 
-        // ½ºÇÁ¶óÀÌÆ® Ãß°¡
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ß°ï¿½
 
         //idleSprites.Add(Resources.Load<Sprite>("UnitSprites/SPUM_20241109144742553_IDLE0_0_idle_0_0"));
         //idleSprites.Add(Resources.Load<Sprite>("UnitSprites/Guardian_Idle/SPUM_20241109144742553_IDLE0_0_idle_0_0"));
@@ -65,26 +65,26 @@ public class UnitPrefabManager : MonoBehaviour
         // idleSpriteAtlases.Add(Resources.Load<SpriteAtlas>("UnitSprites/Hammering_Idle"));
         // print(idleSprites.Count);
 
-        allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/Guardian/Guardian_Idle")); // 0¹øÀº ¹«½Ã
+        allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/Guardian/Guardian_Idle")); // 0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
         allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/Guardian/Guardian_Idle"));
         allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/Mage/Mage_Idle"));
         allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/Paladin/Paladin_Idle"));
         allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/Ranger/Ranger_Idle"));
-        allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/RobinHood/RobinHood_Idle"));
+        allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/Robin Hood/RobinHood_Idle"));
         allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/Thief/Thief_Idle"));
         allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/Warrior/Warrior_Idle"));
         allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/Hammering/Hammering_Idle"));
 
     }
 
-/*    // ¿øº» ÇÁ¸®ÆÕ
+/*    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private GameObject GetUnitPrefab(int unitCode)
     {
         return allUnitPrefabs[unitCode];
     }*/
 
-    // »õ·Î¿î ÇÁ¸®ÆÕ(º¹Á¦)
+    // ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)
     public GameObject InstantiateUnitPrefab(int unitCode, float scale, bool reverse)
     {
         GameObject transformedUnitPrefab = Instantiate(allUnitPrefabs[unitCode]);
