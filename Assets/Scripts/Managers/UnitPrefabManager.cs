@@ -9,7 +9,7 @@ public class UnitPrefabManager : MonoBehaviour
     public static UnitPrefabManager Instance { get; private set; }
 
     public List<GameObject> allUnitPrefabs;     // 원본 프리팹
-    public List<AnimatorController> allIdleAnimControllers;
+    public List<AnimatorController> allIdleAnimControllers; // 애니메이션 컨트롤러 리스트
 
     private void Awake()
     {
@@ -65,10 +65,17 @@ public class UnitPrefabManager : MonoBehaviour
         // idleSpriteAtlases.Add(Resources.Load<SpriteAtlas>("UnitSprites/Hammering_Idle"));
         // print(idleSprites.Count);
 
-        allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/Guardian/Guardian_Idle"));
+        allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/Guardian/Guardian_Idle")); // 0번은 무시
 
         allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/Guardian/Guardian_Idle"));
-        allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/Guardian/Guardian_Move"));
+        allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/Mage/Mage_Idle"));
+        allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/Paladin/Paladin_Idle"));
+        allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/Ranger/Ranger_Idle"));
+        allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/RobinHood/RobinHood_Idle"));
+        allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/Thief/Thief_Idle"));
+        allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/Warrior/Warrior_Idle"));
+        allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/Hammering/Hammering_Idle"));
+
     }
 
 /*    // 원본 프리팹

@@ -10,7 +10,7 @@ public class UnitSelectionManager : MonoBehaviour
 {
     public static UnitSelectionManager Instance { get; private set; }
 
-    private int currentUnitCode;  // 현재 선택한 유닛의 코드 (0~7)
+    public int currentUnitCode;  // 현재 선택한 유닛의 코드 (0~7)
     private GameObject currentUnitPrefab;
     private List<int> selectedUnitCodes;
     private List<Unit> units;   // 현재 선택한 진영의 유닛들 (8명)
@@ -77,17 +77,17 @@ public class UnitSelectionManager : MonoBehaviour
         {
             int index = i;
             unitButtons[index].onClick.AddListener(() => OnUnitButtonClicked(units[index]));
-            idleButton.onClick.AddListener(() => OnIdleButtonClicked(units[index]));
-            moveButton.onClick.AddListener(() => OnMoveButtonClicked(units[index]));
-            attackButton.onClick.AddListener(() => OnAttackButtonClicked(units[index]));
+            // idleButton.onClick.AddListener(() => OnIdleButtonClicked(units[index]));
+            // moveButton.onClick.AddListener(() => OnMoveButtonClicked(units[index]));
+            // attackButton.onClick.AddListener(() => OnAttackButtonClicked(units[index]));
             // damagedButton.onClick.AddListener(OnDamagedButtonClicked);
             // diedButton.onClick.AddListener(OnDiedButtonClicked);
             // debuffedButton.onClick.AddListener(OnDebuffedButtonClicked);    
         }
 
-        // idleButton.onClick.AddListener(OnIdleButtonClicked);
-        // moveButton.onClick.AddListener(OnMoveButtonClicked);
-        // attackButton.onClick.AddListener(OnAttackButtonClicked);
+        idleButton.onClick.AddListener(OnIdleButtonClicked);
+        moveButton.onClick.AddListener(OnMoveButtonClicked);
+        attackButton.onClick.AddListener(OnAttackButtonClicked);
         // damagedButton.onClick.AddListener(OnDamagedButtonClicked);
         // diedButton.onClick.AddListener(OnDiedButtonClicked);
         // debuffedButton.onClick.AddListener(OnDebuffedButtonClicked);
@@ -101,24 +101,21 @@ public class UnitSelectionManager : MonoBehaviour
         isFirstCall = false;
     }
 
-    private void OnAttackButtonClicked(Unit unit)
+    private void OnIdleButtonClicked()
     {
-        currentUnitCode = unit.basicStats.unitCode;
         Animator anim = unitModel.GetComponent<Animator>();
+        anim.runtimeAnimatorController = UnitPrefabManager.Instance.allIdleAnimControllers[currentUnitCode];
     }
 
-    private void OnMoveButtonClicked(Unit unit)
+        private void OnMoveButtonClicked()
     {
-        currentUnitCode = unit.basicStats.unitCode;
         Animator anim = unitModel.GetComponent<Animator>();
-        anim.runtimeAnimatorController = UnitPrefabManager.Instance.allIdleAnimControllers[2];
+        anim.runtimeAnimatorController = UnitPrefabManager.Instance.allIdleAnimControllers[currentUnitCode];
     }
 
-    private void OnIdleButtonClicked(Unit unit)
+    private void OnAttackButtonClicked()
     {
-        currentUnitCode = unit.basicStats.unitCode;
         Animator anim = unitModel.GetComponent<Animator>();
-        anim.runtimeAnimatorController = UnitPrefabManager.Instance.allIdleAnimControllers[1];
     }
 
     // 뒤로 가기
@@ -142,18 +139,18 @@ public class UnitSelectionManager : MonoBehaviour
             AudioManager.instance.PlayEffect("successButton");
         }
 
-        Destroy(currentUnitPrefab);
         currentUnitCode = unit.basicStats.unitCode;
 
+        OnIdleButtonClicked();
+
         // 기존 방법
+        // Destroy(currentUnitPrefab);
         // currentUnitPrefab = UnitPrefabManager.Instance.InstantiateUnitPrefab(currentUnitCode, 360.0f, false);
         // currentUnitPrefab.transform.SetParent(unitDisplayArea.transform, false);
         // RectTransform rt = currentUnitPrefab.GetComponent<RectTransform>();
         // rt.anchoredPosition = new Vector2(0.0f, -180.0f);
 
-        Debug.Log($"{currentUnitCode}");
-
-        // 스프라이트 사용
+        // 스프라이트 사용 (애니메이션 컨트롤러)
 
 
         // CenterPanel 상단에 현재 선택한 유닛 이름을 표시
