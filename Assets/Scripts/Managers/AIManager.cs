@@ -6,6 +6,8 @@ using System;
 using static TileEnums;
 using Unity.VisualScripting;
 using Unity.Collections;
+using Unity.Mathematics;
+using Random = System.Random;
 
 public class AIManager : MonoBehaviour
 {
@@ -45,7 +47,6 @@ public class AIManager : MonoBehaviour
         // AI 유닛의 경우 공격력이 높은 순으로 정렬
         aiUnitTiles.Sort((a, b) => b.GetComponent<TileInfo>().unit.currentAttackPoint.CompareTo(a.GetComponent<TileInfo>().unit.currentAttackPoint));
 
-
         foreach (GameObject tile in aiUnitTiles)
         {
             List<GameObject> targetTiles = MapManager.Instance.GetManhattanTiles(tile, tile.GetComponent<TileInfo>().unit.currentAttackRange);
@@ -68,19 +69,59 @@ public class AIManager : MonoBehaviour
             Debug.Log($"{aiUnit.basicStats.unitName}이(가) {playerUnit.basicStats.unitName}을(를) 공격함");
             Debug.Log($"{realDamage}의 피해를 입고 체력이 {playerUnit.currentHealth}이(가) 됨");
 
-            if (playerUnit.currentHealth < 0)
+            // 대상이 죽는 경우
+            if (playerUnit.currentHealth <= 0)
             {
                 Debug.Log($"{playerUnit.basicStats.unitName}이(가) 사망함!");
-                playerUnit = null;
+                tile.GetComponent<TileInfo>().unit = null;
                 Destroy(targetTiles[0].GetComponent<TileInfo>().unitPrefab);
             }
             return;
         }
 
         // 만약 foreach문에서 공격을 수행하지 않았다면 이동 수행
-        print("공격 대상이 없어 이동함");
 
-        return;
+        // AI 유닛의 경우 1. 체력, 2. 방어력이 높은 순으로 정렬
+        aiUnitTiles.Sort((a, b) =>
+        {
+            int healthComparison = b.GetComponent<TileInfo>().unit.currentHealth.CompareTo(a.GetComponent<TileInfo>().unit.currentHealth);
+            if (healthComparison == 0)
+            {
+                // 체력이 같은 경우 방어력이 높은 순을 우선
+                return b.GetComponent<TileInfo>().unit.currentDefensePoint.CompareTo(a.GetComponent<TileInfo>().unit.currentDefensePoint);
+            }
+            return healthComparison;
+        });
+
+        foreach (GameObject tile in aiUnitTiles)
+        {
+            // 현재 유닛으로부터 이동 거리 이내의 이동 가능한 타일을 조사
+            Unit aiUnit = tile.GetComponent<TileInfo>().unit;
+            List<GameObject> possibleTiles = MapManager.Instance.GetManhattanTiles(tile, aiUnit.currentMoveRange);
+            possibleTiles.RemoveAll(tile => tile.GetComponent<TileInfo>().unit != null);    // 유닛이 있는 타일은 리스트에서 제거
+
+            // 현재 유닛이 이동할 수 없는 경우 다음 유닛을 조사
+            if (possibleTiles.Count == 0)
+                continue;
+
+            // 이동 가능한 타일 중 랜덤으로 이동
+            Random random = new Random();
+            int randomIndex = random.Next(possibleTiles.Count);
+            GameObject targetTile = possibleTiles[randomIndex];
+
+            targetTile.GetComponent<TileInfo>().unit = aiUnit;
+            targetTile.GetComponent<TileInfo>().unitPrefab = tile.GetComponent<TileInfo>().unitPrefab;
+            // firstTileInfo.unitPrefab.transform.position = lastTileInfo.worldXY;
+            tile.GetComponent<TileInfo>().unitPrefab.transform.position = targetTile.GetComponent<TileInfo>().worldXY;
+            targetTile.GetComponent<TileInfo>().unitPrefab = tile.GetComponent<TileInfo>().unitPrefab;
+
+            tile.GetComponent<TileInfo>().unit = null;
+            tile.GetComponent<TileInfo>().unitPrefab = null;
+
+            Debug.Log($"{aiUnit.basicStats.unitName}이(가) ({targetTile.GetComponent<TileInfo>().x},{targetTile.GetComponent<TileInfo>().y})로 이동함");
+
+            return;
+        }
     }
 
     // player2Units에 랜덤한 유닛을 생성하고 추가
@@ -170,10 +211,10 @@ public class AIManager : MonoBehaviour
 
     }
 
-    private void EndTurn()
+/*    private void EndTurn()
     {
         InGameManager.Instance.isPlayerTurn = true;
-    }
+    }*/
 
     // AI 유닛이 존재하는 타일 오브젝트 리스트를 반환
     private List<GameObject> GetUnitTiles()
