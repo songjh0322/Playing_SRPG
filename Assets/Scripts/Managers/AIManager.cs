@@ -73,7 +73,7 @@ public class AIManager : MonoBehaviour
             if (playerUnit.currentHealth <= 0)
             {
                 Debug.Log($"{playerUnit.basicStats.unitName}ÀÌ(°¡) »ç¸ÁÇÔ!");
-                tile.GetComponent<TileInfo>().unit = null;
+                targetTiles[0].GetComponent<TileInfo>().unit = null;
                 Destroy(targetTiles[0].GetComponent<TileInfo>().unitPrefab);
             }
             return;
