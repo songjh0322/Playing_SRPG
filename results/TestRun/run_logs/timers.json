@@ -1,0 +1,49 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1731500765",
+        "python_version": "3.9.6 (default, Aug  9 2024, 14:24:13) \n[Clang 16.0.0 (clang-1600.0.26.3)]",
+        "command_line_arguments": "/Users/nyj500/python-envs/unitykorea/bin/mlagents-learn config.yaml --run-id=TestRun --no-graphics --resume",
+        "mlagents_version": "0.30.0",
+        "mlagents_envs_version": "0.30.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "1.11.0",
+        "numpy_version": "1.21.2",
+        "end_time_seconds": "1731500773"
+    },
+    "total": 7.70514225,
+    "count": 1,
+    "self": 0.009973666999999686,
+    "children": {
+        "run_training.setup": {
+            "total": 0.023045208000000095,
+            "count": 1,
+            "self": 0.023045208000000095
+        },
+        "TrainerController.start_learning": {
+            "total": 7.672123375,
+            "count": 1,
+            "self": 7.524999999830584e-05,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 7.592840167,
+                    "count": 1,
+                    "self": 7.592840167
+                },
+                "TrainerController._save_models": {
+                    "total": 0.07920795800000136,
+                    "count": 1,
+                    "self": 0.00042966700000057756,
+                    "children": {
+                        "RLTrainer._checkpoint": {
+                            "total": 0.07877829100000078,
+                            "count": 1,
+                            "self": 0.07877829100000078
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

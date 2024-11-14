@@ -1,0 +1,22 @@
+behaviors:
+  TestBehavior:
+    trainer_type: ppo  # 학습 알고리즘
+    hyperparameters:
+      batch_size: 16         # 작게 설정하여 빠른 학습
+      buffer_size: 64        # 작게 설정하여 빠른 학습
+      learning_rate: 0.0003
+      beta: 0.005
+      epsilon: 0.2
+      lambd: 0.95
+      num_epoch: 1           # 한 번의 학습 루프를 줄임
+    network_settings:
+      num_layers: 1          # 단층 네트워크로 설정
+      hidden_units: 32       # 작게 설정
+    max_steps: 50          # 학습 총 스텝 제한
+    time_horizon: 32         # 빠른 학습을 위한 시간 축소
+    summary_freq: 500        # 더 자주 로그를 출력
+    reward_signals:
+      extrinsic:
+        gamma: 0.99
+        strength: 1.0
+ 
