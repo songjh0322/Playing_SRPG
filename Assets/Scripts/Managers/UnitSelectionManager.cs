@@ -4,12 +4,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEngine.Events;
 
 public class UnitSelectionManager : MonoBehaviour
 {
     public static UnitSelectionManager Instance { get; private set; }
 
-    private int currentUnitCode;  // 현재 선택한 유닛의 코드 (0~7)
+    public int currentUnitCode;  // 현재 선택한 유닛의 코드 (0~7)
     private GameObject currentUnitPrefab;
     private List<int> selectedUnitCodes;
     private List<Unit> units;   // 현재 선택한 진영의 유닛들 (8명)
@@ -22,12 +23,14 @@ public class UnitSelectionManager : MonoBehaviour
     // CenterPanel
     public Text currentUnitNameText;
     public GameObject unitDisplayArea;  // Inspector에서 할당
-    public Button idleButton;   // Inspector에서 할당
-    public Button moveButton;   // Inspector에서 할당
-    public Button attackButton; // Inspector에서 할당
-    public Button damagedButton;    // Inspector에서 할당
-    public Button diedButton;   // Inspector에서 할당
-    public Button DebuffedButton;   // Inspector에서 할당
+    public GameObject unitModel;
+    // public Button idleButton;   // Inspector에서 할당
+    // public Button moveButton;   // Inspector에서 할당
+    // public Button attackButton; // Inspector에서 할당
+    // public Button damagedButton;    // Inspector에서 할당
+    // public Button diedButton;   // Inspector에서 할당
+    // public Button DebuffedButton;   // Inspector에서 할당
+    public Text[] currentUnitStatsText;
 
     // RightPanel
     public List<GameObject> selectedUnitBars;
@@ -35,6 +38,7 @@ public class UnitSelectionManager : MonoBehaviour
     public GameObject selectedUnitBarPrefab;    // Inspector에서 할당
     public Button selectButton;     // Inspector에서 할당
     public Button startButton;      // Inspector에서 할당
+    public GameObject[] popup; // 캐릭터 선택에 대한 팝업창
 
     bool isFirstCall = true;
 
@@ -74,14 +78,20 @@ public class UnitSelectionManager : MonoBehaviour
         {
             int index = i;
             unitButtons[index].onClick.AddListener(() => OnUnitButtonClicked(units[index]));
+            // idleButton.onClick.AddListener(() => OnIdleButtonClicked(units[index]));
+            // moveButton.onClick.AddListener(() => OnMoveButtonClicked(units[index]));
+            // attackButton.onClick.AddListener(() => OnAttackButtonClicked(units[index]));
+            // damagedButton.onClick.AddListener(OnDamagedButtonClicked);
+            // diedButton.onClick.AddListener(OnDiedButtonClicked);
+            // debuffedButton.onClick.AddListener(OnDebuffedButtonClicked);    
         }
 
-        /*idleButton.onClick.AddListener(OnIdleButtonClicked);
-        moveButton.onClick.AddListener(OnMoveButtonClicked);
-        attackButton.onClick.AddListener(OnAttackButtonClicked);
-        damagedButton.onClick.AddListener(OnDamagedButtonClicked);
-        diedButton.onClick.AddListener(OnDiedButtonClicked);
-        debuffedButton.onClick.AddListener(OnDebuffedButtonClicked);*/
+        // idleButton.onClick.AddListener(OnIdleButtonClicked);
+        // moveButton.onClick.AddListener(OnMoveButtonClicked);
+        // attackButton.onClick.AddListener(OnAttackButtonClicked);
+        // damagedButton.onClick.AddListener(OnDamagedButtonClicked);
+        // diedButton.onClick.AddListener(OnDiedButtonClicked);
+        // debuffedButton.onClick.AddListener(OnDebuffedButtonClicked);
 
         selectButton.onClick.AddListener(OnSelectButtonClicked);
         startButton.onClick.AddListener(OnStartButtonClicked);
@@ -91,6 +101,23 @@ public class UnitSelectionManager : MonoBehaviour
         // OnUnitButtonClicked 함수가 처음 불렸을 때는 효과음이 재생되지 않도록 함
         isFirstCall = false;
     }
+
+    private void OnIdleButtonClicked()
+    {
+        Animator anim = unitModel.GetComponent<Animator>();
+        anim.runtimeAnimatorController = UnitPrefabManager.Instance.allIdleAnimControllers[currentUnitCode];
+    }
+
+    // private void OnMoveButtonClicked()
+    // {
+    //     Animator anim = unitModel.GetComponent<Animator>();
+    //     anim.runtimeAnimatorController = UnitPrefabManager.Instance.allIdleAnimControllers[currentUnitCode];
+    // }
+
+    // private void OnAttackButtonClicked()
+    // {
+    //     Animator anim = unitModel.GetComponent<Animator>();
+    // }
 
     // 뒤로 가기
     void Update()
@@ -112,15 +139,27 @@ public class UnitSelectionManager : MonoBehaviour
         {
             AudioManager.instance.PlayEffect("successButton");
         }
-        Destroy(currentUnitPrefab);
+
         currentUnitCode = unit.basicStats.unitCode;
-        currentUnitPrefab = UnitPrefabManager.Instance.InstantiateUnitPrefab(currentUnitCode, 360.0f, false);
-        currentUnitPrefab.transform.SetParent(unitDisplayArea.transform, false);
-        RectTransform rt = currentUnitPrefab.GetComponent<RectTransform>();
-        rt.anchoredPosition = new Vector2(0.0f, -180.0f);
+
+        OnIdleButtonClicked();
+
+        // 기존 방법
+        // Destroy(currentUnitPrefab);
+        // currentUnitPrefab = UnitPrefabManager.Instance.InstantiateUnitPrefab(currentUnitCode, 360.0f, false);
+        // currentUnitPrefab.transform.SetParent(unitDisplayArea.transform, false);
+        // RectTransform rt = currentUnitPrefab.GetComponent<RectTransform>();
+        // rt.anchoredPosition = new Vector2(0.0f, -180.0f);
+
+        // 스프라이트 사용 (애니메이션 컨트롤러)
+
 
         // CenterPanel 상단에 현재 선택한 유닛 이름을 표시
         currentUnitNameText.text = unit.basicStats.unitName;
+        currentUnitStatsText[0].text = "Health: " + unit.basicStats.maxHealth.ToString();
+        currentUnitStatsText[1].text = "AttackDamage: " + unit.basicStats.attackPoint.ToString();
+        currentUnitStatsText[2].text = "MoveRange: " + unit.basicStats.moveRange.ToString();
+        currentUnitStatsText[3].text = "AttackRange: " + unit.basicStats.attackRange.ToString();
     }
 
     void OnSelectButtonClicked()
@@ -150,6 +189,13 @@ public class UnitSelectionManager : MonoBehaviour
 
                 // 정렬
                 SortUnitBarsByButtonIndex();
+                // 버튼 색상 변경 코드 추가
+                if (GameManager.Instance.playerFaction == Faction.Guwol)
+                    unitButtons[currentUnitCode - 1].GetComponent<Image>().color = new Color(70f / 255f, 176f / 255f, 190f / 255f);
+                else
+                    unitButtons[currentUnitCode - 9].GetComponent<Image>().color = new Color(70f / 255f, 176f / 255f, 190f / 255f);
+
+
             }
             else
             {
@@ -161,8 +207,16 @@ public class UnitSelectionManager : MonoBehaviour
         {
             AudioManager.instance.PlayEffect("failButton");
             Debug.Log("이미 5명입니다.");
+            // 팝업창을 띄우고 3초 후 비활성화
+            popup[0].SetActive(true);
+            StartCoroutine(HidePopupAfterDelay(3f));
         }
-        
+
+    }
+    IEnumerator HidePopupAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        popup[0].SetActive(false);
     }
 
     void OnStartButtonClicked()
@@ -185,8 +239,17 @@ public class UnitSelectionManager : MonoBehaviour
         else
         {
             AudioManager.instance.PlayEffect("failButton");
+
             Debug.Log("5개의 유닛을 선택해야 합니다.");
+            // 팝업창을 띄우고 3초 후 비활성화
+            popup[1].SetActive(true);
+            StartCoroutine(HidePopupAfterDelay2(3f));
         }
+    }
+    IEnumerator HidePopupAfterDelay2(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        popup[1].SetActive(false);
     }
 
     void OnDeleteButtonClicked(int unitCode)
@@ -203,6 +266,11 @@ public class UnitSelectionManager : MonoBehaviour
                 break;
             }
         }
+        // 버튼 색상 초기화
+        if (GameManager.Instance.playerFaction == Faction.Guwol)
+            unitButtons[unitCode - 1].GetComponent<Image>().color = new Color(190f / 255f, 104f / 255f, 69f / 255f);
+        else
+            unitButtons[unitCode - 9].GetComponent<Image>().color = new Color(190f / 255f, 104f / 255f, 69f / 255f);
     }
 
     // selectedUnitBar를 정렬하는 함수(unitCode를 기준으로)
