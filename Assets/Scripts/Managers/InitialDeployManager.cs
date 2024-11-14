@@ -65,7 +65,7 @@ public class InitialDeployManager : MonoBehaviour
 
         completeButton.onClick.AddListener(() => OnCompleteButtonClicked());
         playerResetButton.onClick.AddListener(() => OnPlayerResetButtonClicked());
-        aiRandomDeployButton.onClick.AddListener(() => OnAIRandomDeployButtonClicked());
+        // aiRandomDeployButton.onClick.AddListener(() => OnAIRandomDeployButtonClicked());
     }
 
     // 플레이어의 키보드 입력과 실시간 업데이트가 필요한 코드만 여기서 처리
@@ -146,10 +146,10 @@ public class InitialDeployManager : MonoBehaviour
         Reset();
     }
 
-    private void OnAIRandomDeployButtonClicked()
-    {
-        AIManager.Instance.RandomDeploy();
-    }
+    // private void OnAIRandomDeployButtonClicked()
+    // {
+    //     AIManager.Instance.RandomDeploy();
+    // }
 
     public void OnTileClicked(TileInfo tileInfo)
     {

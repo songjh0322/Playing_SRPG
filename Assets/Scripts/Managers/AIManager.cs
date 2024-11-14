@@ -36,6 +36,7 @@ public class AIManager : MonoBehaviour
         isAllDeployed = false;
         aiUnitNum = 5;
         aiUnitPrefabs = new List<GameObject>();
+        Invoke("RandomDeploy", 0.1f);
     }
 
     // 여기서부터 AI 로직 시작
