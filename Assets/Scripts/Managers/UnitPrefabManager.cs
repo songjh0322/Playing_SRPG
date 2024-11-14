@@ -26,7 +26,7 @@ public class UnitPrefabManager : MonoBehaviour
         allUnitPrefabs = new List<GameObject>();
         allIdleAnimControllers = new List<AnimatorController>();
 
-        // ï¿½ï¿½ï¿½â¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö±ï¿½
+        // ï¿½ï¿½ï¿½â¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿? ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö±ï¿½
         allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/TempUnitPrefab"));   // unitCodeï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¿ï¿½ï¿½
         
         allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/GUARDIAN"));
@@ -36,7 +36,7 @@ public class UnitPrefabManager : MonoBehaviour
         allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/ROBIN HOOD"));
         allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/THIEF"));
         allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/WARRIOR"));
-        allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/Hammering"));  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ unitCode = 8
+        allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/Hammering"));  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿? unitCode = 8
 
         allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/Venomclaw"));
         allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/Blade"));
@@ -45,7 +45,7 @@ public class UnitPrefabManager : MonoBehaviour
         allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/Sharpshot"));
         allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/Warhound"));
         allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/Sting"));
-        allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/Xshade"));  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ unitCode = 16
+        allUnitPrefabs.Add(Resources.Load<GameObject>("UnitPrefabs/Xshade"));  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿? unitCode = 16
         //print(allUnitPrefabs.Count);
 
         // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ß°ï¿½
@@ -65,7 +65,7 @@ public class UnitPrefabManager : MonoBehaviour
         // idleSpriteAtlases.Add(Resources.Load<SpriteAtlas>("UnitSprites/Hammering_Idle"));
         // print(idleSprites.Count);
 
-        allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/Guardian/Guardian_Idle")); // 0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/Guardian/Guardian_Idle")); // 0¹øÂ°´Â ÀÇ¹Ì¾øÀ½
 
         allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/Guardian/Guardian_Idle"));
         allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/Mage/Mage_Idle"));
@@ -75,6 +75,15 @@ public class UnitPrefabManager : MonoBehaviour
         allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/Thief/Thief_Idle"));
         allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/Warrior/Warrior_Idle"));
         allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/Hammering/Hammering_Idle"));
+
+        allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/Venomclaw/Venomclaw_Idle"));
+        allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/Blade/Blade_Idle"));
+        allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/Rotfang/Rotfang_Idle"));
+        allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/DevX/DevX_Idle"));
+        allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/Sharpshot/Sharpshot_Idle"));
+        allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/Warhound/Warhound_Idle"));
+        allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/Sting/Sting_Idle"));
+        allIdleAnimControllers.Add(Resources.Load<AnimatorController>("Animations/Xshade/Xshade_Idle"));
 
     }
 
