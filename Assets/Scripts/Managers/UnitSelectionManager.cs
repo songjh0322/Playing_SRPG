@@ -24,12 +24,13 @@ public class UnitSelectionManager : MonoBehaviour
     public Text currentUnitNameText;
     public GameObject unitDisplayArea;  // Inspector에서 할당
     public GameObject unitModel;
-    public Button idleButton;   // Inspector에서 할당
-    public Button moveButton;   // Inspector에서 할당
-    public Button attackButton; // Inspector에서 할당
-    public Button damagedButton;    // Inspector에서 할당
-    public Button diedButton;   // Inspector에서 할당
-    public Button DebuffedButton;   // Inspector에서 할당
+    // public Button idleButton;   // Inspector에서 할당
+    // public Button moveButton;   // Inspector에서 할당
+    // public Button attackButton; // Inspector에서 할당
+    // public Button damagedButton;    // Inspector에서 할당
+    // public Button diedButton;   // Inspector에서 할당
+    // public Button DebuffedButton;   // Inspector에서 할당
+    public Text[] currentUnitStatsText;
 
     // RightPanel
     public List<GameObject> selectedUnitBars;
@@ -85,9 +86,9 @@ public class UnitSelectionManager : MonoBehaviour
             // debuffedButton.onClick.AddListener(OnDebuffedButtonClicked);    
         }
 
-        idleButton.onClick.AddListener(OnIdleButtonClicked);
-        moveButton.onClick.AddListener(OnMoveButtonClicked);
-        attackButton.onClick.AddListener(OnAttackButtonClicked);
+        // idleButton.onClick.AddListener(OnIdleButtonClicked);
+        // moveButton.onClick.AddListener(OnMoveButtonClicked);
+        // attackButton.onClick.AddListener(OnAttackButtonClicked);
         // damagedButton.onClick.AddListener(OnDamagedButtonClicked);
         // diedButton.onClick.AddListener(OnDiedButtonClicked);
         // debuffedButton.onClick.AddListener(OnDebuffedButtonClicked);
@@ -107,16 +108,16 @@ public class UnitSelectionManager : MonoBehaviour
         anim.runtimeAnimatorController = UnitPrefabManager.Instance.allIdleAnimControllers[currentUnitCode];
     }
 
-        private void OnMoveButtonClicked()
-    {
-        Animator anim = unitModel.GetComponent<Animator>();
-        anim.runtimeAnimatorController = UnitPrefabManager.Instance.allIdleAnimControllers[currentUnitCode];
-    }
+    // private void OnMoveButtonClicked()
+    // {
+    //     Animator anim = unitModel.GetComponent<Animator>();
+    //     anim.runtimeAnimatorController = UnitPrefabManager.Instance.allIdleAnimControllers[currentUnitCode];
+    // }
 
-    private void OnAttackButtonClicked()
-    {
-        Animator anim = unitModel.GetComponent<Animator>();
-    }
+    // private void OnAttackButtonClicked()
+    // {
+    //     Animator anim = unitModel.GetComponent<Animator>();
+    // }
 
     // 뒤로 가기
     void Update()
@@ -155,6 +156,10 @@ public class UnitSelectionManager : MonoBehaviour
 
         // CenterPanel 상단에 현재 선택한 유닛 이름을 표시
         currentUnitNameText.text = unit.basicStats.unitName;
+        currentUnitStatsText[0].text = "Health: " + unit.basicStats.maxHealth.ToString();
+        currentUnitStatsText[1].text = "AttackDamage: " + unit.basicStats.attackPoint.ToString();
+        currentUnitStatsText[2].text = "MoveRange: " + unit.basicStats.moveRange.ToString();
+        currentUnitStatsText[3].text = "AttackRange: " + unit.basicStats.attackRange.ToString();
     }
 
     void OnSelectButtonClicked()
