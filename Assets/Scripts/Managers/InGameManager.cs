@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,6 +28,7 @@ public class InGameManager : MonoBehaviour
     public Button attackButton;
     public Button moveButton;
     public Button cancelButton;
+    public GameObject turnText;
     public GameObject gameResultPopup;
     public GameObject gameResultText;
 
@@ -54,6 +56,8 @@ public class InGameManager : MonoBehaviour
         state = State.NotSelected;
         playerDeathCount = 0;
         aiDeathCount = 0;
+
+        turnText.SetActive(true);
 
         attackButton.onClick.AddListener(OnAttackButtonClicked);
         moveButton.onClick.AddListener(OnMoveButtonClicked);
@@ -172,8 +176,10 @@ public class InGameManager : MonoBehaviour
     {
         InitStates();
         isPlayerTurn = !isPlayerTurn;
+        turnText.GetComponent<TMP_Text>().text = "AI's Turn";
         AIManager.Instance.OnAITurnStarted();
         isPlayerTurn = true;
+        turnText.GetComponent<TMP_Text>().text = "Player's Turn";
     }
 
     // 유닛을 선택하지 않은 상태로 되돌림
@@ -188,6 +194,7 @@ public class InGameManager : MonoBehaviour
     // 게임 종료
     public void GameEnd()
     {
+        turnText.SetActive(false);
         gameResultPopup.SetActive(true);
         
         if (aiDeathCount == 5)
