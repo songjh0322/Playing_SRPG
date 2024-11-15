@@ -172,12 +172,37 @@ public class InGameManager : MonoBehaviour
         InitStates();
     }
 
-    private void EndTurn()
+    // private void EndTurn()
+    // {
+    //     InitStates();
+    //     isPlayerTurn = !isPlayerTurn;
+    //     turnText.GetComponent<TMP_Text>().text = "AI's Turn";
+    //     // 여기서 2초 대기
+    //     AIManager.Instance.OnAITurnStarted();
+    //     isPlayerTurn = true;
+    //     turnText.GetComponent<TMP_Text>().text = "Player's Turn";
+    // }
+
+    public void EndTurn()
+    {
+        StartCoroutine(EndTurnCoroutine());
+    }
+
+    private IEnumerator EndTurnCoroutine()
     {
         InitStates();
         isPlayerTurn = !isPlayerTurn;
+
+        // AI의 턴 텍스트로 변경
         turnText.GetComponent<TMP_Text>().text = "AI's Turn";
+
+        // 2초 대기
+        yield return new WaitForSeconds(2f);
+
+        // AI 행동 수행
         AIManager.Instance.OnAITurnStarted();
+
+        // 플레이어 턴으로 전환
         isPlayerTurn = true;
         turnText.GetComponent<TMP_Text>().text = "Player's Turn";
     }
