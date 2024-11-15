@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,8 +11,7 @@ public class InGameManager : MonoBehaviour
         NotSelected,
         BehaviourButtonsOn,
         Attack,
-        Move,
-        GameEnd
+        Move
     }
 
     public static InGameManager Instance { get; private set; }
@@ -27,9 +27,12 @@ public class InGameManager : MonoBehaviour
     public Button attackButton;
     public Button moveButton;
     public Button cancelButton;
+    public GameObject gameResultPopup;
+    public GameObject gameResultText;
 
-    // 게임 진행에 필요한 데이터 (자동으로 로드)
-    //public List
+    // 게임 진행에 필요한 데이터
+    public int playerDeathCount;
+    public int aiDeathCount;
 
     private void Awake()
     {
@@ -49,6 +52,8 @@ public class InGameManager : MonoBehaviour
         // Player1부터 시작
         isPlayerTurn = true;
         state = State.NotSelected;
+        playerDeathCount = 0;
+        aiDeathCount = 0;
 
         attackButton.onClick.AddListener(OnAttackButtonClicked);
         moveButton.onClick.AddListener(OnMoveButtonClicked);
@@ -108,7 +113,10 @@ public class InGameManager : MonoBehaviour
                         Destroy(lastTileInfo.unitPrefab);
                         lastTileInfo.unit = null;
                         lastTileInfo.unitPrefab = null;
-                        if (lastTileInfo.unitPrefab == null) { Debug.Log("프리팹이 null임"); }
+
+                        aiDeathCount++;
+                        if (aiDeathCount == 5)
+                            GameEnd();
                     }
 
                     EndTurn();
@@ -175,5 +183,16 @@ public class InGameManager : MonoBehaviour
         lastTileInfo = null;
         unitBehaviourButtons.SetActive(false);
         state = State.NotSelected;
+    }
+
+    // 게임 종료
+    public void GameEnd()
+    {
+        gameResultPopup.SetActive(true);
+        
+        if (aiDeathCount == 5)
+            gameResultText.GetComponent<Text>().text = "YOU WIN !";
+        else
+            gameResultText.GetComponent<Text>().text = "YOU LOSE !";
     }
 }
