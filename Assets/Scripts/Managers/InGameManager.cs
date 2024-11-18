@@ -17,13 +17,13 @@ public class InGameManager : MonoBehaviour
 
     public static InGameManager Instance { get; private set; }
 
-    // »óÅÂ °ü¸®
+    // ìƒíƒœ ê´€ë¦¬
     public bool isPlayerTurn;
     public State state;
-    public TileInfo firstTileInfo;  // Ã¹ ¹øÂ° Å¸ÀÏ Á¤º¸ (¾Æ±ºÀÌ ÀÖ´Â °æ¿ì¿¡¸¸)
-    public TileInfo lastTileInfo;   // ´ë»ó Å¸ÀÏ Á¤º¸
+    public TileInfo firstTileInfo;  // ì²« ë²ˆì§¸ íƒ€ì¼ ì •ë³´ (ì•„êµ°ì´ ìˆëŠ” ê²½ìš°ì—ë§Œ)
+    public TileInfo lastTileInfo;   // ëŒ€ìƒ íƒ€ì¼ ì •ë³´
 
-    // Inspector¿¡¼­ ÇÒ´ç
+    // Inspectorì—ì„œ í• ë‹¹
     public GameObject unitBehaviourButtons;
     public Button attackButton;
     public Button moveButton;
@@ -32,14 +32,14 @@ public class InGameManager : MonoBehaviour
     public GameObject gameResultPopup;
     public GameObject gameResultText;
 
-    // °ÔÀÓ ÁøÇà¿¡ ÇÊ¿äÇÑ µ¥ÀÌÅÍ
+    // ê²Œì„ ì§„í–‰ì— í•„ìš”í•œ ë°ì´í„°
     public int playerDeathCount;
     public int aiDeathCount;
 
     private void Awake()
     {
         GameManager.Instance.gameState = GameState.InGame;
-        // Debug.Log("InGameManager »ı¼ºµÊ");
+        // Debug.Log("InGameManager ìƒì„±ë¨");
 
         if (Instance == null)
         {
@@ -49,9 +49,9 @@ public class InGameManager : MonoBehaviour
 
     void Start()
     {
-        //Debug.Log("InGameManagerÀÇ Start() È£ÃâµÊ");
+        //Debug.Log("InGameManagerì˜ Start() í˜¸ì¶œë¨");
 
-        // Player1ºÎÅÍ ½ÃÀÛ
+        // Player1ë¶€í„° ì‹œì‘
         isPlayerTurn = true;
         state = State.NotSelected;
         playerDeathCount = 0;
@@ -69,7 +69,7 @@ public class InGameManager : MonoBehaviour
 
     }
 
-    // ÇöÀç Å¸ÀÏÀ» ±âÁØÀ¸·Î ¸¶¿ì½º Æ÷ÀÎÅÍ ¹× Å¬¸¯À» °¨ÁöÇÔ -> ¹Ì»ç¿ë
+    // í˜„ì¬ íƒ€ì¼ì„ ê¸°ì¤€ìœ¼ë¡œ ë§ˆìš°ìŠ¤ í¬ì¸í„° ë° í´ë¦­ì„ ê°ì§€í•¨ -> ë¯¸ì‚¬ìš©
     public void OnUnitClicked()
     {
 
@@ -81,7 +81,7 @@ public class InGameManager : MonoBehaviour
         {
             if (state == State.NotSelected)
             {
-                // ¾Æ±ºÀÌ ÀÖ´Â Å¸ÀÏ Å¬¸¯ ½Ã -> Çàµ¿ ¼±ÅÃ ¹öÆ° Ç¥½Ã
+                // ì•„êµ°ì´ ìˆëŠ” íƒ€ì¼ í´ë¦­ ì‹œ -> í–‰ë™ ì„ íƒ ë²„íŠ¼ í‘œì‹œ
                 if (targetTileInfo.unit != null && targetTileInfo.unit.team == Team.Ally)
                 {
                     firstTileInfo = targetTileInfo;
@@ -92,7 +92,7 @@ public class InGameManager : MonoBehaviour
                     RectTransform rt = unitBehaviourButtons.GetComponent<RectTransform>();
                     rt.position = Camera.main.WorldToScreenPoint(targetTileInfo.worldXY + new Vector3(2.0f, -1.0f, 0.0f));
                 }
-                // ±×¿Ü °æ¿ì
+                // ê·¸ì™¸ ê²½ìš°
                 else
                     InitStates();
             }
@@ -101,17 +101,22 @@ public class InGameManager : MonoBehaviour
                 lastTileInfo = targetTileInfo;
                 List<TileInfo> inRangeTiles = MapManager.Instance.GetManhattanTileInfos(firstTileInfo, firstTileInfo.unit.currentAttackRange);
 
-                // °ø°İ ¹üÀ§ ³»ÀÌ¸é¼­ Àû À¯´ÖÀÌ ÀÖ´Â °æ¿ì -> °ø°İ
+                // ê³µê²© ë²”ìœ„ ë‚´ì´ë©´ì„œ ì  ìœ ë‹›ì´ ìˆëŠ” ê²½ìš° -> ê³µê²©
                 if (inRangeTiles.Contains(lastTileInfo) && lastTileInfo.unit != null && lastTileInfo.unit.team == Team.Enemy)
                 {
-                    // °ø°İÀ» ¼öÇàÇÏ´Â µ¿¾È º¯ÇÏÁö ¾ÊÀ¸¹Ç·Î º¹»çÇØ¼­ »ç¿ë
+                    // ê³µê²©ì„ ìˆ˜í–‰í•˜ëŠ” ë™ì•ˆ ë³€í•˜ì§€ ì•Šìœ¼ë¯€ë¡œ ë³µì‚¬í•´ì„œ ì‚¬ìš©
                     int attackPoint = firstTileInfo.unit.currentAttackPoint;
                     int defensePoint = lastTileInfo.unit.currentDefensePoint;
                     int realDamage = Mathf.Max(attackPoint - defensePoint, 0);
+                    Animator animator = firstTileInfo.unitPrefab.GetComponentInChildren<Animator>();
+                    if (animator != null)
+                    {
+                        animator.SetTrigger("2_Attack");
+                    }
 
                     lastTileInfo.unit.currentHealth -= realDamage;
 
-                    // ÀÌ ÄÚµå´Â ¿ÀÁ÷ °ø°İÀ¸·Î¸¸ ÀûÀÌ Ã³ÁöµÈ´Ù°í °¡Á¤ÇÑ ÄÚµåÀÓ !!!!
+                    // ì´ ì½”ë“œëŠ” ì˜¤ì§ ê³µê²©ìœ¼ë¡œë§Œ ì ì´ ì²˜ì§€ëœë‹¤ê³  ê°€ì •í•œ ì½”ë“œì„ !!!!
                     if (lastTileInfo.unit.currentHealth <= 0)
                     {
                         Destroy(lastTileInfo.unitPrefab);
@@ -132,7 +137,7 @@ public class InGameManager : MonoBehaviour
                 lastTileInfo = targetTileInfo;
                 List<TileInfo> inRangeTiles = MapManager.Instance.GetManhattanTileInfos(firstTileInfo, firstTileInfo.unit.currentMoveRange);
 
-                // ÀÌµ¿ ¹üÀ§ ³»ÀÌ¸é¼­ À¯´ÖÀÌ ¾ø´Â °æ¿ì -> ÀÌµ¿
+                // ì´ë™ ë²”ìœ„ ë‚´ì´ë©´ì„œ ìœ ë‹›ì´ ì—†ëŠ” ê²½ìš° -> ì´ë™
                 if (inRangeTiles.Contains(lastTileInfo) && lastTileInfo.unit == null)
                 {
                     firstTileInfo.unitPrefab.transform.position = lastTileInfo.worldXY;
@@ -140,6 +145,15 @@ public class InGameManager : MonoBehaviour
                     lastTileInfo.unit = firstTileInfo.unit;
                     lastTileInfo.unitPrefab = firstTileInfo.unitPrefab;
 
+                    if (firstTileInfo != null && firstTileInfo.unitPrefab != null)
+                    {
+                        Animator animator = firstTileInfo.unitPrefab.GetComponentInChildren<Animator>();
+                        if (animator != null)
+                        {
+                            animator.SetBool("1_Move", true);
+                            StartCoroutine(ResetMoveAnimation(animator)); 
+                        }
+                    }
                     firstTileInfo.unit = null;
                     firstTileInfo.unitPrefab = null;
 
@@ -151,12 +165,21 @@ public class InGameManager : MonoBehaviour
                 InitStates();
         }
     }
+    private IEnumerator ResetMoveAnimation(Animator animator)
+{
+    yield return new WaitForSeconds(1f); 
+    animator.SetBool("1_Move", false);   
+}
 
     void OnAttackButtonClicked()
     {
         state = State.Attack;
 
         unitBehaviourButtons.SetActive(false);
+        if (firstTileInfo != null && firstTileInfo.unitPrefab != null)
+        {
+
+        }
     }
 
     void OnMoveButtonClicked()
@@ -164,6 +187,7 @@ public class InGameManager : MonoBehaviour
         state = State.Move;
 
         unitBehaviourButtons.SetActive(false);
+
 
     }
 
@@ -177,7 +201,7 @@ public class InGameManager : MonoBehaviour
     //     InitStates();
     //     isPlayerTurn = !isPlayerTurn;
     //     turnText.GetComponent<TMP_Text>().text = "AI's Turn";
-    //     // ¿©±â¼­ 2ÃÊ ´ë±â
+    //     // ì—¬ê¸°ì„œ 2ì´ˆ ëŒ€ê¸°
     //     AIManager.Instance.OnAITurnStarted();
     //     isPlayerTurn = true;
     //     turnText.GetComponent<TMP_Text>().text = "Player's Turn";
@@ -193,21 +217,21 @@ public class InGameManager : MonoBehaviour
         InitStates();
         isPlayerTurn = !isPlayerTurn;
 
-        // AIÀÇ ÅÏ ÅØ½ºÆ®·Î º¯°æ
+        // AIì˜ í„´ í…ìŠ¤íŠ¸ë¡œ ë³€ê²½
         turnText.GetComponent<TMP_Text>().text = "AI's Turn";
 
-        // 2ÃÊ ´ë±â
+        // 2ì´ˆ ëŒ€ê¸°
         yield return new WaitForSeconds(2f);
 
-        // AI Çàµ¿ ¼öÇà
+        // AI í–‰ë™ ìˆ˜í–‰
         AIManager.Instance.OnAITurnStarted();
 
-        // ÇÃ·¹ÀÌ¾î ÅÏÀ¸·Î ÀüÈ¯
+        // í”Œë ˆì´ì–´ í„´ìœ¼ë¡œ ì „í™˜
         isPlayerTurn = true;
         turnText.GetComponent<TMP_Text>().text = "Player's Turn";
     }
 
-    // À¯´ÖÀ» ¼±ÅÃÇÏÁö ¾ÊÀº »óÅÂ·Î µÇµ¹¸²
+    // ìœ ë‹›ì„ ì„ íƒí•˜ì§€ ì•Šì€ ìƒíƒœë¡œ ë˜ëŒë¦¼
     private void InitStates()
     {
         firstTileInfo = null;
@@ -216,12 +240,12 @@ public class InGameManager : MonoBehaviour
         state = State.NotSelected;
     }
 
-    // °ÔÀÓ Á¾·á
+    // ê²Œì„ ì¢…ë£Œ
     public void GameEnd()
     {
         turnText.SetActive(false);
         gameResultPopup.SetActive(true);
-        
+
         if (aiDeathCount == 5)
             gameResultText.GetComponent<Text>().text = "YOU WIN !";
         else
