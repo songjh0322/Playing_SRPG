@@ -1,5 +1,5 @@
 behaviors:
-  TestBehavior:
+   :
     trainer_type: ppo  # 학습 알고리즘
     hyperparameters:
       batch_size: 16         # 작게 설정하여 빠른 학습
