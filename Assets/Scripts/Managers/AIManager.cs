@@ -1,12 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
 using static TileEnums;
-using Unity.VisualScripting;
-using Unity.Collections;
-using Unity.Mathematics;
 using Random = System.Random;
 
 public class AIManager : MonoBehaviour
@@ -36,7 +32,7 @@ public class AIManager : MonoBehaviour
         isAllDeployed = false;
         aiUnitNum = 5;
         aiUnitPrefabs = new List<GameObject>();
-        Invoke("RandomDeploy", 0.1f);
+        Invoke("RandomDeploy", 0.1f);   // TileInfo 생성 순서 문제 (임시로 해결)
     }
 
     // 여기서부터 AI 로직 시작
@@ -76,11 +72,15 @@ public class AIManager : MonoBehaviour
                 Debug.Log($"{playerUnit.basicStats.unitName}이(가) 사망함!");
                 targetTiles[0].GetComponent<TileInfo>().unit = null;
                 Destroy(targetTiles[0].GetComponent<TileInfo>().unitPrefab);
+
+                InGameManager.Instance.playerDeathCount++;
+                if (InGameManager.Instance.playerDeathCount == 5)
+                        InGameManager.Instance.GameEnd();
             }
             return;
         }
 
-        // 만약 foreach문에서 공격을 수행하지 않았다면 이동 수행
+        // 만약 앞에서 공격을 수행하지 않았다면 이동 수행
 
         // AI 유닛의 경우 1. 체력, 2. 방어력이 높은 순으로 정렬
         aiUnitTiles.Sort((a, b) =>

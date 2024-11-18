@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,8 +12,7 @@ public class InGameManager : MonoBehaviour
         NotSelected,
         BehaviourButtonsOn,
         Attack,
-        Move,
-        GameEnd
+        Move
     }
 
     public static InGameManager Instance { get; private set; }
@@ -27,9 +28,13 @@ public class InGameManager : MonoBehaviour
     public Button attackButton;
     public Button moveButton;
     public Button cancelButton;
+    public GameObject turnText;
+    public GameObject gameResultPopup;
+    public GameObject gameResultText;
 
-    // 게임 진행에 필요한 데이터 (자동으로 로드)
-    //public List
+    // 게임 진행에 필요한 데이터
+    public int playerDeathCount;
+    public int aiDeathCount;
 
     private void Awake()
     {
@@ -49,6 +54,10 @@ public class InGameManager : MonoBehaviour
         // Player1부터 시작
         isPlayerTurn = true;
         state = State.NotSelected;
+        playerDeathCount = 0;
+        aiDeathCount = 0;
+
+        turnText.SetActive(true);
 
         attackButton.onClick.AddListener(OnAttackButtonClicked);
         moveButton.onClick.AddListener(OnMoveButtonClicked);
@@ -108,7 +117,10 @@ public class InGameManager : MonoBehaviour
                         Destroy(lastTileInfo.unitPrefab);
                         lastTileInfo.unit = null;
                         lastTileInfo.unitPrefab = null;
-                        if (lastTileInfo.unitPrefab == null) { Debug.Log("프리팹이 null임"); }
+
+                        aiDeathCount++;
+                        if (aiDeathCount == 5)
+                            GameEnd();
                     }
 
                     EndTurn();
@@ -160,12 +172,39 @@ public class InGameManager : MonoBehaviour
         InitStates();
     }
 
-    private void EndTurn()
+    // private void EndTurn()
+    // {
+    //     InitStates();
+    //     isPlayerTurn = !isPlayerTurn;
+    //     turnText.GetComponent<TMP_Text>().text = "AI's Turn";
+    //     // 여기서 2초 대기
+    //     AIManager.Instance.OnAITurnStarted();
+    //     isPlayerTurn = true;
+    //     turnText.GetComponent<TMP_Text>().text = "Player's Turn";
+    // }
+
+    public void EndTurn()
+    {
+        StartCoroutine(EndTurnCoroutine());
+    }
+
+    private IEnumerator EndTurnCoroutine()
     {
         InitStates();
         isPlayerTurn = !isPlayerTurn;
+
+        // AI의 턴 텍스트로 변경
+        turnText.GetComponent<TMP_Text>().text = "AI's Turn";
+
+        // 2초 대기
+        yield return new WaitForSeconds(2f);
+
+        // AI 행동 수행
         AIManager.Instance.OnAITurnStarted();
+
+        // 플레이어 턴으로 전환
         isPlayerTurn = true;
+        turnText.GetComponent<TMP_Text>().text = "Player's Turn";
     }
 
     // 유닛을 선택하지 않은 상태로 되돌림
@@ -175,5 +214,17 @@ public class InGameManager : MonoBehaviour
         lastTileInfo = null;
         unitBehaviourButtons.SetActive(false);
         state = State.NotSelected;
+    }
+
+    // 게임 종료
+    public void GameEnd()
+    {
+        turnText.SetActive(false);
+        gameResultPopup.SetActive(true);
+        
+        if (aiDeathCount == 5)
+            gameResultText.GetComponent<Text>().text = "YOU WIN !";
+        else
+            gameResultText.GetComponent<Text>().text = "YOU LOSE !";
     }
 }
