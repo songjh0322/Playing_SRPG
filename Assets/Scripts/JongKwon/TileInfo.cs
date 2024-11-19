@@ -6,13 +6,13 @@ using static TileEnums;
 
 public class TileInfo : MonoBehaviour
 {
-    // °ÔÀÓ ·ÎÁ÷¿ë
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public int x, y;
     public Unit unit;
     public TileType tileType;
     public InitialDeployment initialDeployment;
 
-    // ½Ã°¢Àû Ç¥½Ã¿ë
+    // ï¿½Ã°ï¿½ï¿½ï¿½ Ç¥ï¿½Ã¿ï¿½
     public Vector3 worldXY;
     public GameObject unitPrefab;
 
@@ -24,16 +24,16 @@ public class TileInfo : MonoBehaviour
 
     private void OnMouseDown()
     {
-        // ÇØ´ç Å¸ÀÏ À§¿¡ UI°¡ ÀÖÀ¸¸é ¾Æ¹«°Íµµ ÇÏÁö ¾ÊÀ½
+        // ï¿½Ø´ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ UIï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (IsPointerOverUIObject())
             return;
 
-        // µð¹ö±×¿ë
-        Debug.Log($"({x},{y}) Å¸ÀÏ Å¬¸¯µÊ");
+        // ï¿½ï¿½ï¿½ï¿½×¿ï¿½
+        Debug.Log($"({x},{y}) Å¸ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½");
         if (unit != null)
-            Debug.Log($"ÇöÀç {unit.basicStats.unitName}ÀÌ(°¡) À§Ä¡ÇÏ°í ÀÖ½À´Ï´Ù.");
+            Debug.Log($"ï¿½ï¿½ï¿½ï¿½ {unit.basicStats.unitName}ï¿½ï¿½(ï¿½ï¿½) ï¿½ï¿½Ä¡ï¿½Ï°ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½.");
 
-        // ¹èÄ¡ Áß, ÅÏ ½ÃÀÛ ÀÌÈÄ
+        // ï¿½ï¿½Ä¡ ï¿½ï¿½, ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (GameManager.Instance.gameState == GameState.InitialDeployment)
             InitialDeployManager.Instance.OnTileClicked(this);
         else if (GameManager.Instance.gameState == GameState.InGame)
@@ -48,7 +48,7 @@ public class TileInfo : MonoBehaviour
         this.initialDeployment = initialDeployment;
     }
 
-    // (GPT) Å¸ÀÏ À§¿¡ UI°¡ ÀÖ´ÂÁö È®ÀÎÇÏ´Â ÇÔ¼ö
+    // (GPT) Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ UIï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
     private bool IsPointerOverUIObject()
     {
         PointerEventData eventData = new PointerEventData(EventSystem.current)
@@ -59,7 +59,7 @@ public class TileInfo : MonoBehaviour
         List<RaycastResult> results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventData, results);
 
-        // °á°ú ¸ñ·Ï¿¡ UI ¿ä¼Ò°¡ ÀÖÀ¸¸é true ¹ÝÈ¯
+        // ï¿½ï¿½ï¿½ ï¿½ï¿½Ï¿ï¿½ UI ï¿½ï¿½Ò°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ true ï¿½ï¿½È¯
         return results.Count > 0;
     }
 

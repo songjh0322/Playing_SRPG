@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
         UnitManager.Instance.LoadBasicStatsFromJSON();
         UnitManager.Instance.LoadAllUnits();
 
-        SceneManager.LoadScene("MainScene");
+        //SceneManager.LoadScene("MainScene");
     }
 
     public void ResetGame()

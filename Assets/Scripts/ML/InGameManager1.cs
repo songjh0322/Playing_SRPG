@@ -19,7 +19,7 @@ public class InGameManager1 : MonoBehaviour
 
     private void Awake()
     {
-        GameManager.Instance.gameState = GameState.InGame;
+        //GameManager.Instance.gameState = GameState.InGame;
 
         if (Instance == null)
         {

@@ -19,7 +19,7 @@ public class PlayerAgent : Agent
     public override void OnEpisodeBegin()
     {
         // 새로운 에피소드 시작 시 호출
-        InitialDeployManager1.Instance.RandomDeployUnits(InitialDeployment.Player1, UnitManager.Instance.player1Units);
+        AIManager1.Instance.RandomDeploy();
         Debug.Log("PlayerAgent Episode Started");
     }
 
