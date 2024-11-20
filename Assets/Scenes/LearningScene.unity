@@ -2558,7 +2558,30 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 0
+  MaxStep: 1000
+  controlledUnit:
+    basicStats:
+      unitName: 
+      characterDescription: 
+      passiveName: 
+      passiveDescription: 
+      skillName1: 
+      skillDescription1: 
+      skillName2: 
+      skillDescription2: 
+      unitCode: 0
+      faction: 0
+      maxHealth: 0
+      attackPoint: 0
+      defensePoint: 0
+      moveRange: 0
+      attackRange: 0
+    team: 0
+    currentHealth: 0
+    currentAttackPoint: 0
+    currentDefensePoint: 0
+    currentMoveRange: 0
+    currentAttackRange: 0
 --- !u!114 &528309333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2576,15 +2599,15 @@ MonoBehaviour:
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 0
-      BranchSizes: 01000000
-    VectorActionSize: 01000000
+      BranchSizes: 0100000001000000
+    VectorActionSize: 0100000001000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
-  m_BehaviorName: Enemy Behavior
+  m_BehaviorName: TestBehavior
   TeamId: 0
   m_UseChildSensors: 1
   m_UseChildActuators: 1
@@ -5982,7 +6005,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 0
+  MaxStep: 1000
 --- !u!114 &2092610662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6000,15 +6023,15 @@ MonoBehaviour:
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 0
-      BranchSizes: 01000000
-    VectorActionSize: 01000000
+      BranchSizes: 0100000001000000
+    VectorActionSize: 0100000001000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
-  m_BehaviorName: Player Behavior
+  m_BehaviorName: TestBehavior
   TeamId: 0
   m_UseChildSensors: 1
   m_UseChildActuators: 1

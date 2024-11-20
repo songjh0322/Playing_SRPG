@@ -1,0 +1,29 @@
+{
+    "TestBehavior": {
+        "checkpoints": [
+            {
+                "steps": 2,
+                "file_path": "results/NewRun/TestBehavior/TestBehavior-2.onnx",
+                "reward": 0.0,
+                "creation_time": 1732026893.11445,
+                "auxillary_file_paths": [
+                    "results/NewRun/TestBehavior/TestBehavior-2.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 2,
+            "file_path": "results/NewRun/TestBehavior.onnx",
+            "reward": 0.0,
+            "creation_time": 1732026893.11445,
+            "auxillary_file_paths": [
+                "results/NewRun/TestBehavior/TestBehavior-2.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.30.0",
+        "torch_version": "1.11.0"
+    }
+}

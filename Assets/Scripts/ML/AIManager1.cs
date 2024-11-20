@@ -4,6 +4,9 @@ using System.Linq;
 using System;
 using static TileEnums;
 using Random = System.Random;
+using Unity.MLAgents;
+using Unity.MLAgents.Actuators;
+using Unity.MLAgents.Sensors;
 
 public class AIManager1 : MonoBehaviour
 {
@@ -172,54 +175,148 @@ public class AIManager1 : MonoBehaviour
     public void OnAITurnStarted()
     {
         List<GameObject> aiUnitTiles = GetUnitTiles();
-        aiUnitTiles.Sort((a, b) => b.GetComponent<TileInfo>().unit.currentAttackPoint.CompareTo(a.GetComponent<TileInfo>().unit.currentAttackPoint));
+
+        if (aiUnitTiles.Count == 0)
+        {
+            Debug.Log("No AI units available for action.");
+            return;
+        }
+
+        float maxReward = float.MinValue;
+        GameObject bestUnitTile = null;
+        GameObject bestTargetTile = null;
+        bool isBestActionAttack = false;
 
         foreach (GameObject tile in aiUnitTiles)
         {
-            List<GameObject> targetTiles = MapManager1.Instance.GetManhattanTiles(tile, tile.GetComponent<TileInfo>().unit.currentAttackRange);
-            targetTiles.RemoveAll(t => t.GetComponent<TileInfo>().unit == null || t.GetComponent<TileInfo>().unit.team == Team.Enemy);
-
-            if (targetTiles.Count == 0) continue;
-
-            targetTiles.Sort((a, b) => a.GetComponent<TileInfo>().unit.currentHealth.CompareTo(b.GetComponent<TileInfo>().unit.currentHealth));
-
             Unit aiUnit = tile.GetComponent<TileInfo>().unit;
-            Unit playerUnit = targetTiles[0].GetComponent<TileInfo>().unit;
 
-            AttackUnit(aiUnit, playerUnit);
+            // 공격 행동 평가
+            List<GameObject> attackTargets = MapManager1.Instance.GetManhattanTiles(tile, aiUnit.currentAttackRange);
+            attackTargets.RemoveAll(target => target.GetComponent<TileInfo>().unit == null || target.GetComponent<TileInfo>().unit.team == Team.Enemy);
 
-            if (playerUnit.currentHealth <= 0)
+            foreach (GameObject targetTile in attackTargets)
             {
-                Debug.Log($"{playerUnit.basicStats.unitName} is dead!");
-                targetTiles[0].GetComponent<TileInfo>().unit = null;
-                Destroy(targetTiles[0].GetComponent<TileInfo>().unitPrefab);
-                InGameManager1.Instance.playerDeathCount++;
-                if (InGameManager1.Instance.playerDeathCount == 5)
-                    InGameManager1.Instance.GameEnd();
+                Unit targetUnit = targetTile.GetComponent<TileInfo>().unit;
+                int potentialDamage = Mathf.Max(aiUnit.currentAttackPoint - targetUnit.currentDefensePoint, 0);
+                float attackReward = potentialDamage;
+
+                if (attackReward > maxReward)
+                {
+                    maxReward = attackReward;
+                    bestUnitTile = tile;
+                    bestTargetTile = targetTile;
+                    isBestActionAttack = true;
+                }
             }
-            return;
+
+            // 이동 행동 평가
+            List<GameObject> moveTargets = MapManager1.Instance.GetManhattanTiles(tile, aiUnit.currentMoveRange);
+            moveTargets.RemoveAll(moveTile => moveTile.GetComponent<TileInfo>().unit != null);
+
+            foreach (GameObject moveTile in moveTargets)
+            {
+                float moveReward = EvaluateMoveReward(moveTile);
+
+                if (moveReward > maxReward)
+                {
+                    maxReward = moveReward;
+                    bestUnitTile = tile;
+                    bestTargetTile = moveTile;
+                    isBestActionAttack = false;
+                }
+            }
         }
 
-        aiUnitTiles.Sort((a, b) =>
+        if (bestUnitTile != null && bestTargetTile != null)
         {
-            int healthComparison = b.GetComponent<TileInfo>().unit.currentHealth.CompareTo(a.GetComponent<TileInfo>().unit.currentHealth);
-            return healthComparison != 0 ? healthComparison : b.GetComponent<TileInfo>().unit.currentDefensePoint.CompareTo(a.GetComponent<TileInfo>().unit.currentDefensePoint);
-        });
-
-        foreach (GameObject tile in aiUnitTiles)
-        {
-            Unit aiUnit = tile.GetComponent<TileInfo>().unit;
-            List<GameObject> possibleTiles = MapManager1.Instance.GetManhattanTiles(tile, aiUnit.currentMoveRange);
-            possibleTiles.RemoveAll(t => t.GetComponent<TileInfo>().unit != null);
-
-            if (possibleTiles.Count == 0) continue;
-
-            GameObject targetTile = possibleTiles[0];
-            MoveUnit(tile, targetTile);
-
-            Debug.Log($"{aiUnit.basicStats.unitName} moved to ({targetTile.GetComponent<TileInfo>().x}, {targetTile.GetComponent<TileInfo>().y})");
-            return;
+            if (isBestActionAttack)
+            {
+                Unit attacker = bestUnitTile.GetComponent<TileInfo>().unit;
+                Unit target = bestTargetTile.GetComponent<TileInfo>().unit;
+                AttackUnit(attacker, target);
+                Debug.Log($"{attacker.basicStats.unitName} attacked {target.basicStats.unitName}");
+            }
+            else
+            {
+                MoveUnit(bestUnitTile, bestTargetTile);
+                Debug.Log($"Unit moved to ({bestTargetTile.GetComponent<TileInfo>().x}, {bestTargetTile.GetComponent<TileInfo>().y})");
+            }
         }
+        else
+        {
+            Debug.Log("No optimal action found.");
+        }
+    }
+
+    private float EvaluateMoveReward(GameObject moveTile)
+    {
+        // 이동 보상을 평가하는 간단한 기준 (예: 특정 지역으로 이동하면 보상 증가)
+        // 필요에 따라 복잡한 기준 추가 가능
+        return UnityEngine.Random.Range(0f, 1f);  // 임시로 랜덤 값
+    }
+
+    private void MoveUnit(GameObject fromTile, GameObject toTile)
+    {
+        TileInfo fromTileInfo = fromTile.GetComponent<TileInfo>();
+        TileInfo toTileInfo = toTile.GetComponent<TileInfo>();
+
+        toTileInfo.unit = fromTileInfo.unit;
+        toTileInfo.unitPrefab = fromTileInfo.unitPrefab;
+
+        fromTileInfo.unitPrefab.transform.position = toTileInfo.worldXY;
+        fromTileInfo.unit = null;
+        fromTileInfo.unitPrefab = null;
+
+        InGameManager1.Instance.EndTurn();
+    }
+
+    private void AttackUnit(Unit attacker, Unit target)
+    {
+        int damage = Mathf.Max(attacker.currentAttackPoint - target.currentDefensePoint, 0);
+        target.currentHealth -= damage;
+
+        Debug.Log($"{attacker.basicStats.unitName} attacked {target.basicStats.unitName} for {damage} damage.");
+
+        if (target.currentHealth <= 0)
+        {
+            
+            // target이 위치한 TileInfo를 가져오기
+            TileInfo targetTileInfo = FindTileInfoByUnit(target);
+            if (targetTileInfo != null)
+            {
+                targetTileInfo.unit = null;       // 타일의 유닛 정보 초기화
+
+                if (targetTileInfo.unitPrefab != null)
+                {
+                    Destroy(targetTileInfo.unitPrefab); // 유닛 프리팹 삭제
+                    targetTileInfo.unitPrefab = null;   // 프리팹 정보도 초기화
+                }
+            }
+            if (target.team == Team.Ally)
+            {
+                InGameManager1.Instance.playerDeathCount++;
+            }
+            else if (target.team == Team.Enemy)
+            {
+                InGameManager1.Instance.aiDeathCount++;
+            }
+        }
+        InGameManager1.Instance.EndTurn();
+    }
+
+    private TileInfo FindTileInfoByUnit(Unit unit)
+    {
+        // MapManager에서 모든 타일을 순회하여 해당 유닛이 있는 TileInfo를 반환
+        foreach (GameObject tile in MapManager.Instance.allTiles)
+        {
+            TileInfo tileInfo = tile.GetComponent<TileInfo>();
+            if (tileInfo.unit == unit)
+            {
+                return tileInfo;
+            }
+        }
+        return null; // 유닛이 위치한 타일을 찾지 못한 경우
     }
 
     public void ProcessEnemyAction(int moveAction, int attackAction)
@@ -237,7 +334,7 @@ public class AIManager1 : MonoBehaviour
             if (possibleMoveTiles.Count > 0)
             {
                 MoveUnit(selectedUnitTile, possibleMoveTiles[0]);
-                Debug.Log($"Enemy unit moved to ({possibleMoveTiles[0].GetComponent<TileInfo>().x}, {possibleMoveTiles[0].GetComponent<TileInfo>().y})");
+                //Debug.Log($"Enemy unit moved to ({possibleMoveTiles[0].GetComponent<TileInfo>().x}, {possibleMoveTiles[0].GetComponent<TileInfo>().y})");
             }
         }
 
@@ -255,27 +352,6 @@ public class AIManager1 : MonoBehaviour
                 Debug.Log($"Enemy unit attacked {possibleAttackTiles[0].GetComponent<TileInfo>().unit.basicStats.unitName}");
             }
         }
-    }
-
-    private void MoveUnit(GameObject fromTile, GameObject toTile)
-    {
-        TileInfo fromTileInfo = fromTile.GetComponent<TileInfo>();
-        TileInfo toTileInfo = toTile.GetComponent<TileInfo>();
-
-        toTileInfo.unit = fromTileInfo.unit;
-        toTileInfo.unitPrefab = fromTileInfo.unitPrefab;
-
-        fromTileInfo.unitPrefab.transform.position = toTileInfo.worldXY;
-        fromTileInfo.unit = null;
-        fromTileInfo.unitPrefab = null;
-    }
-
-    private void AttackUnit(Unit attacker, Unit target)
-    {
-        int damage = Mathf.Max(attacker.currentAttackPoint - target.currentDefensePoint, 0);
-        target.currentHealth -= damage;
-
-        Debug.Log($"{attacker.basicStats.unitName} attacked {target.basicStats.unitName} for {damage} damage.");
     }
 
     public List<GameObject> GetUnitTiles()

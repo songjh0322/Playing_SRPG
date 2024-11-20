@@ -19,8 +19,6 @@ public class InGameManager1 : MonoBehaviour
 
     private void Awake()
     {
-        //GameManager.Instance.gameState = GameState.InGame;
-
         if (Instance == null)
         {
             Instance = this;
@@ -29,37 +27,51 @@ public class InGameManager1 : MonoBehaviour
 
     void Start()
     {
+        ResetGame();
+        PlayerAgent.Instance.RequestDecision();
+    }
+
+    private void ResetGame()
+    {
         isPlayerTurn = true;
         playerDeathCount = 0;
         aiDeathCount = 0;
 
         turnText.SetActive(true);
-        StartCoroutine(StartTrainingLoop());
+        gameResultPopup.SetActive(false);
     }
 
-    private IEnumerator StartTrainingLoop()
+    public void EndTurn()
     {
-        while (true)
+        // 게임 종료 조건 확인
+        if (playerDeathCount >= 5 || aiDeathCount >= 5)
         {
-            if (playerDeathCount == 5 || aiDeathCount == 5)
-            {
-                GameEnd();
-                yield break; // 게임 종료 시 루프 종료
-            }
+            GameEnd();
+            return; // 게임 종료 시 추가 행동을 막음
+        }
 
-            if (isPlayerTurn)
-            {
-                turnText.GetComponent<TMP_Text>().text = "Player's Turn";
-                PlayerAgent.Instance.RequestDecision();
-            }
-            else
-            {
-                turnText.GetComponent<TMP_Text>().text = "AI's Turn";
-                EnemyAgent.Instance.RequestDecision();
-            }
+        // 턴 전환
+        isPlayerTurn = !isPlayerTurn;
 
-            yield return new WaitForSeconds(2f); // 턴 간 대기
-            isPlayerTurn = !isPlayerTurn;
+        if (isPlayerTurn)
+        {
+            PlayerAgent.Instance.RequestDecision(); // 플레이어의 행동 요청
+        }
+        else
+        {
+            EnemyAgent.Instance.RequestDecision(); // AI의 행동 요청
+        }
+    }
+
+    public void RegisterDeath(Team team)
+    {
+        if (team == Team.Ally)
+        {
+            playerDeathCount++;
+        }
+        else if (team == Team.Enemy)
+        {
+            aiDeathCount++;
         }
     }
 
@@ -69,8 +81,20 @@ public class InGameManager1 : MonoBehaviour
         gameResultPopup.SetActive(true);
 
         if (aiDeathCount == 5)
+        {
             gameResultText.GetComponent<Text>().text = "YOU WIN !";
+            PlayerAgent.Instance.SetReward(1.0f);
+            EnemyAgent.Instance.SetReward(-1.0f);
+        }
         else
+        {
             gameResultText.GetComponent<Text>().text = "YOU LOSE !";
+            PlayerAgent.Instance.SetReward(-1.0f);
+            EnemyAgent.Instance.SetReward(1.0f);
+        }
+        ResetGame();
+
+        PlayerAgent.Instance.EndEpisode();
+        EnemyAgent.Instance.EndEpisode();
     }
 }

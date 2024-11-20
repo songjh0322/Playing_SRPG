@@ -7,6 +7,7 @@ using static TileEnums;
 public class EnemyAgent : Agent
 {
     public static EnemyAgent Instance { get; private set; }
+    public Unit controlledUnit;
 
     private void Awake()
     {
