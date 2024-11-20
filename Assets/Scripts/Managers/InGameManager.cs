@@ -108,25 +108,30 @@ public class InGameManager : MonoBehaviour
                     int attackPoint = firstTileInfo.unit.currentAttackPoint;
                     int defensePoint = lastTileInfo.unit.currentDefensePoint;
                     int realDamage = Mathf.Max(attackPoint - defensePoint, 0);
-                    Animator animator = firstTileInfo.unitPrefab.GetComponentInChildren<Animator>();
-                    if (animator != null)
+                    Animator first_animator = firstTileInfo.unitPrefab.GetComponentInChildren<Animator>();
+                    Animator last_animator = lastTileInfo.unitPrefab.GetComponentInChildren<Animator>();
+                    if (first_animator != null)
                     {
-                        animator.SetTrigger("2_Attack");
+                        first_animator.SetTrigger("2_Attack");
                     }
-
-                    lastTileInfo.unit.currentHealth -= realDamage;
+                    if (last_animator != null)
+                    {
+                        last_animator.SetTrigger("3_Damaged");
+                        lastTileInfo.unit.currentHealth -= realDamage;
+                    }
 
                     // 이 코드는 오직 공격으로만 적이 처지된다고 가정한 코드임 !!!!
                     if (lastTileInfo.unit.currentHealth <= 0)
                     {
-                        Destroy(lastTileInfo.unitPrefab);
-                        lastTileInfo.unit = null;
-                        lastTileInfo.unitPrefab = null;
+                        last_animator.SetTrigger("4_Death");
+
+                        StartCoroutine(DestroyAfterAnimation(lastTileInfo.unitPrefab, lastTileInfo));
 
                         aiDeathCount++;
                         if (aiDeathCount == 5)
                             GameEnd();
                     }
+
 
                     EndTurn();
                 }
@@ -151,7 +156,7 @@ public class InGameManager : MonoBehaviour
                         if (animator != null)
                         {
                             animator.SetBool("1_Move", true);
-                            StartCoroutine(ResetMoveAnimation(animator)); 
+                            StartCoroutine(ResetMoveAnimation(animator));
                         }
                     }
                     firstTileInfo.unit = null;
@@ -165,11 +170,29 @@ public class InGameManager : MonoBehaviour
                 InitStates();
         }
     }
+    private IEnumerator DestroyAfterAnimation(GameObject unitPrefab, TileInfo tileInfo)
+    {
+        // 애니메이션의 길이를 Animator에서 가져옴
+        Animator animator = unitPrefab.GetComponentInChildren<Animator>();
+        if (animator != null)
+        {
+            // 현재 실행 중인 애니메이션 상태 정보를 가져옴
+            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+            // 애니메이션의 길이만큼 대기
+            yield return new WaitForSeconds(1.5f);
+        }
+
+        // 오브젝트 삭제 및 타일 초기화
+        Destroy(unitPrefab);
+        tileInfo.unit = null;
+        tileInfo.unitPrefab = null;
+    }
     private IEnumerator ResetMoveAnimation(Animator animator)
-{
-    yield return new WaitForSeconds(1f); 
-    animator.SetBool("1_Move", false);   
-}
+    {
+        yield return new WaitForSeconds(1f);
+        animator.SetBool("1_Move", false);
+    }
 
     void OnAttackButtonClicked()
     {
