@@ -40,19 +40,21 @@ public class PlayerAgent : Agent
 
     public override void OnActionReceived(ActionBuffers actions)
     {
-        // 행동 수행
-        int moveAction = actions.DiscreteActions[0];
-        int attackAction = actions.DiscreteActions[1];
-
-        // 예제: 행동 인덱스를 기반으로 간단한 Move/Attack 수행
-        AIManager1.Instance.ProcessEnemyAction(moveAction, attackAction);
+        int action = actions.DiscreteActions[0]; // 단일 분지에서 하나의 행동 선택
+        AIManager1.Instance.ProcessEnemyAction2(action);
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
     {
-        // 디버그를 위한 휴리스틱 제공
         var discreteActions = actionsOut.DiscreteActions;
-        discreteActions[0] = Random.Range(0, MapManager.Instance.allTileInfos.Count); // 임의의 이동
-        discreteActions[1] = Random.Range(0, 2); // 공격 여부 선택
+
+        // 유효한 유닛 인덱스를 랜덤으로 선택
+        int unitIndex = Random.Range(0, AIManager1.Instance.GetUnitTiles().Count);
+
+        // 행동 결정: 0 = 이동, 1 = 공격
+        int isAttack = Random.Range(0, 2);
+
+        // 단일 행동 값 생성
+        discreteActions[0] = unitIndex * 2 + isAttack;
     }
 }

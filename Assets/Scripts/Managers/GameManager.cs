@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
 
     public GameState gameState;
     public Faction playerFaction;
+    public string targetSceneName = "LearningScene";
 
     private void Awake()
     {
@@ -27,8 +28,12 @@ public class GameManager : MonoBehaviour
     {
         UnitManager.Instance.LoadBasicStatsFromJSON();
         UnitManager.Instance.LoadAllUnits();
-
-        SceneManager.LoadScene("MainScene");
+        
+        string currentScene = SceneManager.GetActiveScene().name;
+        if (currentScene != targetSceneName)
+        {
+            SceneManager.LoadScene("MainScene");
+        }
     }
 
     public void ResetGame()

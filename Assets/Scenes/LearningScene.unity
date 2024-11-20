@@ -1264,6 +1264,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 267979976}
   m_CullTransparentMesh: 1
+--- !u!1 &285469219
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 285469221}
+  - component: {fileID: 285469220}
+  m_Layer: 0
+  m_Name: '@UnitManager'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &285469220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 285469219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f66b8570ce1fad94fa2ff9486492f1fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  basicStatsList: []
+  allUnits: []
+  player1UnitCodes: 
+  player2UnitCodes: 
+  player1Units: []
+  player2Units: []
+--- !u!4 &285469221
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 285469219}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &320559995
 GameObject:
   m_ObjectHideFlags: 0
@@ -2558,7 +2608,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 1000
+  MaxStep: 100000
   controlledUnit:
     basicStats:
       unitName: 
@@ -2595,12 +2645,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 1
+    VectorObservationSize: 200
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 0
-      BranchSizes: 0100000001000000
-    VectorActionSize: 0100000001000000
+      BranchSizes: 01000000
+    VectorActionSize: 01000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
@@ -5030,7 +5080,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2122863185}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1699692899
 MonoBehaviour:
@@ -5046,6 +5096,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameState: 4
   playerFaction: 1
+  targetSceneName: LearningScene
 --- !u!1 &1736735692
 GameObject:
   m_ObjectHideFlags: 0
@@ -6005,7 +6056,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 1000
+  MaxStep: 100000
 --- !u!114 &2092610662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6019,12 +6070,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 1
+    VectorObservationSize: 200
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 0
-      BranchSizes: 0100000001000000
-    VectorActionSize: 0100000001000000
+      BranchSizes: 01000000
+    VectorActionSize: 01000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
@@ -6206,7 +6257,6 @@ Transform:
   m_Children:
   - {fileID: 494921849}
   - {fileID: 2079594304}
-  - {fileID: 1699692898}
   - {fileID: 1334227116}
   - {fileID: 468734653}
   m_Father: {fileID: 0}
@@ -6224,3 +6274,5 @@ SceneRoots:
   - {fileID: 2099198844}
   - {fileID: 2092610663}
   - {fileID: 528309334}
+  - {fileID: 1699692898}
+  - {fileID: 285469221}

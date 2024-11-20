@@ -43,6 +43,7 @@ public class InGameManager1 : MonoBehaviour
 
     public void EndTurn()
     {
+        Debug.Log("EndTurn");
         // 게임 종료 조건 확인
         if (playerDeathCount >= 5 || aiDeathCount >= 5)
         {
@@ -60,18 +61,6 @@ public class InGameManager1 : MonoBehaviour
         else
         {
             EnemyAgent.Instance.RequestDecision(); // AI의 행동 요청
-        }
-    }
-
-    public void RegisterDeath(Team team)
-    {
-        if (team == Team.Ally)
-        {
-            playerDeathCount++;
-        }
-        else if (team == Team.Enemy)
-        {
-            aiDeathCount++;
         }
     }
 
@@ -93,7 +82,8 @@ public class InGameManager1 : MonoBehaviour
             EnemyAgent.Instance.SetReward(1.0f);
         }
         ResetGame();
-
+        
+        Debug.Log("End Episode");
         PlayerAgent.Instance.EndEpisode();
         EnemyAgent.Instance.EndEpisode();
     }
